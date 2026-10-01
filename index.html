@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>River Geoff — Portfolio '26</title>
+  <meta name="description" content="Graphic design portfolio of River Geoff: social, editorial, motion and brand identity work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar (bottom tab bar on mobile) -->
+    <aside class="sidebar">
+      <a class="brand" href="#overview">
+        <span class="brand-mark">rg</span>
+        <span class="brand-text">river geoff<small>portfolio '26</small></span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#overview" data-nav="overview"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></svg><span>Overview</span></a>
+        <a href="#work" data-nav="work"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/></svg><span>Work</span></a>
+        <a href="#about" data-nav="about"><svg viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-8 9a8 8 0 0 1 16 0z"/></svg><span>About</span></a>
+        <a href="#contact" data-nav="contact"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3zm1.5 1.5v.4L12 12l7.5-5.1v-.4z"/></svg><span>Contact</span></a>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="status-dot"></span>
+        <span id="status-text"></span>
+      </div>
+    </aside>
+
+    <div class="main">
+      <!-- Top bar -->
+      <header class="topbar">
+        <div class="crumbs"><span>river.geoff</span><span class="sep">/</span><strong id="crumb">overview</strong></div>
+        <label class="search">
+          <svg viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.8 4.8-1.4 1.4-4.8-4.8A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>
+          <input id="search" type="search" placeholder="Search work…" autocomplete="off" />
+          <kbd>/</kbd>
+        </label>
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark theme">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+        </button>
+      </header>
+
+      <main>
+        <!-- OVERVIEW -->
+        <section id="overview" class="section">
+          <div class="hero card">
+            <div class="hero-copy">
+              <span class="pill"><span class="status-dot"></span><span id="hero-status"></span></span>
+              <h1><span id="hero-name"></span><em>graphic design portfolio ’26</em></h1>
+              <p id="hero-tagline" class="lead"></p>
+              <div class="hero-actions">
+                <a class="btn primary" href="#work">View work</a>
+                <a class="btn" href="#contact">Get in touch</a>
+              </div>
+            </div>
+            <div class="hero-photo">
+              <div class="avatar large" id="hero-avatar"></div>
+            </div>
+          </div>
+
+          <div class="stats" id="stats"></div>
+
+          <div class="section-head">
+            <h2>Featured</h2>
+            <a class="link" href="#work">All projects →</a>
+          </div>
+          <div class="featured" id="featured"></div>
+        </section>
+
+        <!-- WORK -->
+        <section id="work" class="section">
+          <div class="section-head">
+            <h2>Work <span class="count" id="work-count"></span></h2>
+          </div>
+          <div class="tabs" role="tablist" id="filters"></div>
+          <div class="grid" id="grid"></div>
+          <p class="empty" id="empty" hidden>No projects match that search.</p>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="section">
+          <div class="section-head"><h2>About</h2></div>
+          <div class="about-layout">
+            <div class="card profile-card">
+              <div class="avatar" id="about-avatar"></div>
+              <div>
+                <h3 id="about-name"></h3>
+                <p class="muted" id="about-role"></p>
+              </div>
+              <div class="about-copy" id="about-copy"></div>
+            </div>
+
+            <div class="card panel">
+              <div class="panel-head">Details</div>
+              <dl class="details" id="details"></dl>
+            </div>
+
+            <div class="card panel">
+              <div class="panel-head">Experience</div>
+              <ol class="timeline" id="experience"></ol>
+            </div>
+
+            <div class="card panel">
+              <div class="panel-head">Work skills</div>
+              <div class="chips" id="skills-work"></div>
+              <div class="panel-head sub">Soft skills</div>
+              <div class="chips" id="skills-soft"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section">
+          <div class="card contact">
+            <div>
+              <h2 class="display">Let’s make something<br /><em>that flows.</em></h2>
+              <p class="muted">Projects, collaborations, or just a hello.</p>
+            </div>
+            <div class="contact-list">
+              <button class="contact-row" id="copy-email" type="button">
+                <span class="muted">Email</span><strong id="c-email"></strong><span class="hint" id="copy-hint">Copy</span>
+              </button>
+              <div class="contact-row"><span class="muted">Phone</span><strong id="c-phone"></strong></div>
+              <div class="contact-row"><span class="muted">Location</span><strong id="c-location"></strong></div>
+              <div class="socials" id="socials"></div>
+            </div>
+          </div>
+          <footer class="foot muted">© <span id="year"></span> <span id="foot-name"></span> · portfolio ’26</footer>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Project viewer -->
+  <dialog id="viewer" class="viewer">
+    <div class="viewer-bar">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="viewer-file" id="v-file"></span>
+      <button class="icon-btn" id="v-close" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4z"/></svg>
+      </button>
+    </div>
+    <div class="viewer-body">
+      <div class="viewer-media" id="v-media"></div>
+      <aside class="viewer-info">
+        <span class="eyebrow" id="v-cat"></span>
+        <h3 id="v-title"></h3>
+        <p class="muted" id="v-summary"></p>
+        <dl class="details compact">
+          <div><dt>Client</dt><dd id="v-client"></dd></div>
+          <div><dt>Year</dt><dd id="v-year"></dd></div>
+        </dl>
+        <div class="chips" id="v-tags"></div>
+        <div class="viewer-nav">
+          <button class="btn" id="v-prev">← Prev</button>
+          <button class="btn" id="v-next">Next →</button>
+        </div>
+      </aside>
+    </div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
