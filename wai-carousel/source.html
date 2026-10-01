@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'PJS';font-style:normal;font-weight:200 800;src:url(fonts/pjs-400-normal.woff2) format('woff2');}
+@font-face{font-family:'PJS';font-style:italic;font-weight:200 800;src:url(fonts/pjs-400-italic.woff2) format('woff2');}
+:root{
+  --bg:#F3F0EA; --ink:#1C1C1A; --muted:#86837B; --soft:#B3AFA6; --hair:#D9D4CA;
+  --green:#2F5D50; --sage:#A4AE97; --card:#FBFAF7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:'PJS',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+#strip{position:relative;width:10800px;height:1350px;background:var(--bg);overflow:hidden}
+.s{position:absolute;top:0;width:1080px;height:1350px;padding:0 96px}
+/* running header / footer */
+.hd{position:absolute;top:72px;left:96px;right:96px;display:flex;justify-content:space-between;font-size:20px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hd b{color:var(--ink);font-weight:600;text-transform:none;letter-spacing:-0.01em;font-size:24px}
+.ft{position:absolute;bottom:72px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-end;font-size:20px;color:var(--muted)}
+.folio{font-weight:500;letter-spacing:.12em}
+.src{font-size:19px;line-height:1.5;color:var(--green);max-width:640px}
+.src::before{content:"Source — ";font-weight:600}
+.kicker{font-size:21px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.rule{position:absolute;left:0;width:10800px;height:1px;background:var(--hair)}
+.big{font-weight:250;letter-spacing:-0.055em;line-height:.9}
+.h{font-weight:300;letter-spacing:-0.035em;line-height:1.08}
+.body{font-size:34px;font-weight:350;line-height:1.45;color:#3B3A36;letter-spacing:-0.012em}
+.note{font-size:24px;font-style:italic;font-weight:350;color:var(--muted);line-height:1.5}
+/* UI */
+.card{background:var(--card);border:1px solid var(--hair);border-radius:28px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 24px 60px -30px rgba(40,35,25,.18)}
+.chip{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--hair);background:var(--card);font-size:20px;font-weight:500;color:#55534D}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:30px 36px;border-top:1px solid #ECE8E0;font-size:27px;font-weight:450}
+.row:first-of-type{border-top:none}
+.st{font-size:19px;font-weight:500;color:var(--green);display:flex;align-items:center;gap:10px;letter-spacing:.02em}
+.btn{height:60px;padding:0 30px;border-radius:999px;display:inline-flex;align-items:center;font-size:22px;font-weight:500}
+.bar{height:14px;border-radius:7px;background:#E7E3DA}
+.arc{position:absolute;border:1.5px solid var(--sage);border-radius:50%;opacity:.4}
+</style>
+</head>
+<body>
+<div id="strip">
+
+<!-- continuous elements -->
+<div class="rule" style="top:132px"></div>
+<div class="rule" style="top:1200px"></div>
+<div class="arc" style="width:1500px;height:1500px;left:330px;top:-80px"></div>
+<div class="arc" style="width:1300px;height:1300px;left:8180px;top:25px"></div>
+<!-- data rail across stats slides 4-7 -->
+<div style="position:absolute;left:3336px;width:4128px;top:1010px;height:1px;background:var(--ink);opacity:.18"></div>
+
+<!-- 1 COVER -->
+<section class="s" style="left:0">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>No. 01 — Clinical time</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">The work after the visit</div>
+  <div style="position:absolute;top:330px;left:84px" class="big"><span style="font-size:430px">57.8</span></div>
+  <div style="position:absolute;top:735px;left:96px" class="h"><span style="font-size:118px">hours a week.</span></div>
+  <div style="position:absolute;top:900px;left:100px;font-size:46px;font-style:italic;font-weight:300;color:#4A4944;letter-spacing:-0.02em">Not all of it is medicine.</div>
+  <div style="position:absolute;top:262px;right:96px" class="chip"><span class="dot"></span>18:02 · Last patient seen</div>
+  <div class="ft"><span class="src">AMA physician survey</span><span class="folio">01 / 10 &nbsp;→</span></div>
+</section>
+
+<!-- 2 -->
+<section class="s" style="left:1080px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>The work after the visit</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">I. The second shift</div>
+  <div style="position:absolute;top:330px;left:96px;width:860px" class="h"><span style="font-size:92px">The consultation is only part of the work.</span></div>
+  <div style="position:absolute;top:760px;left:96px;width:300px;height:1px;background:var(--ink)"></div>
+  <div style="position:absolute;top:800px;left:96px;width:780px" class="body">When the last patient leaves, a second workload begins. It rarely appears on the rota, yet every piece of it carries clinical responsibility.</div>
+  <div class="ft"><span class="src">Medscape UK, “Junior Doctors Work 57 Hours a Week”, 29 Sep 2026</span><span class="folio">02 / 10</span></div>
+</section>
+
+<!-- 3 UI: four tasks -->
+<section class="s" style="left:2160px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>The work after the visit</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">II. After every visit</div>
+  <div style="position:absolute;top:320px;left:96px;width:860px" class="h"><span style="font-size:76px">Four tasks remain.</span></div>
+  <div class="card" style="position:absolute;top:500px;left:96px;width:888px">
+    <div style="display:flex;justify-content:space-between;padding:30px 36px 22px;font-size:19px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"><span>Consultation · Complete</span><span>17:40</span></div>
+    <div style="height:1px;background:#ECE8E0"></div>
+    <div class="row"><span>The note</span><span class="st"><span class="dot"></span>Documented in full</span></div>
+    <div class="row"><span>The letter</span><span class="st"><span class="dot"></span>Written, checked, signed</span></div>
+    <div class="row"><span>The follow-up</span><span class="st"><span class="dot"></span>Next steps for the patient</span></div>
+    <div class="row"><span>The booking</span><span class="st"><span class="dot"></span>Next appointment arranged</span></div>
+  </div>
+  <div style="position:absolute;top:1060px;left:96px;width:820px" class="note">Each one is essential. None of them appears on the rota.</div>
+  <div class="ft"><span></span><span class="folio">03 / 10</span></div>
+</section>
+
+<!-- 4 81% -->
+<section class="s" style="left:3240px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>III. The evidence</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Adoption</div>
+  <div style="position:absolute;top:320px;left:80px" class="big"><span style="font-size:330px">81%</span></div>
+  <div style="position:absolute;top:640px;left:96px;width:800px" class="body">of physicians now use AI at work, up from 38% in 2023.</div>
+  <div style="position:absolute;top:850px;left:96px;width:888px">
+    <div style="display:flex;justify-content:space-between;font-size:20px;color:var(--muted);margin-bottom:12px"><span>2023</span><span>38%</span></div>
+    <div class="bar"><div class="bar" style="width:38%;background:var(--soft)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:20px;color:var(--ink);margin:30px 0 12px;font-weight:500"><span>2026</span><span>81%</span></div>
+    <div class="bar"><div class="bar" style="width:81%;background:var(--green)"></div></div>
+  </div>
+  <div class="ft"><span class="src">AMA, 2026 Physician Survey on Augmented Intelligence (n = 1,692)</span><span class="folio">04 / 10</span></div>
+</section>
+
+<!-- 5 74% -->
+<section class="s" style="left:4320px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>III. The evidence</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Habit</div>
+  <div style="position:absolute;top:320px;left:80px" class="big"><span style="font-size:330px">74%</span></div>
+  <div style="position:absolute;top:640px;left:96px;width:800px" class="body">of physicians who use AI use it every day.</div>
+  <div style="position:absolute;top:860px;left:96px;display:flex;gap:18px"><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Mon</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Tue</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Wed</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Thu</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Fri</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Sat</div><div style="text-align:center;font-size:18px;color:var(--muted)"><div style="width:104px;height:104px;border-radius:26px;background:var(--green);margin-bottom:12px"></div>Sun</div>
+  </div>
+  <div class="ft"><span class="src">Doximity, 2026 State of AI in Medicine Report</span><span class="folio">05 / 10</span></div>
+</section>
+
+<!-- 6 burnout -->
+<section class="s" style="left:5400px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>III. The evidence</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Burnout</div>
+  <div style="position:absolute;top:320px;left:88px" class="big"><div style="font-size:96px;color:var(--soft);font-weight:300;letter-spacing:-0.04em">51.9% <span style="font-size:60px">→</span></div><div style="font-size:230px;margin-top:10px">38.8%</div></div>
+  <div style="position:absolute;top:690px;left:96px;width:820px" class="body">Clinician burnout, before and after 30 days with an ambient AI scribe.</div>
+  <div style="position:absolute;top:830px;left:96px;display:flex;gap:16px">
+    <span class="chip">263 clinicians</span><span class="chip">6 US health systems</span><span class="chip">No control group</span>
+  </div>
+  <div class="ft"><span class="src">Olson et al., 2025, JAMA Network Open</span><span class="folio">06 / 10</span></div>
+</section>
+
+<!-- 7 85% -->
+<section class="s" style="left:6480px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>III. The evidence</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Consent</div>
+  <div style="position:absolute;top:320px;left:80px" class="big"><span style="font-size:330px">85%</span></div>
+  <div style="position:absolute;top:640px;left:96px;width:800px" class="body">of physicians want a say in how AI comes into their practice.</div>
+  <div style="position:absolute;top:860px;left:96px;display:grid;grid-template-columns:repeat(20,32px);gap:12px">
+    <!-- 20 cells = 100%, 17 filled = 85% -->
+    <i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:var(--green)"></i><i style="height:32px;border-radius:50%;background:#E3DED4"></i><i style="height:32px;border-radius:50%;background:#E3DED4"></i><i style="height:32px;border-radius:50%;background:#E3DED4"></i>
+  </div>
+  <div class="ft"><span class="src">AMA, 2026 Physician Survey on Augmented Intelligence</span><span class="folio">07 / 10</span></div>
+</section>
+
+<!-- 8 control -->
+<section class="s" style="left:7560px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>IV. On trust</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Control builds trust</div>
+  <div style="position:absolute;top:330px;left:96px;width:880px" class="h"><span style="font-size:70px">People abandon an algorithm after one visible mistake.</span></div>
+  <div style="position:absolute;top:640px;left:96px;width:860px" class="body">But they keep using an imperfect one when they can <span style="background:linear-gradient(transparent 58%, rgba(47,93,80,.16) 58%);">change its output</span><span style="display:inline-block;width:3px;height:38px;background:var(--green);vertical-align:-6px;margin-left:4px"></span></div>
+  <div class="ft"><span class="src">Dietvorst, Simmons &amp; Massey, 2015; Dietvorst et al., 2018</span><span class="folio">08 / 10</span></div>
+</section>
+
+<!-- 9 product UI -->
+<section class="s" style="left:8640px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>V. The approach</span></div>
+  <div style="position:absolute;top:250px;left:96px" class="kicker">Prepared by wai</div>
+  <div style="position:absolute;top:320px;left:96px;width:880px" class="h"><span style="font-size:76px">Approved by the doctor.</span></div>
+  <div class="card" style="position:absolute;top:500px;left:96px;width:888px;padding:36px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px">
+      <span style="font-size:26px;font-weight:500">Referral letter</span>
+      <span class="chip" style="height:40px;font-size:18px"><span class="dot" style="background:#C9A85C"></span>Draft · Awaiting review</span>
+    </div>
+    <div class="bar" style="width:92%;margin-bottom:18px"></div>
+    <div class="bar" style="width:84%;margin-bottom:18px"></div>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px"><div class="bar" style="width:36%"></div><div class="bar" style="width:22%;background:rgba(47,93,80,.28)"></div><span style="width:3px;height:30px;background:var(--green)"></span><div class="bar" style="width:28%"></div></div>
+    <div class="bar" style="width:66%;margin-bottom:36px"></div>
+    <div style="display:flex;justify-content:flex-end;gap:14px">
+      <span class="btn" style="border:1px solid var(--hair);color:#55534D">Edit</span>
+      <span class="btn" style="background:var(--ink);color:#F3F0EA">Approve &amp; send</span>
+    </div>
+  </div>
+  <div style="position:absolute;top:1010px;left:96px;width:860px" class="note">Every word is reviewed, edited and approved before anything is sent.</div>
+  <div class="ft"><span></span><span class="folio">09 / 10</span></div>
+</section>
+
+<!-- 10 close -->
+<section class="s" style="left:9720px">
+  <div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>End note</span></div>
+  <div style="position:absolute;top:330px;left:96px;width:880px" class="h"><span style="font-size:96px">The visit is the medicine.</span></div>
+  <div style="position:absolute;top:580px;left:100px;width:880px;font-size:56px;font-style:italic;font-weight:300;color:#4A4944;letter-spacing:-0.025em">Let the rest be prepared.</div>
+  <div style="position:absolute;top:860px;left:92px;font-size:150px;font-weight:600;letter-spacing:-0.06em;line-height:1">wai</div>
+  <div style="position:absolute;top:1040px;left:96px;font-size:26px;font-weight:500;color:var(--green);letter-spacing:.02em">wellnessa-i.com</div>
+  <div style="position:absolute;top:1030px;right:96px;display:flex;gap:12px"><span class="chip">Save</span><span class="chip">Send to a colleague</span></div>
+  <div class="ft"><span></span><span class="folio">10 / 10</span></div>
+</section>
+
+</div>
+</body>
+</html>
