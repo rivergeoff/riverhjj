@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'PJS';font-style:normal;font-weight:200 800;src:url(fonts/pjs-400-normal.woff2) format('woff2');}
+@font-face{font-family:'PJS';font-style:italic;font-weight:200 800;src:url(fonts/pjs-400-italic.woff2) format('woff2');}
+:root{
+  --bg:#F3F0EA; --ink:#1C1C1A; --muted:#86837B; --soft:#B3AFA6; --hair:#D9D4CA;
+  --green:#2F5D50; --sage:#A4AE97; --card:#FBFAF7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:'PJS',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+#strip{position:relative;width:10800px;height:1350px;background:var(--bg);overflow:hidden}
+.s{position:absolute;top:0;width:1080px;height:1350px;padding:0 96px}
+/* running header / footer */
+.hd{position:absolute;top:72px;left:96px;right:96px;display:flex;justify-content:space-between;font-size:20px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hd b{color:var(--ink);font-weight:600;text-transform:none;letter-spacing:-0.01em;font-size:24px}
+.ft{position:absolute;bottom:72px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:flex-end;font-size:20px;color:var(--muted)}
+.folio{font-weight:500;letter-spacing:.12em}
+.src{font-size:19px;line-height:1.5;color:var(--green);max-width:640px}
+.src::before{content:"Source — ";font-weight:600}
+.kicker{font-size:21px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.rule{position:absolute;left:0;width:10800px;height:1px;background:var(--hair)}
+.big{font-weight:250;letter-spacing:-0.055em;line-height:.9}
+.h{font-weight:300;letter-spacing:-0.035em;line-height:1.08}
+.body{font-size:34px;font-weight:350;line-height:1.45;color:#3B3A36;letter-spacing:-0.012em}
+.note{font-size:24px;font-style:italic;font-weight:350;color:var(--muted);line-height:1.5}
+/* UI */
+.card{background:var(--card);border:1px solid var(--hair);border-radius:28px;box-shadow:none}
+.chip{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--hair);background:var(--card);font-size:20px;font-weight:500;color:#55534D}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:30px 36px;border-top:1px solid #ECE8E0;font-size:27px;font-weight:450}
+.row:first-of-type{border-top:none}
+.st{font-size:19px;font-weight:500;color:var(--green);display:flex;align-items:center;gap:10px;letter-spacing:.02em}
+.btn{height:60px;padding:0 30px;border-radius:999px;display:inline-flex;align-items:center;font-size:22px;font-weight:500}
+.bar{height:14px;border-radius:7px;background:#E7E3DA}
+.arc{position:absolute;border:1.5px solid var(--sage);border-radius:50%;opacity:.4}
+</style>
+</head>
+<body><div id="sq" style="position:relative;width:1080px;height:1080px;background:var(--bg);overflow:hidden">
+<div class="rule" style="top:132px;width:1080px"></div>
+<div class="arc" style="width:1400px;height:1400px;left:520px;top:-160px"></div>
+<div class="hd"><span><b>wai</b> &nbsp;·&nbsp; Field Notes</span><span>The work after the visit</span></div>
+<div style="position:absolute;top:200px;left:96px;width:900px" class="h"><span style="font-size:66px;color:var(--soft)">The last patient leaves at 6.</span><br><span style="font-size:66px">The doctor doesn’t.</span></div>
+<div class="card" style="position:absolute;top:430px;left:96px;width:888px">
+  <div style="display:flex;justify-content:space-between;padding:26px 34px 0;font-size:21px;font-weight:500;color:var(--muted)"><span>After-visit queue</span><span>0 of 4 complete</span></div>
+  <div style="margin:18px 34px 8px;height:6px;border-radius:3px;background:#ECE8E0"></div>
+  <div style="display:flex;align-items:center;gap:26px;padding:20px 34px;">
+  <span style="font-size:20px;font-weight:500;color:var(--soft);width:30px">01</span>
+  <span style="flex:1;font-size:27px;font-weight:450;letter-spacing:-0.015em">The note</span>
+  <span class="chip" style="height:38px;font-size:17px;padding:0 16px"><span class="dot" style="background:#C9A85C"></span>Pending</span></div><div style="display:flex;align-items:center;gap:26px;padding:20px 34px;border-top:1px solid #ECE8E0;">
+  <span style="font-size:20px;font-weight:500;color:var(--soft);width:30px">02</span>
+  <span style="flex:1;font-size:27px;font-weight:450;letter-spacing:-0.015em">The letter</span>
+  <span class="chip" style="height:38px;font-size:17px;padding:0 16px"><span class="dot" style="background:#C9A85C"></span>Pending</span></div><div style="display:flex;align-items:center;gap:26px;padding:20px 34px;border-top:1px solid #ECE8E0;">
+  <span style="font-size:20px;font-weight:500;color:var(--soft);width:30px">03</span>
+  <span style="flex:1;font-size:27px;font-weight:450;letter-spacing:-0.015em">The follow-up</span>
+  <span class="chip" style="height:38px;font-size:17px;padding:0 16px"><span class="dot" style="background:#C9A85C"></span>Pending</span></div><div style="display:flex;align-items:center;gap:26px;padding:20px 34px;border-top:1px solid #ECE8E0;">
+  <span style="font-size:20px;font-weight:500;color:var(--soft);width:30px">04</span>
+  <span style="flex:1;font-size:27px;font-weight:450;letter-spacing:-0.015em">The booking</span>
+  <span class="chip" style="height:38px;font-size:17px;padding:0 16px"><span class="dot" style="background:#C9A85C"></span>Pending</span></div>
+</div>
+<div class="rule" style="top:960px;width:1080px"></div>
+<div style="position:absolute;top:990px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:center">
+  <span style="font-size:22px;font-weight:500;color:var(--green)">wellnessa-i.com</span>
+  <span style="font-size:22px;font-style:italic;font-weight:300;color:var(--muted)">The visit is the medicine.</span></div>
+</div></body></html>
