@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'DM';font-style:normal;font-weight:100 900;src:url(fonts/dm-normal.woff2) format('woff2');}
+@font-face{font-family:'DM';font-style:italic;font-weight:100 900;src:url(fonts/dm-italic.woff2) format('woff2');}
+:root{--ivory:#ECE8E1;--olive:#5E6A43;--esp:#2E241F;--taupe:#CFC6BA;--blush:#E7DCD4;--ink:#2B2420;--muted:#857C73}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ivory)}
+body{font-family:'DM';color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+#strip{position:relative;width:7560px;height:1350px;background:var(--ivory);overflow:hidden}
+.s{position:absolute;top:0;width:1080px;height:1350px}
+.lbl{font-size:20px;font-weight:400;letter-spacing:0.01em}
+.h{font-weight:300;letter-spacing:-0.035em;line-height:1.04}
+.b{font-size:28px;font-weight:350;line-height:1.5;letter-spacing:-0.005em}
+.src{font-size:18px;font-weight:400}
+.rule{position:absolute;height:1px}
+</style>
+</head>
+<body>
+<div id="strip">
+
+<!-- continuous elements -->
+<div style="position:absolute;left:1080px;top:0;width:1080px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:2160px;top:0;width:110px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:5400px;top:0;width:1080px;height:1350px;background:var(--esp)"></div>
+<div style="position:absolute;left:6480px;top:0;width:1080px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:3240px;top:0;width:1080px;height:1350px;background:var(--blush)"></div>
+<!-- slide 5 texture panel -->
+<div style="position:absolute;left:4320px;top:0;width:1080px;height:640px;background:
+ radial-gradient(60% 80% at 25% 30%, #F4ECE6 0%, rgba(244,236,230,0) 60%),
+ radial-gradient(50% 70% at 80% 60%, #D9C7BC 0%, rgba(217,199,188,0) 65%),
+ radial-gradient(40% 60% at 55% 90%, #E9DED6 0%, rgba(233,222,214,0) 70%),
+ linear-gradient(160deg,#E4D8CF,#D3C4B8)"></div>
+<!-- hairline running through every slide -->
+<div class="rule" style="left:0;top:1200px;width:7560px;background:rgba(43,36,32,.18)"></div>
+
+<!-- 1 COVER: photo panel right (photo inserted in Canva) -->
+<section class="s" style="left:0">
+  <div id="photo1" style="position:absolute;left:540px;top:0;width:540px;height:1350px;background:var(--taupe)"></div>
+  <div class="lbl" style="position:absolute;top:80px;left:80px">The Wellness</div>
+  <div class="lbl" style="position:absolute;top:80px;left:300px;color:var(--muted)">Journal, No. 04</div>
+  <div class="h" style="position:absolute;top:300px;left:80px;width:440px;font-size:92px">Your gums &amp; your heart</div>
+  <div style="position:absolute;top:760px;left:80px;width:400px;font-size:30px;font-weight:300;line-height:1.35;font-style:italic">Bleeding gums. A small thing, until it isn’t.</div>
+  <div class="lbl" style="position:absolute;top:1230px;left:80px;color:var(--muted)">October 2026</div>
+  <div class="lbl" style="position:absolute;top:1230px;left:420px;color:var(--muted)">01</div>
+</section>
+
+<!-- 2 OLIVE -->
+<section class="s" style="left:1080px;color:var(--ivory)">
+  <div class="lbl" style="position:absolute;top:80px;left:90px;opacity:.75">What the research says</div>
+  <div class="h" style="position:absolute;top:300px;left:90px;width:880px;font-size:84px">Your gums and your heart are linked.</div>
+  <div class="b" style="position:absolute;top:720px;left:90px;width:620px;color:#E3E1D3">A joint report from the European Federation of Periodontology and the World Heart Federation found that gum disease is associated with heart disease.</div>
+  <div class="src" style="position:absolute;top:1230px;left:90px;opacity:.75">Sanz et al., 2020, Journal of Clinical Periodontology</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;opacity:.75">02</div>
+</section>
+
+<!-- 3 IVORY with olive bleed -->
+<section class="s" style="left:2160px">
+  <div class="lbl" style="position:absolute;top:80px;left:190px;color:var(--muted)">What it doesn’t say</div>
+  <div class="h" style="position:absolute;top:300px;left:190px;width:820px;font-size:110px">“A link,<br>not proof.”</div>
+  <div class="b" style="position:absolute;top:690px;left:190px;width:620px">Gum disease hasn’t been shown to cause heart disease, and treating your gums isn’t proven to prevent it.</div>
+  <div class="b" style="position:absolute;top:880px;left:190px;width:620px;color:var(--muted);font-style:italic">We’d rather tell you that plainly.</div>
+  <div class="src" style="position:absolute;top:1230px;left:190px;color:var(--muted)">Sanz et al., 2020</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;color:var(--muted)">03</div>
+</section>
+
+<!-- 4 BLUSH signs -->
+<section class="s" style="left:3240px">
+  <div class="lbl" style="position:absolute;top:80px;left:90px;color:var(--muted)">Signs worth noticing</div>
+  <div class="h" style="position:absolute;top:300px;left:90px;width:880px;font-size:84px">What your gums are telling you.</div>
+  <div style="position:absolute;top:640px;left:90px;width:900px">
+    <div style="display:flex;gap:60px;padding:34px 0;border-top:1px solid rgba(43,36,32,.2)"><span class="lbl" style="width:60px;color:var(--muted)">01</span><span class="b">They bleed when you brush or floss</span></div>
+    <div style="display:flex;gap:60px;padding:34px 0;border-top:1px solid rgba(43,36,32,.2)"><span class="lbl" style="width:60px;color:var(--muted)">02</span><span class="b">They look red or swollen</span></div>
+    <div style="display:flex;gap:60px;padding:34px 0;border-top:1px solid rgba(43,36,32,.2);border-bottom:1px solid rgba(43,36,32,.2)"><span class="lbl" style="width:60px;color:var(--muted)">03</span><span class="b">Your breath stays bad, whatever you do</span></div>
+  </div>
+  <div class="src" style="position:absolute;top:1230px;left:90px;color:var(--muted)">NHS, gum disease</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;color:var(--muted)">04</div>
+</section>
+
+<!-- 5 texture + action -->
+<section class="s" style="left:4320px">
+  <div class="lbl" style="position:absolute;top:80px;left:90px;color:var(--muted)">One thing to do</div>
+  <div class="h" style="position:absolute;top:720px;left:90px;width:900px;font-size:72px">This month, ask your dentist to look at your gums, not just your teeth.</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;color:var(--muted)">05</div>
+</section>
+
+<!-- 6 ESPRESSO -->
+<section class="s" style="left:5400px;color:var(--ivory)">
+  <div class="lbl" style="position:absolute;top:80px;left:90px;opacity:.7">London is moving</div>
+  <div class="h" style="position:absolute;top:300px;left:90px;width:900px;font-size:84px">In nine NHS areas, more people now see a private dentist than an NHS one.</div>
+  <div class="src" style="position:absolute;top:1230px;left:90px;opacity:.7">HSJ</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;opacity:.7">06</div>
+</section>
+
+<!-- 7 OLIVE close -->
+<section class="s" style="left:6480px;color:var(--ivory)">
+  <div class="lbl" style="position:absolute;top:80px;left:90px;opacity:.75">Coming soon</div>
+  <div class="h" style="position:absolute;top:300px;left:90px;width:880px;font-size:110px">Dentistry, at The Wellness.</div>
+  <div class="b" style="position:absolute;top:720px;left:90px;width:620px;color:#E3E1D3">Save this, and send it to someone who’s been putting off the dentist.</div>
+  <div class="lbl" style="position:absolute;top:1230px;left:90px;opacity:.85">thewellnesslondon.com</div>
+  <div class="lbl" style="position:absolute;top:1230px;right:80px;opacity:.75">07</div>
+</section>
+
+</div>
+</body>
+</html>
