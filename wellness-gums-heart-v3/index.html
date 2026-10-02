@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:300;src:url(fonts/dm-0-300.woff) format('woff');}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400;src:url(fonts/dm-0-400.woff) format('woff');}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:500;src:url(fonts/dm-0-500.woff) format('woff');}
+@font-face{font-family:'DM Sans';font-style:italic;font-weight:300;src:url(fonts/dm-1-300.woff) format('woff');}
+@font-face{font-family:'DM Sans';font-style:italic;font-weight:400;src:url(fonts/dm-1-400.woff) format('woff');}
+:root{--ivory:#ECE8E1;--olive:#5E6A43;--esp:#2E241F;--taupe:#CFC6BA;--blush:#E4D8CF;--ink:#2B2420;--muted:#857C73;--lt:#E3E1D3}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ivory)}
+body{font-family:'DM Sans';color:var(--ink);-webkit-font-smoothing:antialiased}
+#strip{position:relative;width:9720px;height:1350px;background:var(--ivory);overflow:hidden}
+.s{position:absolute;top:0;width:1080px;height:1350px}
+.lbl{position:absolute;top:80px;left:90px;font-size:20px;font-weight:400}
+.pg{position:absolute;top:1230px;right:80px;font-size:20px;font-weight:400}
+.src{position:absolute;top:1230px;left:90px;font-size:18px;font-weight:400}
+.h{position:absolute;left:90px;font-weight:300;letter-spacing:-0.03em;line-height:1.06}
+.b{font-size:28px;font-weight:300;line-height:1.5}
+.row{display:flex;gap:56px;padding:30px 0;border-top:1px solid rgba(43,36,32,.2)}
+.rowl{display:flex;gap:56px;padding:30px 0;border-top:1px solid rgba(236,232,225,.3)}
+.n{font-size:20px;font-weight:400;width:40px;flex:none;padding-top:6px}
+.box{width:28px;height:28px;border:1.5px solid var(--ink);border-radius:6px;flex:none;margin-top:4px}
+</style>
+</head>
+<body>
+<div id="strip">
+
+<!-- colour fields (some cross slide edges for the seamless feel) -->
+<div style="position:absolute;left:1080px;top:0;width:1080px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:2160px;top:0;width:110px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:3240px;top:0;width:1080px;height:1350px;background:var(--blush)"></div>
+<div style="position:absolute;left:5400px;top:0;width:1080px;height:1350px;background:var(--blush)"></div>
+<div style="position:absolute;left:6480px;top:0;width:1080px;height:1350px;background:var(--olive)"></div>
+<div style="position:absolute;left:7560px;top:0;width:1080px;height:1350px;background:var(--esp)"></div>
+<div style="position:absolute;left:8640px;top:0;width:110px;height:1350px;background:var(--esp)"></div>
+<div style="position:absolute;left:0;top:1200px;width:9720px;height:1px;background:rgba(43,36,32,.18)"></div>
+
+<!-- 1 cover (photo goes in the right half in Canva) -->
+<section class="s" style="left:0">
+  <div style="position:absolute;left:540px;top:0;width:540px;height:1350px;background:var(--taupe)"></div>
+  <div class="lbl" style="left:80px">The Wellness</div>
+  <div class="lbl" style="left:300px;color:var(--muted)">Journal, No. 04</div>
+  <div class="h" style="top:300px;left:80px;width:430px;font-size:76px">Your gums say more than you think.</div>
+  <div style="position:absolute;top:760px;left:80px;width:400px;font-size:28px;font-weight:300;font-style:italic;color:var(--muted)">A calm, two-minute read.</div>
+  <div class="src" style="left:80px;color:var(--muted)">October 2026</div>
+  <div class="pg" style="right:auto;left:440px;color:var(--muted)">01</div>
+</section>
+
+<!-- 2 two stages -->
+<section class="s" style="left:1080px;color:var(--ivory)">
+  <div class="lbl" style="opacity:.75">The basics</div>
+  <div class="h" style="top:240px;width:880px;font-size:76px">Gum disease comes in two stages.</div>
+  <div style="position:absolute;top:560px;left:90px;width:900px">
+    <div class="rowl"><span class="n" style="opacity:.7">01</span><span><span style="display:block;font-size:34px;font-weight:400;margin-bottom:10px">Gingivitis</span><span class="b" style="color:var(--lt)">The early stage. Gums look red or puffy, or bleed when you brush. With good daily care, it can usually be reversed.</span></span></div>
+    <div class="rowl" style="border-bottom:1px solid rgba(236,232,225,.3)"><span class="n" style="opacity:.7">02</span><span><span style="display:block;font-size:34px;font-weight:400;margin-bottom:10px">Periodontitis</span><span class="b" style="color:var(--lt)">Can follow if gingivitis is left for a long time. It affects the tissue that holds your teeth in place.</span></span></div>
+  </div>
+  <div class="src" style="opacity:.75">NHS</div>
+  <div class="pg" style="opacity:.75">02</div>
+</section>
+
+<!-- 3 far from alone -->
+<section class="s" style="left:2160px">
+  <div class="lbl" style="left:190px;color:var(--muted)">Good to know</div>
+  <div class="h" style="top:300px;left:190px;width:820px;font-size:96px">If that sounds familiar, you’re far from alone.</div>
+  <div class="b" style="position:absolute;top:720px;left:190px;width:640px">Most adults in the UK have gum disease to some degree, and many don’t notice it.</div>
+  <div class="src" style="left:190px;color:var(--muted)">NHS</div>
+  <div class="pg" style="color:var(--muted)">03</div>
+</section>
+
+<!-- 4 the link -->
+<section class="s" style="left:3240px">
+  <div class="lbl" style="color:var(--muted)">Here’s the interesting part</div>
+  <div class="h" style="top:300px;width:880px;font-size:76px">Gum specialists and heart specialists looked at the research together.</div>
+  <div class="b" style="position:absolute;top:720px;left:90px;width:680px">In 2020, they found that people with gum disease are more likely to also have heart disease.</div>
+  <div class="src" style="color:var(--muted);width:760px">European Federation of Periodontology &amp; World Heart Federation. Sanz et al., 2020</div>
+  <div class="pg" style="color:var(--muted)">04</div>
+</section>
+
+<!-- 5 link not cause -->
+<section class="s" style="left:4320px">
+  <div class="lbl" style="color:var(--muted)">What that does and doesn’t mean</div>
+  <div class="h" style="top:300px;width:880px;font-size:110px">“A link,<br>not a cause.”</div>
+  <div class="b" style="position:absolute;top:680px;left:90px;width:680px">It doesn’t show that gum disease causes heart problems, or that treating your gums prevents them.</div>
+  <div class="b" style="position:absolute;top:880px;left:90px;width:680px;color:var(--muted);font-style:italic">It’s simply one more good reason to look after both.</div>
+  <div class="pg" style="color:var(--muted)">05</div>
+</section>
+
+<!-- 6 gentle check-in -->
+<section class="s" style="left:5400px">
+  <div class="lbl" style="color:var(--muted)">A gentle check-in</div>
+  <div class="h" style="top:240px;width:880px;font-size:76px">Any of these sound familiar?</div>
+  <div style="position:absolute;top:470px;left:90px;width:900px">
+    <div class="row"><span class="box"></span><span class="b">Gums bleed when you brush or floss</span></div>
+    <div class="row"><span class="box"></span><span class="b">Gums look red or puffy</span></div>
+    <div class="row"><span class="box"></span><span class="b">Bad breath that lingers</span></div>
+    <div class="row" style="border-bottom:1px solid rgba(43,36,32,.2)"><span class="box"></span><span class="b">Gums pulling back from your teeth</span></div>
+  </div>
+  <div style="position:absolute;top:1020px;left:90px;font-size:34px;font-weight:400">Comment your number. <span style="font-weight:300;font-style:italic;color:var(--muted)">You’re in good company.</span></div>
+  <div class="src" style="color:var(--muted)">NHS</div>
+  <div class="pg" style="color:var(--muted)">06</div>
+</section>
+
+<!-- 7 daily easy wins -->
+<section class="s" style="left:6480px;color:var(--ivory)">
+  <div class="lbl" style="opacity:.75">Every day</div>
+  <div class="h" style="top:240px;width:880px;font-size:76px">The daily easy wins.</div>
+  <div style="position:absolute;top:440px;left:90px;width:900px">
+    <div class="rowl"><span class="n" style="opacity:.7">01</span><span class="b" style="color:var(--lt)">Brush twice a day for about two minutes, with fluoride toothpaste.</span></div>
+    <div class="rowl"><span class="n" style="opacity:.7">02</span><span class="b" style="color:var(--lt)">Clean between your teeth once a day, with floss or small interdental brushes.</span></div>
+    <div class="rowl" style="border-bottom:1px solid rgba(236,232,225,.3)"><span class="n" style="opacity:.7">03</span><span class="b" style="color:var(--lt)">After brushing, spit, don’t rinse, so the fluoride keeps working.</span></div>
+  </div>
+  <div class="src" style="opacity:.75">NHS</div>
+  <div class="pg" style="opacity:.75">07</div>
+</section>
+
+<!-- 8 at the dentist -->
+<section class="s" style="left:7560px;color:var(--ivory)">
+  <div class="lbl" style="opacity:.7">At the dentist</div>
+  <div class="h" style="top:240px;width:880px;font-size:76px">Three things worth asking for.</div>
+  <div style="position:absolute;top:440px;left:90px;width:900px">
+    <div class="rowl"><span class="n" style="opacity:.7">01</span><span class="b" style="color:var(--lt)">Check-ups as often as your dentist recommends.</span></div>
+    <div class="rowl"><span class="n" style="opacity:.7">02</span><span class="b" style="color:var(--lt)">A look at your gums, not just your teeth.</span></div>
+    <div class="rowl" style="border-bottom:1px solid rgba(236,232,225,.3)"><span class="n" style="opacity:.7">03</span><span class="b" style="color:var(--lt)">If your gums often bleed, whether a hygienist visit would help.</span></div>
+  </div>
+  <div class="pg" style="opacity:.7">08</div>
+</section>
+
+<!-- 9 close -->
+<section class="s" style="left:8640px">
+  <div class="lbl" style="left:190px;color:var(--muted)">Coming soon</div>
+  <div class="h" style="top:300px;left:190px;width:820px;font-size:96px">Dentistry is coming to The Wellness.</div>
+  <div class="b" style="position:absolute;top:720px;left:190px;width:640px">Save this for your next check-up, and share it with someone who’d find it useful.</div>
+  <div class="src" style="left:190px;color:var(--olive)">thewellnesslondon.com</div>
+  <div class="pg" style="color:var(--muted)">09</div>
+</section>
+
+</div>
+</body>
+</html>
