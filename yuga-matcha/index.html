@@ -61,8 +61,9 @@
     .grid { position: absolute; top: 571px; left: 0; display: grid; grid-template-columns: repeat(3, 140px); gap: 10px; }
     .post { width: 140px; height: 175px; position: relative; overflow: hidden; color: var(--ink); }
     .post > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .post .ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .post .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; }
-    .tiny { position: absolute; top: 7px; left: 0; right: 0; text-align: center; font-size: 4.6px; font-weight: 600; letter-spacing: .1px; }
+    .tiny { z-index: 1; position: absolute; top: 7px; left: 0; right: 0; text-align: center; font-size: 4.6px; font-weight: 600; letter-spacing: .1px; }
     .uf { font-family: Unbounded; font-weight: 700; letter-spacing: -.4px; line-height: .95; }
     .script { font-family: Caveat; font-weight: 700; }
 
@@ -225,237 +226,50 @@
 
     <!-- Feed. Drop photos into assets/post-1.jpg … post-9.jpg and they replace the illustration. -->
     <div class="grid">
-
-      <!-- 1 · matcha trends -->
-      <div class="post" style="background:#8fb9e0;color:#fff">
-        <svg viewBox="0 0 140 175">
-          <rect x="18" y="98" width="104" height="66" fill="#f5f2e7"/>
-          <g stroke="#2c5f9e" stroke-width=".35" opacity=".35">
-            <path d="M18 109H122M18 120H122M18 131H122M18 142H122M18 153H122M30 98V164M43 98V164M56 98V164M69 98V164M82 98V164M95 98V164M108 98V164"/>
-          </g>
-          <!-- big chawan bowl -->
-          <ellipse cx="70" cy="104" rx="40" ry="10" fill="#2f6343"/>
-          <ellipse cx="70" cy="103" rx="36" ry="8" fill="#7fb36a"/>
-          <path d="M44 101 q8 -5 14 0 q8 4 14 -1 q7 -4 14 1" stroke="#cfe5c4" stroke-width="1.3" fill="none" opacity=".9"/>
-          <path d="M30 104 C32 132 50 148 70 148 C90 148 108 132 110 104 C100 112 40 112 30 104Z" fill="#1d3b63"/>
-          <path d="M34 116 C46 124 94 124 106 116" stroke="#8fb9e0" stroke-width="1.4" fill="none" opacity=".7"/>
-          <path d="M52 147 h36 l-3 6 h-30Z" fill="#163050"/>
-          <!-- whisk -->
-          <g transform="rotate(28 106 70)">
-            <rect x="103" y="40" width="6" height="30" rx="2" fill="#e8d7a8"/>
-            <path d="M101 70 h10 l3 22 h-16Z" fill="#f2e6c3"/>
-            <path d="M102 72 l-1 19 M104 72 v19 M106 72 v19 M108 72 v19 M110 72 l1 19" stroke="#cdb57d" stroke-width=".5"/>
-          </g>
-          <!-- steam sparkles -->
-          <path d="M60 86 q3 -6 0 -11 M72 84 q3 -6 0 -11" stroke="#fff" stroke-width="1.2" fill="none" opacity=".8"/>
-        </svg>
+      <!-- Photos are Canva-generated; swap any assets/post-N.jpg to change a tile. -->
+      <div class="post"><img class="ph" src="assets/post-1.jpg" alt="Woman holding a bowl of matcha" />
         <div class="tiny" style="color:#fff">yugamatcha</div>
-        <div class="uf" style="position:absolute;left:12px;top:28px;font-size:13px;">matcha<br/>trends</div>
-        <div style="position:absolute;right:12px;top:30px;font-size:5.5px;font-weight:700">2026</div>
-        <div style="position:absolute;left:12px;top:60px;font-size:5px;font-weight:600;line-height:1.3;opacity:.95">what we'll be whisking<br/>this season</div>
-        <img class="photo" src="assets/post-1.jpg" alt="" onerror="this.remove()" />
+        <div class="uf" style="position:absolute;left:10px;bottom:14px;font-size:14px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.25)">matcha<br/>trends</div>
+        <div style="position:absolute;right:10px;bottom:15px;font-size:6px;font-weight:700;color:#fff">2026</div>
       </div>
-
-      <!-- 2 · how we make your morning -->
-      <div class="post" style="background:#f5f2e7">
-        <svg viewBox="0 0 140 175">
-          <defs><pattern id="chk" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#dcebf5"/><rect x="5" y="5" width="5" height="5" fill="#dcebf5"/></pattern></defs>
-          <rect width="140" height="175" fill="url(#chk)"/>
-          <!-- hand holding cup -->
-          <path d="M36 175 C34 150 40 128 52 118 L90 118 C100 128 106 150 104 175Z" fill="#2c5f9e"/>
-          <path d="M44 175 C44 160 46 146 52 136 M96 175 C96 160 94 146 88 136" stroke="#1d3b63" stroke-width="1" fill="none"/>
-          <rect x="47" y="86" width="46" height="40" rx="4" fill="#fff" stroke="#1b2a24" stroke-width=".8"/>
-          <path d="M47 92 h46" stroke="#1b2a24" stroke-width=".6"/>
-          <rect x="47" y="98" width="46" height="18" fill="#5f9150"/>
-          <text x="70" y="110" text-anchor="middle" font-family="Unbounded" font-weight="700" font-size="6" fill="#f5f2e7">YUGA</text>
-          <path d="M93 98 h5 a6 6 0 0 1 0 12 h-5" stroke="#1b2a24" stroke-width="1.6" fill="none"/>
-          <path d="M44 128 q-6 -4 -2 -10 q6 -2 10 4 M96 128 q6 -4 2 -10 q-6 -2 -10 4" fill="#e9c9a8" stroke="#c99e7b" stroke-width=".5"/>
-          <path d="M60 80 q3 -6 0 -11 M72 79 q3 -6 0 -11 M83 80 q3 -6 0 -11" stroke="#5f9150" stroke-width="1.1" fill="none"/>
-          <!-- tags -->
-          <rect x="100" y="140" width="34" height="18" fill="#5f9150"/>
-          <text x="117" y="148" text-anchor="middle" font-family="Inter" font-weight="700" font-size="4.2" fill="#fff">100%</text>
-          <text x="117" y="154" text-anchor="middle" font-family="Inter" font-weight="600" font-size="3.6" fill="#fff">ceremonial</text>
-          <rect x="6" y="66" width="30" height="12" fill="#2c5f9e" transform="rotate(-6 21 72)"/>
-          <text x="21" y="74" text-anchor="middle" font-family="Inter" font-weight="700" font-size="4" fill="#fff" transform="rotate(-6 21 72)">since 2024</text>
-        </svg>
-        <div class="tiny">yugamatcha</div>
-        <div style="position:absolute;left:24px;right:24px;top:22px;border:1px solid #2c5f9e;background:#fff;text-align:center;font-size:5.2px;font-weight:600;padding:3px 0;line-height:1.35">how we make<br/>your mornings better</div>
-        <div class="uf" style="position:absolute;left:0;right:0;top:48px;text-align:center;font-size:11.5px;color:#1b2a24">yugamatcha</div>
-        <img class="photo" src="assets/post-2.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 3 · MENU -->
-      <div class="post" style="background:#f5f2e7">
-        <svg viewBox="0 0 140 175">
-          <g font-family="Inter" font-size="4.2" font-weight="600" fill="#1b2a24">
-            <g fill="none" stroke="#2c5f9e" stroke-width=".6">
-              <rect x="22" y="28" width="28" height="8" rx="4"/><rect x="54" y="28" width="30" height="8" rx="4"/><rect x="88" y="28" width="30" height="8" rx="4"/>
-              <rect x="36" y="40" width="30" height="8" rx="4"/><rect x="70" y="40" width="30" height="8" rx="4"/>
-              <rect x="20" y="130" width="24" height="8" rx="4"/><rect x="48" y="130" width="38" height="8" rx="4"/><rect x="90" y="130" width="28" height="8" rx="4"/>
-              <rect x="38" y="142" width="30" height="8" rx="4"/><rect x="72" y="142" width="30" height="8" rx="4"/>
-            </g>
-            <text x="36" y="33.5" text-anchor="middle">#icedlatte</text><text x="69" y="33.5" text-anchor="middle">#ceremonial</text><text x="103" y="33.5" text-anchor="middle">#yuzutonic</text>
-            <text x="51" y="45.5" text-anchor="middle">#strawberry</text><text x="85" y="45.5" text-anchor="middle">#oatcloud</text>
-            <text x="32" y="135.5" text-anchor="middle">#hojicha</text><text x="67" y="135.5" text-anchor="middle">#bluespirulina</text><text x="104" y="135.5" text-anchor="middle">#coldwhisk</text>
-            <text x="53" y="147.5" text-anchor="middle">#mochi</text><text x="87" y="147.5" text-anchor="middle">#affogato</text>
-          </g>
-        </svg>
-        <div class="tiny">yugamatcha</div>
-        <div class="uf" style="position:absolute;left:0;right:0;top:70px;text-align:center;font-size:30px;font-weight:900;color:#1b2a24;letter-spacing:-1.5px">MENU</div>
-        <div class="script" style="position:absolute;left:0;right:0;top:86px;text-align:center;font-size:25px;color:#5f9150;transform:rotate(-6deg)">seasonal</div>
-        <img class="photo" src="assets/post-3.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 4 · note card -->
-      <div class="post" style="background:#efece2">
-        <svg viewBox="0 0 140 175">
-          <defs><filter id="sh"><feDropShadow dx="0" dy="1" stdDeviation="1.4" flood-opacity=".18"/></filter></defs>
-          <rect x="20" y="68" width="100" height="46" fill="#fff" filter="url(#sh)"/>
-          <circle cx="31" cy="78" r="5.5" fill="#2f6343"/>
-          <text x="31" y="79.6" text-anchor="middle" font-family="Unbounded" font-size="2.6" font-weight="700" fill="#cfe5c4">YUGA</text>
-          <text x="40" y="77.6" font-family="Inter" font-weight="700" font-size="4.6" fill="#1b2a24">YUGA</text>
-          <text x="40" y="82" font-family="Inter" font-size="3.4" fill="#6b7a74">@yuga.matcha</text>
-          <g font-family="Inter" font-size="4" fill="#1b2a24">
-            <text x="26" y="93">Half of summer is gone, and you</text>
-            <text x="26" y="98.5">still haven't tried the iced blue</text>
-            <text x="26" y="104">cloud matcha everyone is sipping</text>
-          </g>
-          <path d="M107 60 v18 a4 4 0 0 0 8 0 v-14 a2.6 2.6 0 0 0 -5.2 0 v13" stroke="#9aa4a0" stroke-width="1.1" fill="none"/>
-        </svg>
-        <div class="tiny">yugamatcha</div>
-        <img class="photo" src="assets/post-4.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 5 · SIP SLOWLY -->
-      <div class="post" style="background:#3f7a4a;color:#f5f2e7">
-        <div class="tiny" style="color:#f5f2e7">yugamatcha</div>
-        <div class="uf" style="position:absolute;left:0;right:0;top:60px;text-align:center;font-size:21px;font-weight:900;letter-spacing:-1px;line-height:.92">SIP<br/>SLOWLY</div>
-        <div style="position:absolute;left:0;right:0;top:118px;text-align:center;font-size:4.6px;line-height:1.4;color:#cfe5c4">[ why every bowl of ours takes<br/>exactly 3 minutes to whisk ]</div>
-        <img class="photo" src="assets/post-5.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 6 · grade guide, leaf panels -->
-      <div class="post" style="background:#f5f2e7">
-        <svg viewBox="0 0 140 175">
-          <defs>
-            <clipPath id="panels"><rect x="14" y="20" width="26" height="100"/><rect x="43" y="20" width="26" height="100"/><rect x="72" y="20" width="26" height="100"/><rect x="101" y="20" width="26" height="100"/></clipPath>
-            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c5f9e"/><stop offset="1" stop-color="#2f6343"/></linearGradient>
-          </defs>
-          <g clip-path="url(#panels)">
-            <rect x="0" y="0" width="140" height="140" fill="url(#lg)"/>
-            <path d="M8 120 C30 40 100 20 134 30 C120 80 80 120 8 120Z" fill="#7fb36a"/>
-            <path d="M8 120 C50 80 90 50 134 30" stroke="#cfe5c4" stroke-width="1.6" fill="none"/>
-            <g stroke="#cfe5c4" stroke-width=".7" fill="none" opacity=".8">
-              <path d="M40 95 C45 80 52 72 56 70"/><path d="M60 78 C66 64 74 58 80 56"/><path d="M82 62 C90 50 98 46 104 44"/>
-              <path d="M40 95 C55 98 64 96 70 92"/><path d="M60 78 C76 82 86 80 92 74"/><path d="M82 62 C96 64 104 62 112 56"/>
-            </g>
-            <circle cx="100" cy="34" r="14" fill="#8fb9e0" opacity=".35"/>
-          </g>
-          <rect x="14" y="128" width="113" height="26" fill="#8fb9e0"/>
-          <g font-family="Inter" fill="#1b2a24">
-            <g font-size="5" font-weight="700"><text x="17" y="137">01</text><text x="46" y="137">02</text><text x="75" y="137">03</text><text x="104" y="137">04</text></g>
-            <g font-size="2.9"><text x="17" y="143">Ceremonial</text><text x="46" y="143">Premium</text><text x="75" y="143">Culinary</text><text x="104" y="143">Hojicha</text>
-            <text x="17" y="147">first harvest</text><text x="46" y="147">daily latte</text><text x="75" y="147">for baking</text><text x="104" y="147">roasted</text></g>
-          </g>
-        </svg>
-        <div class="tiny">yugamatcha</div>
-        <img class="photo" src="assets/post-6.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 7 · flatlay -->
-      <div class="post" style="background:#2c5f9e">
-        <svg viewBox="0 0 140 175">
-          <circle cx="150" cy="40" r="110" fill="#dcebf5"/>
-          <!-- iced latte, top view -->
-          <circle cx="88" cy="58" r="30" fill="#fff" opacity=".85"/>
-          <circle cx="88" cy="58" r="26" fill="#7fb36a"/>
-          <path d="M66 60 C76 48 92 76 110 56 C104 76 74 80 66 60Z" fill="#f5f2e7" opacity=".9"/>
-          <rect x="74" y="44" width="10" height="10" rx="2" fill="#fff" opacity=".55" transform="rotate(14 79 49)"/>
-          <rect x="92" y="62" width="10" height="10" rx="2" fill="#fff" opacity=".55" transform="rotate(-20 97 67)"/>
-          <rect x="94" y="40" width="9" height="9" rx="2" fill="#fff" opacity=".5" transform="rotate(35 98 44)"/>
-          <path d="M88 58 L118 12" stroke="#2f6343" stroke-width="4" stroke-linecap="round"/>
-          <!-- hand with sleeve -->
-          <path d="M0 108 L40 96 C48 94 54 98 54 104 C54 110 48 112 42 112 L8 128Z" fill="#e9c9a8"/>
-          <path d="M42 98 l12 -3 M44 103 l12 -2 M44 108 l10 0" stroke="#c99e7b" stroke-width=".7"/>
-          <path d="M-4 104 L14 98 L22 122 L2 132Z" fill="#f5f2e7"/>
-          <path d="M2 102 L16 99 M4 108 L18 104 M6 114 L20 110 M8 120 L21 116" stroke="#1d3b63" stroke-width="2"/>
-          <!-- sneaker -->
-          <path d="M96 175 C96 150 104 130 116 124 C128 120 140 128 140 140 V175Z" fill="#f5f2e7"/>
-          <path d="M104 150 l20 -6 M102 158 l22 -6 M101 166 l22 -5" stroke="#5f9150" stroke-width="2"/>
-          <path d="M96 175 C96 162 98 152 102 144" stroke="#1d3b63" stroke-width="2" fill="none"/>
-          <!-- spoon of powder -->
-          <ellipse cx="34" cy="40" rx="11" ry="8" fill="#e8d7a8"/>
-          <ellipse cx="34" cy="39" rx="8" ry="5" fill="#5f9150"/>
-          <path d="M44 44 L66 56" stroke="#e8d7a8" stroke-width="3" stroke-linecap="round"/>
-        </svg>
-        <img class="photo" src="assets/post-7.jpg" alt="" onerror="this.remove()" />
-      </div>
-
-      <!-- 8 · WE'RE HIRING -->
-      <div class="post" style="background:#2c5f9e">
-        <svg viewBox="0 0 140 175">
-          <defs><pattern id="brick" width="20" height="10" patternUnits="userSpaceOnUse">
-            <rect width="20" height="10" fill="#3b6fb0"/>
-            <path d="M0 0.5H20M0 5.5H20M10 0.5V5.5M0 5.5V10M20 5.5V10" stroke="#2c5f9e" stroke-width="1"/>
-          </pattern>
-          <filter id="sh2"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity=".3"/></filter></defs>
-          <rect width="140" height="175" fill="url(#brick)"/>
-          <g filter="url(#sh2)">
-            <path d="M20 66 L122 63 L120 100 L20 102Z" fill="#f5f2e7"/>
-            <g fill="#f5f2e7">
-              <path d="M24 101 h10 v30 l-3 2 -7 -1Z"/><path d="M38 101 h10 v26 l-10 1Z"/>
-              <path d="M66 100 h10 v34 l-10 -1Z"/><path d="M80 100 h10 v22 l-10 1Z"/>
-              <path d="M94 100 h10 v31 l-10 0Z"/>
-            </g>
-          </g>
-          <rect x="54" y="58" width="16" height="7" fill="#cfe5c4" opacity=".85" transform="rotate(-8 62 61)"/>
-          <g font-family="Inter" font-size="2.8" font-weight="600" fill="#1b2a24">
-            <text transform="translate(30 104) rotate(90)">barista · yuga</text>
-            <text transform="translate(44 104) rotate(90)">barista · yuga</text>
-            <text transform="translate(72 104) rotate(90)">barista · yuga</text>
-            <text transform="translate(86 104) rotate(90)">barista · yuga</text>
-            <text transform="translate(100 104) rotate(90)">barista · yuga</text>
-          </g>
-        </svg>
+      <div class="post"><img class="ph" src="assets/post-2.jpg" alt="Whisking matcha" />
         <div class="tiny" style="color:#fff">yugamatcha</div>
-        <div class="uf" style="position:absolute;left:20px;right:18px;top:76px;text-align:center;font-size:11px;font-weight:900;color:#1b2a24">WE'RE HIRING</div>
-        <img class="photo" src="assets/post-8.jpg" alt="" onerror="this.remove()" />
+        <div style="position:absolute;left:18px;right:18px;top:20px;border:1px solid #2c5f9e;background:#fff;text-align:center;font-size:5.2px;font-weight:600;padding:3px 0;line-height:1.35;color:#1b2a24">how we make<br/>your mornings better</div>
+        <div style="position:absolute;right:0;bottom:16px;background:#5f9150;color:#fff;font-size:5px;font-weight:700;padding:4px 7px;line-height:1.25">100%<br/>ceremonial</div>
       </div>
-
-      <!-- 9 · matcha matcha matcha -->
-      <div class="post" style="background:#f5f2e7">
-        <div style="position:absolute;left:-20px;top:14px;font-family:Unbounded;font-weight:500;font-size:17px;line-height:1.08;letter-spacing:-.6px;white-space:nowrap">
-          <div style="color:#5f9150">matcha matcha</div>
-          <div style="color:#8fb9e0;margin-left:-24px">a matcha matcha</div>
-          <div style="color:#2f6343">tcha matcha ma</div>
-          <div style="color:transparent;-webkit-text-stroke:.6px #2c5f9e;margin-left:-10px">matcha matcha</div>
-          <div style="color:#8fb9e0">matcha matcha</div>
-          <div style="color:#5f9150;margin-left:-30px">ha matcha match</div>
-          <div style="color:#2c5f9e">matcha matcha</div>
-          <div style="color:transparent;-webkit-text-stroke:.6px #5f9150;margin-left:-16px">matcha matcha</div>
+      <div class="post"><img class="ph" src="assets/post-3.jpg" alt="Iced matcha lattes" />
+        <div class="tiny" style="color:#1b2a24">yugamatcha</div>
+        <div style="position:absolute;inset:auto 0 0 0;height:62px;background:linear-gradient(transparent,rgba(245,242,231,.95) 45%)"></div>
+        <div class="uf" style="position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:28px;font-weight:900;color:#1b2a24;letter-spacing:-1.5px">MENU</div>
+        <div class="script" style="position:absolute;left:0;right:0;bottom:2px;text-align:center;font-size:19px;color:#2c5f9e;transform:rotate(-6deg)">seasonal</div>
+      </div>
+      <div class="post"><img class="ph" src="assets/post-4.jpg" alt="Cafe interior" />
+        <div class="tiny" style="color:#1b2a24">yugamatcha</div>
+        <div style="position:absolute;left:14px;right:14px;bottom:16px;background:#fff;padding:6px 7px;box-shadow:0 1px 4px rgba(0,0,0,.15);color:#1b2a24">
+          <div style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:50%;background:#2f6343;display:inline-block"></span><b style="font-size:4.8px">YUGA</b><span style="font-size:3.6px;color:#6b7a74">@yuga.matcha</span></div>
+          <div style="font-size:4.4px;line-height:1.35;margin-top:3px">Find us behind the blue door. Laptops welcome, slow sips encouraged.</div>
         </div>
-        <svg viewBox="0 0 140 175" style="z-index:1">
-          <!-- iced cup -->
-          <g transform="rotate(-12 96 70)">
-            <path d="M78 34 h36 l-5 62 h-26Z" fill="#fff" stroke="#1b2a24" stroke-width="1"/>
-            <path d="M80 56 h32 l-3.2 40 h-25.6Z" fill="#7fb36a"/>
-            <path d="M80 56 h32 l-.6 8 c-8 4 -22 -2 -30.8 2Z" fill="#cfe5c4"/>
-            <rect x="85" y="40" width="9" height="9" rx="1.5" fill="#dcebf5" stroke="#8fb9e0" stroke-width=".5"/>
-            <rect x="97" y="44" width="9" height="9" rx="1.5" fill="#dcebf5" stroke="#8fb9e0" stroke-width=".5"/>
-            <rect x="74" y="30" width="44" height="5" rx="2" fill="#2c5f9e"/>
-            <path d="M104 30 L112 6" stroke="#2f6343" stroke-width="3" stroke-linecap="round"/>
-          </g>
-          <!-- second cup lower left -->
-          <g transform="rotate(16 36 136)">
-            <path d="M20 110 h32 l-4 48 h-24Z" fill="#fff" stroke="#1b2a24" stroke-width="1"/>
-            <path d="M22 126 h28 l-3 32 h-22Z" fill="#2c5f9e"/>
-            <path d="M22 126 h28 l-.4 6 c-8 3 -20 -2 -27.4 1Z" fill="#dcebf5"/>
-            <rect x="17" y="106" width="38" height="5" rx="2" fill="#5f9150"/>
-          </g>
-        </svg>
-        <img class="photo" src="assets/post-9.jpg" alt="" onerror="this.remove()" />
       </div>
-
+      <div class="post"><img class="ph" src="assets/post-5.jpg" alt="Tea leaves on a plantation" />
+        <div style="position:absolute;inset:0;background:rgba(29,59,99,.18)"></div>
+        <div class="tiny" style="color:#fff">yugamatcha</div>
+        <div class="uf" style="position:absolute;left:0;right:0;top:56px;text-align:center;font-size:21px;font-weight:900;letter-spacing:-1px;line-height:.92;color:#f5f2e7;text-shadow:0 1px 8px rgba(0,0,0,.3)">SIP<br/>SLOWLY</div>
+        <div style="position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:4.6px;line-height:1.4;color:#fff">[ from first-harvest leaves<br/>to your bowl ]</div>
+      </div>
+      <div class="post"><img class="ph" src="assets/post-6.jpg" alt="Blue cloud matcha drink" />
+        <div class="tiny" style="color:#fff">yugamatcha</div>
+        <div style="position:absolute;left:10px;top:22px;background:#2c5f9e;color:#fff;font-size:5px;font-weight:700;padding:3px 6px;border-radius:6px">NEW</div>
+        <div class="uf" style="position:absolute;left:10px;bottom:16px;font-size:12px;color:#1d3b63">blue<br/>cloud</div>
+      </div>
+      <div class="post"><img class="ph" src="assets/post-7.jpg" alt="Iced matcha on a blue table" /></div>
+      <div class="post"><img class="ph" src="assets/post-8.jpg" alt="Barista serving matcha" />
+        <div class="tiny" style="color:#fff">yugamatcha</div>
+        <div class="uf" style="position:absolute;left:12px;right:12px;bottom:18px;text-align:center;background:#f5f2e7;color:#1b2a24;font-size:10px;font-weight:900;padding:6px 0;transform:rotate(-3deg)">WE'RE HIRING</div>
+      </div>
+      <div class="post"><img class="ph" src="assets/post-9.jpg" alt="Matcha desserts" />
+        <div class="tiny" style="color:#1b2a24">yugamatcha</div>
+        <div class="script" style="position:absolute;left:10px;bottom:10px;font-size:22px;color:#1d3b63;line-height:.8">matcha<br/>sweets</div>
+      </div>
     </div>
   </div>
 
