@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>yuga matcha — Instagram iPhone screen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Unbounded:wght@800&display=swap" rel="stylesheet" />
+  <style>
+    /* iPhone 17: 402 x 874 pt @3x = 1206 x 2622 px. Designed in points, zoomed 3x. */
+    :root { --ink: #0c1014; --muted: #737373; --line: #dbdbdb; --chip: #efefef; --link: #00376b; --blue: #0095f6;
+            --deep: #2f6343; --matcha: #5f9150; --sky: #8fb9e0; --navy: #1d3b63; --cream: #f5f2e7; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #fff; }
+    body { font-family: Inter, -apple-system, system-ui, sans-serif; color: var(--ink); letter-spacing: -.1px; }
+    .screen { width: 402px; height: 874px; zoom: 3; position: relative; overflow: hidden; background: #fff; break-after: page; }
+
+    /* status bar + Dynamic Island */
+    .status { height: 54px; position: relative; display: flex; align-items: center; justify-content: space-between; padding: 0 30px 0 50px; }
+    .time { font-weight: 600; font-size: 17px; letter-spacing: -.3px; padding-top: 2px; }
+    .island { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 124px; height: 36px; border-radius: 20px; background: #000; }
+    .sys { display: flex; align-items: center; gap: 6px; padding-top: 2px; }
+
+    .ico { fill: none; stroke: var(--ink); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* top bar */
+    .topbar { height: 44px; display: flex; align-items: center; padding: 0 14px; }
+    .topbar .user { display: flex; align-items: center; gap: 4px; font-weight: 700; font-size: 21px; letter-spacing: -.5px; flex: 1; justify-content: center; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #ff3040; margin-left: 2px; }
+
+    /* header */
+    .head { display: flex; align-items: center; gap: 18px; padding: 6px 16px 0; }
+    .avatar { position: relative; width: 86px; height: 86px; flex: none; }
+    .avatar .pic { width: 100%; height: 100%; border-radius: 50%; background: var(--deep); display: grid; place-items: center; overflow: hidden; }
+    .avatar .plus { position: absolute; right: -1px; bottom: -1px; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); border: 3px solid #fff; display: grid; place-items: center; }
+    .logo { font-family: Unbounded; font-weight: 800; font-size: 13px; line-height: 1; color: var(--cream); text-align: center; letter-spacing: -.4px; }
+    .logo i { font-style: normal; color: var(--sky); }
+    .side { flex: 1; }
+    .side .disp { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+    .stats { display: flex; gap: 0; }
+    .stats div { flex: 1; font-size: 14px; line-height: 1.25; }
+    .stats b { display: block; font-weight: 700; font-size: 16px; }
+
+    .bio { padding: 10px 16px 0; font-size: 14px; line-height: 1.36; }
+    .cat { color: var(--muted); }
+    .link { color: var(--link); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .thread { display: inline-flex; align-items: center; gap: 5px; background: var(--chip); border-radius: 14px; padding: 4px 10px 4px 8px; font-size: 12.5px; font-weight: 600; margin-top: 8px; }
+
+    .dash { margin: 12px 16px 0; background: var(--chip); border-radius: 8px; padding: 9px 12px; font-size: 13px; line-height: 1.3; }
+    .dash b { font-weight: 600; display: block; font-size: 14px; }
+    .dash span { color: var(--muted); }
+
+    .buttons { display: flex; gap: 6px; padding: 10px 16px 0; }
+    .buttons div { flex: 1; height: 33px; border-radius: 8px; background: var(--chip); display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+    .buttons .sq { flex: none; width: 33px; }
+
+    .highlights { display: flex; gap: 16px; padding: 14px 16px 0; overflow: hidden; }
+    .hl { width: 64px; flex: none; text-align: center; font-size: 12px; }
+    .hl .c { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line); padding: 3px; margin-bottom: 5px; }
+    .hl .c > div { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: grid; place-items: center; }
+    .hl img { width: 100%; height: 100%; object-fit: cover; }
+    .hl .new { border: 1px solid var(--line); background: #fff; }
+
+    .tabs { display: flex; margin-top: 14px; border-bottom: .5px solid var(--line); }
+    .tabs div { flex: 1; height: 44px; display: grid; place-items: center; position: relative; }
+    .tabs .on::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: -.5px; height: 1.5px; background: var(--ink); }
+    .tabs div:not(.on) .ico { stroke: #8e8e8e; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .post { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: #f2f2f2; }
+    .post img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .post svg { position: absolute; top: 7px; right: 7px; width: 17px; height: 17px; filter: drop-shadow(0 0 1.5px rgba(0,0,0,.35)); }
+
+    /* bottom tab bar */
+    .tabbar { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: rgba(255,255,255,.96); border-top: .5px solid var(--line);
+              display: flex; justify-content: space-around; align-items: flex-start; padding-top: 12px; }
+    .me { width: 27px; height: 27px; border-radius: 50%; border: 2px solid var(--ink); padding: 1.5px; }
+    .me div { width: 100%; height: 100%; border-radius: 50%; background: var(--deep); }
+    .homebar { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 139px; height: 5px; border-radius: 3px; background: #000; }
+  </style>
+</head>
+<body>
+<div class="screen">
+  <div class="status">
+    <div class="time">9:41</div>
+    <div class="island"></div>
+    <div class="sys">
+      <svg width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx="1" fill="#000"/><rect x="5.2" y="5" width="3.2" height="7" rx="1" fill="#000"/><rect x="10.4" y="2.5" width="3.2" height="9.5" rx="1" fill="#000"/><rect x="15.6" y="0" width="3.2" height="12" rx="1" fill="#000"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 12 6 9.4a3.6 3.6 0 0 1 5 0zM3.7 7.1a6.8 6.8 0 0 1 9.6 0l-1.5 1.5a4.7 4.7 0 0 0-6.6 0zM1.3 4.7a10.2 10.2 0 0 1 14.4 0l-1.5 1.5a8.1 8.1 0 0 0-11.4 0z" fill="#000"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.8" fill="none" stroke="#000" opacity=".35"/><rect x="2" y="2" width="20" height="9" rx="2.5" fill="#000"/><path d="M25 4.5v4a2 2 0 0 0 0-4z" fill="#000" opacity=".4"/></svg>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <svg class="ico" width="26" height="26" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    <div class="user">yuga.matcha<svg class="ico" width="14" height="14" viewBox="0 0 24 24" style="stroke-width:2.6"><path d="m6 9 6 6 6-6"/></svg><span class="dot"></span></div>
+    <div style="display:flex;gap:20px">
+      <svg class="ico" width="25" height="25" viewBox="0 0 24 24"><path d="M17 9.2c-.6-2.6-2.6-4-5.3-4-3.5 0-5.7 2.6-5.7 6.8s2.2 6.8 5.8 6.8c2.7 0 4.9-1.5 4.9-4.2 0-2.4-2-3.7-4.8-3.7-1.9 0-3.1.9-3.1 2.2 0 1.2 1 2 2.4 2 2.3 0 3.4-1.9 3.4-5.6"/></svg>
+      <svg class="ico" width="25" height="25" viewBox="0 0 24 24"><path d="M3.5 6h17M3.5 12h17M3.5 18h17"/></svg>
+    </div>
+  </div>
+
+  <div class="head">
+    <div class="avatar">
+      <div class="pic"><div class="logo">yuga<br/><i>matcha</i></div></div>
+      <div class="plus"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></div>
+    </div>
+    <div class="side">
+      <div class="disp">yuga matcha</div>
+      <div class="stats">
+        <div><b>48</b>posts</div>
+        <div><b>12.4K</b>followers</div>
+        <div><b>86</b>following</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bio">
+    <div class="cat">Café</div>
+    <div>ceremonial-grade matcha bar · whisked to order</div>
+    <div>open daily 8:00–20:00 · find the blue door</div>
+    <div class="link"><svg class="ico" width="13" height="13" viewBox="0 0 24 24" style="stroke:var(--link);stroke-width:2.4"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>yugamatcha.cafe</div>
+    <div class="thread"><svg class="ico" width="13" height="13" viewBox="0 0 24 24" style="stroke-width:2.4"><path d="M17 9.2c-.6-2.6-2.6-4-5.3-4-3.5 0-5.7 2.6-5.7 6.8s2.2 6.8 5.8 6.8c2.7 0 4.9-1.5 4.9-4.2 0-2.4-2-3.7-4.8-3.7-1.9 0-3.1.9-3.1 2.2 0 1.2 1 2 2.4 2 2.3 0 3.4-1.9 3.4-5.6"/></svg>yuga.matcha</div>
+  </div>
+
+  <div class="dash"><b>Professional dashboard</b><span>18.2K accounts reached in the last 30 days.</span></div>
+
+  <div class="buttons">
+    <div>Edit profile</div>
+    <div>Share profile</div>
+    <div class="sq"><svg class="ico" width="17" height="17" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 20a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg></div>
+  </div>
+
+  <!-- Highlight covers are photo slots too: drag a picture onto each circle in Canva. -->
+  <div class="highlights">
+    <div class="hl"><div class="c"><div><img src="assets/slots/slot-mint-sq.png" alt="highlight cover" /></div></div>menu</div>
+    <div class="hl"><div class="c"><div><img src="assets/slots/slot-sky-sq.png" alt="highlight cover" /></div></div>drinks</div>
+    <div class="hl"><div class="c"><div><img src="assets/slots/slot-cream-sq.png" alt="highlight cover" /></div></div>ritual</div>
+    <div class="hl"><div class="c"><div><img src="assets/slots/slot-sky-sq.png" alt="highlight cover" /></div></div>hiring</div>
+    <div class="hl"><div class="c"><div class="new"><svg class="ico" width="26" height="26" viewBox="0 0 24 24" style="stroke-width:1.5"><path d="M12 5v14M5 12h14"/></svg></div></div>New</div>
+  </div>
+
+  <div class="tabs">
+    <div class="on"><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
+    <div><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M9.5 3l3 5.5M15.5 3l3 5.5"/><path d="M10 12v5l4.5-2.5z"/></svg></div>
+    <div><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><path d="M4 11V9a3 3 0 0 1 3-3h12l-3-3M20 13v2a3 3 0 0 1-3 3H5l3 3"/></svg></div>
+    <div><svg class="ico" width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M6.5 19a5.5 5.5 0 0 1 11 0"/></svg></div>
+  </div>
+
+  <!-- Post slots: drag a photo onto each one in Canva. -->
+  <div class="grid">
+    <div class="post"><img data-slot="1" src="assets/slots/slot-mint.png" alt="post 1" /><svg viewBox="0 0 24 24" fill="#fff"><path d="M14.5 2.5 21.5 9.5 18.5 10 14 14.5 14.5 19 13 20.5 9 16.5 3.5 22 2 20.5 7.5 15 3.5 11 5 9.5 9.5 10 14 5.5z"/></svg></div>
+    <div class="post"><img data-slot="2" src="assets/slots/slot-sky.png" alt="post 2" /><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 6h13v15H3z"/><path d="M7 2h14v15h-3V5H7z"/></svg></div>
+    <div class="post"><img data-slot="3" src="assets/slots/slot-cream.png" alt="post 3" /></div>
+    <div class="post"><img data-slot="4" src="assets/slots/slot-sky.png" alt="post 4" /><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M9.5 3l3 5.5M15.5 3l3 5.5"/><path d="M10 12v5l4.5-2.5z" fill="#fff"/></svg></div>
+    <div class="post"><img data-slot="5" src="assets/slots/slot-cream.png" alt="post 5" /></div>
+    <div class="post"><img data-slot="6" src="assets/slots/slot-mint.png" alt="post 6" /></div>
+    <div class="post"><img data-slot="7" src="assets/slots/slot-cream.png" alt="post 7" /></div>
+    <div class="post"><img data-slot="8" src="assets/slots/slot-mint.png" alt="post 8" /></div>
+    <div class="post"><img data-slot="9" src="assets/slots/slot-sky.png" alt="post 9" /></div>
+  </div>
+
+  <div class="tabbar">
+    <svg class="ico" width="27" height="27" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    <svg class="ico" width="27" height="27" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M9.5 3l3 5.5M15.5 3l3 5.5"/><path d="M10 12v5l4.5-2.5z"/></svg>
+    <svg class="ico" width="27" height="27" viewBox="0 0 24 24"><path d="M21.5 2.5 10.5 13.5M21.5 2.5 15 21l-4.5-7.5L3 9z"/></svg>
+    <svg class="ico" width="27" height="27" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m20.5 20.5-5-5"/></svg>
+    <div class="me"><div></div></div>
+    <div class="homebar"></div>
+  </div>
+</div>
+<script>
+  // Page 2: the same profile scrolled down to the grid (12 photo slots).
+  (() => {
+    const one = document.querySelector('.screen'), two = document.createElement('div');
+    two.className = 'screen';
+    for (const sel of ['.status', '.topbar', '.tabs']) two.appendChild(one.querySelector(sel).cloneNode(true));
+    const grid = one.querySelector('.grid').cloneNode(true), tints = ['mint', 'sky', 'cream'];
+    for (let n = 10; n <= 12; n++) {
+      const d = document.createElement('div'); d.className = 'post';
+      d.innerHTML = `<img data-slot="${n}" src="assets/slots/slot-${tints[n % 3]}.png" alt="post ${n}" />`;
+      grid.appendChild(d);
+    }
+    two.appendChild(grid);
+    two.appendChild(one.querySelector('.tabbar').cloneNode(true));
+    two.querySelector('.tabs').style.marginTop = '0';
+    document.body.appendChild(two);
+  })();
+  // ?filled previews the screen with the sample photos in assets/post-N.jpg
+  if (location.search.includes('filled'))
+    document.querySelectorAll('img[data-slot]').forEach(i => i.src = 'assets/post-' + (((i.dataset.slot - 1) % 9) + 1) + '.jpg');
+</script>
+</body>
+</html>
