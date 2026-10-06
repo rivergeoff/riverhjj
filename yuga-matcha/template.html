@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>yuga matcha — profile template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --matcha: #5f9150;
+      --deep: #2f6343;
+      --mint: #cfe5c4;
+      --sky: #8fb9e0;
+      --blue: #2c5f9e;
+      --navy: #1d3b63;
+      --cream: #f5f2e7;
+      --ink: #14211b;
+      --muted: #6b7a74;
+      --line: #e3e8e5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #dbe8f2; }
+    body { font-family: Inter, system-ui, sans-serif; color: var(--ink); display: flex; justify-content: center; }
+
+    /* 1080x1920 canvas (Instagram story / phone wallpaper size) */
+    .canvas { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+      background: linear-gradient(180deg, #a9c7e4 0%, #cfe0ee 38%, #dfeee4 62%, #8fbb87 100%); }
+    .blob { position: absolute; border-radius: 50%; filter: blur(60px); }
+    .hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 760px; }
+
+    .tag { position: absolute; top: 38px; left: 0; right: 0; text-align: center; font-family: Unbounded; font-weight: 600;
+      font-size: 22px; letter-spacing: 6px; color: #fff; opacity: .95; }
+    .tag b { color: var(--navy); font-weight: 800; }
+
+    /* App screen: designed at 390px wide, zoomed up */
+    .screen { position: absolute; top: 60px; left: 50%; width: 390px; zoom: 1.55; transform: translateX(-50%);
+      background: #fff; border-radius: 30px; overflow: hidden;
+      box-shadow: 0 30px 60px rgba(29,59,99,.25), 0 0 0 5px rgba(255,255,255,.55); }
+
+    .status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px 0 32px; font-weight: 600; font-size: 15px; }
+    .status .sys { display: flex; gap: 6px; align-items: center; }
+    .status svg { height: 12px; }
+
+    .nav { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+    .nav .user { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 20px; letter-spacing: -.3px; }
+    .nav .icons { display: flex; gap: 22px; }
+    .ico { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .head { display: flex; align-items: center; padding: 8px 16px 0; gap: 22px; }
+    .ring { width: 88px; height: 88px; border-radius: 50%; padding: 3px; background: conic-gradient(from 200deg, var(--sky), var(--blue), var(--matcha), var(--mint), var(--sky)); flex: none; }
+    .ring > div { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #fff; background: var(--deep); display: grid; place-items: center; overflow: hidden; }
+    .logo { font-family: Unbounded; font-weight: 800; font-size: 11px; letter-spacing: -.3px; color: var(--cream); text-align: center; line-height: 1.05; }
+    .logo i { font-style: normal; color: var(--sky); }
+    .stats { flex: 1; display: flex; justify-content: space-around; text-align: center; }
+    .stats b { display: block; font-size: 17px; font-weight: 700; }
+    .stats span { font-size: 13px; }
+
+    .bio { padding: 12px 16px 0; font-size: 13.5px; line-height: 1.38; }
+    .bio .name { font-weight: 700; }
+    .bio .cat { color: var(--muted); }
+    .bio .link { color: var(--blue); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+    .bio .link svg { width: 13px; height: 13px; stroke: var(--blue); }
+    .followed { display: flex; align-items: center; gap: 8px; padding: 10px 16px 0; font-size: 12px; color: var(--ink); }
+    .faces { display: flex; }
+    .faces span { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; margin-left: -6px; }
+    .faces span:first-child { margin-left: 0; }
+
+    .buttons { display: flex; gap: 6px; padding: 12px 16px 0; }
+    .buttons div { flex: 1; height: 32px; border-radius: 9px; background: #eef3f0; display: grid; place-items: center; font-size: 13.5px; font-weight: 600; }
+    .buttons .primary { background: var(--blue); color: #fff; }
+    .buttons .sq { flex: none; width: 34px; }
+
+    .highlights { display: flex; justify-content: space-between; padding: 16px 16px 0; }
+    .hl { width: 64px; text-align: center; font-size: 11.5px; }
+    .hl .c { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line); padding: 3px; margin-bottom: 5px; }
+    .hl .c > div { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; overflow: hidden; }
+    .hl svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+    .tabs { display: flex; margin-top: 16px; border-bottom: 1px solid var(--line); }
+    .tabs div { flex: 1; height: 44px; display: grid; place-items: center; position: relative; }
+    .tabs .on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1.5px; background: var(--ink); }
+    .tabs .ico { width: 24px; height: 24px; }
+    .tabs div:not(.on) .ico { stroke: #9aa5a0; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+    .post { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+    .post img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .badge { position: absolute; top: 7px; right: 7px; width: 16px; height: 16px; fill: #fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.25)); }
+    .pin { position: absolute; top: 7px; right: 7px; width: 15px; height: 15px; fill: #fff; filter: drop-shadow(0 1px 1px rgba(0,0,0,.25)); }
+
+    .tabbar { height: 74px; border-top: 1px solid var(--line); display: flex; justify-content: space-around; align-items: flex-start; padding-top: 12px; background: #fff; }
+    .tabbar .ico { width: 26px; height: 26px; }
+    .me { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--ink); padding: 1.5px; }
+    .me div { width: 100%; height: 100%; border-radius: 50%; background: var(--deep); }
+    .homebar { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: var(--ink); }
+
+    .foot { position: absolute; bottom: 30px; left: 0; right: 0; text-align: center; color: #fff; font-weight: 600; font-size: 24px; letter-spacing: .5px; }
+  </style>
+</head>
+<body>
+<div class="canvas">
+  <div class="blob" style="width:520px;height:520px;left:-160px;top:180px;background:#8fb9e0;opacity:.55"></div>
+  <div class="blob" style="width:480px;height:480px;right:-140px;top:640px;background:#cfe5c4;opacity:.6"></div>
+  <svg class="hills" viewBox="0 0 1080 760" preserveAspectRatio="none">
+    <path d="M0 250 L120 200 230 230 350 170 470 215 600 160 720 205 850 175 980 210 1080 190 V760 H0Z" fill="#88a9cf" opacity=".7"/>
+    <path d="M0 360 C180 300 360 350 540 320 C720 290 900 340 1080 300 V760 H0Z" fill="#7faa74"/>
+    <path d="M0 480 C200 430 420 500 640 455 C820 420 960 460 1080 440 V760 H0Z" fill="#4f8452"/>
+    <path d="M0 610 C240 570 460 620 700 590 C860 572 980 600 1080 590 V760 H0Z" fill="#2f6343"/>
+  </svg>
+
+  <div class="tag">YUGA <b>MATCHA</b> · FEED</div>
+
+  <div class="screen">
+    <div class="status">
+      <span>9:41</span>
+      <span class="sys">
+        <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#14211b"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#14211b"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#14211b"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#14211b"/></svg>
+        <svg viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM3.5 6.9a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.3 4.7a9.6 9.6 0 0 1 13.4 0l-1.4 1.4a7.6 7.6 0 0 0-10.6 0z" fill="#14211b"/></svg>
+        <svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="#14211b" opacity=".4"/><rect x="2" y="2" width="19" height="8" rx="2" fill="#14211b"/><rect x="24" y="4" width="2" height="4" rx="1" fill="#14211b" opacity=".4"/></svg>
+      </span>
+    </div>
+
+    <div class="nav">
+      <div class="user">
+        <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        yuga.matcha
+        <svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="icons">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 6.4 15.4"/><circle cx="12" cy="12" r="3.5"/><path d="M15.5 8.5v5a2.5 2.5 0 0 0 5 0V12"/></svg>
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </div>
+    </div>
+
+    <div class="head">
+      <div class="ring"><div><div class="logo">yuga<br/><i>matcha</i></div></div></div>
+      <div class="stats">
+        <div><b>48</b><span>posts</span></div>
+        <div><b>12.4K</b><span>followers</span></div>
+        <div><b>86</b><span>following</span></div>
+      </div>
+    </div>
+
+    <div class="bio">
+      <div class="name">yuga matcha</div>
+      <div class="cat">Café</div>
+      <div>ceremonial-grade matcha bar · whisked to order</div>
+      <div>open daily 8:00–20:00 · find the blue door</div>
+      <div class="link"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>yugamatcha.cafe</div>
+    </div>
+    <div class="followed">
+      <div class="faces"><span style="background:#8fb9e0"></span><span style="background:#5f9150"></span><span style="background:#2c5f9e"></span></div>
+      <div>Followed by <b>bluedoor.co</b>, <b>slowsips</b> and 214 others</div>
+    </div>
+
+    <div class="buttons">
+      <div class="primary">Follow</div>
+      <div>Message</div>
+      <div class="sq"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 20a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg></div>
+    </div>
+
+    <div class="highlights">
+      <div class="hl"><div class="c"><div style="background:linear-gradient(135deg,#cfe5c4,#8fb9e0);color:#1d3b63"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div></div>menu</div>
+      <div class="hl"><div class="c"><div style="background:#f5f2e7;color:#2c5f9e"><svg viewBox="0 0 24 24"><path d="M5 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M9 3c-1 1.5 1 2.5 0 4M13 3c-1 1.5 1 2.5 0 4"/></svg></div></div>drinks</div>
+      <div class="hl"><div class="c"><div style="background:#5f9150;color:#fff"><svg viewBox="0 0 24 24"><path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/><path d="M5 19 13 11"/></svg></div></div>ritual</div>
+      <div class="hl"><div class="c"><div style="background:#1d3b63;color:#8fb9e0"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></div></div>hiring</div>
+      <div class="hl"><div class="c"><div style="background:#cfe5c4;color:#2f6343"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>visit us</div>
+    </div>
+
+    <div class="tabs">
+      <div class="on"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
+      <div><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M9 3l3 5.5M15 3l3 5.5"/><path d="M10 12v5l4.5-2.5z"/></svg></div>
+      <div><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M6.5 19a5.5 5.5 0 0 1 11 0"/></svg></div>
+    </div>
+
+    <!-- 9 photo slots. In Canva: drag a photo onto a slot to replace it. -->
+    <div class="grid">
+      <div class="post"><img data-slot="1" src="assets/slots/slot-mint.png" alt="photo slot 1" /><svg class="pin" viewBox="0 0 24 24"><path d="M14.5 2.5 21.5 9.5 18.5 10 14 14.5 14.5 19 13 20.5 9 16.5 3.5 22 2 20.5 7.5 15 3.5 11 5 9.5 9.5 10 14 5.5z"/></svg></div>
+      <div class="post"><img data-slot="2" src="assets/slots/slot-sky.png" alt="photo slot 2" /><svg class="badge" viewBox="0 0 24 24"><path d="M3 5h13v13H3z" opacity=".9"/><path d="M8 2h14v14h-3V5H8z"/></svg></div>
+      <div class="post"><img data-slot="3" src="assets/slots/slot-cream.png" alt="photo slot 3" /></div>
+      <div class="post"><img data-slot="4" src="assets/slots/slot-sky.png" alt="photo slot 4" /><svg class="badge" viewBox="0 0 24 24"><path d="M3 3h18v18H3z" opacity="0"/><path d="M7 4.5v15l12-7.5z"/></svg></div>
+      <div class="post"><img data-slot="5" src="assets/slots/slot-cream.png" alt="photo slot 5" /></div>
+      <div class="post"><img data-slot="6" src="assets/slots/slot-mint.png" alt="photo slot 6" /></div>
+      <div class="post"><img data-slot="7" src="assets/slots/slot-cream.png" alt="photo slot 7" /></div>
+      <div class="post"><img data-slot="8" src="assets/slots/slot-mint.png" alt="photo slot 8" /><svg class="badge" viewBox="0 0 24 24"><path d="M3 5h13v13H3z" opacity=".9"/><path d="M8 2h14v14h-3V5H8z"/></svg></div>
+      <div class="post"><img data-slot="9" src="assets/slots/slot-sky.png" alt="photo slot 9" /></div>
+    </div>
+
+    <div class="tabbar" style="position:relative">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 8.5h18M9 3l3 5.5M15 3l3 5.5"/><path d="M10 12v5l4.5-2.5z"/></svg>
+      <svg class="ico" viewBox="0 0 24 24"><path d="M3 12 21 3l-6 18-3-8z"/><path d="m12 13 9-10"/></svg>
+      <div class="me"><div></div></div>
+      <div class="homebar"></div>
+    </div>
+  </div>
+
+  <div class="foot">@yuga.matcha</div>
+</div>
+<script>
+  // ?filled previews the template with the sample photos in assets/post-N.jpg
+  if (location.search.includes('filled'))
+    document.querySelectorAll('img[data-slot]').forEach(i => i.src = 'assets/post-' + i.dataset.slot + '.jpg');
+</script>
+</body>
+</html>
