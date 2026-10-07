@@ -9,3 +9,4 @@ Every text field is a `[placeholder]` and every hatched box is a drop zone for y
 - `src/deck.html` + `src/deck.css` — the slide source
 - `src/scene.html` + `src/render-assets.js` — generates the grass, sky, paper and felt textures in `assets/`
 - `src/render-deck.js` — renders previews (`node render-deck.js`) and the PDF (`--pdf`)
+- `src/build-canva.js` — builds `canva/deck.html` (CSS inlined, SVGs as PNGs) for Canva's URL import, which keeps fonts and editable text far better than a PDF import
