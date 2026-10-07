@@ -9,15 +9,17 @@ const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
 const ref = process.argv[2] || 'main';
 const repoBase = `https://raw.githubusercontent.com/rivergeoff/riverhjj/${ref}/portfolio/`;
+const DECK = process.env.DECK || 'deck';
 const outDir = path.join(__dirname, '..', 'canva');
-const imgDir = path.join(outDir, 'img');
+const imgName = DECK === 'deck' ? 'img' : `img-${DECK}`;
+const imgDir = path.join(outDir, imgName);
 
 (async () => {
   fs.rmSync(imgDir, { recursive: true, force: true });
   fs.mkdirSync(imgDir, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
-  await page.goto('file://' + path.join(__dirname, 'deck.html'), { waitUntil: 'networkidle' });
+  await page.goto('file://' + path.join(__dirname, `${DECK}.html`), { waitUntil: 'networkidle' });
 
   const svgs = await page.evaluate(() => {
     document.querySelectorAll('script').forEach(s => s.remove());
@@ -68,10 +70,10 @@ const imgDir = path.join(outDir, 'img');
   }
   await browser.close();
 
-  const css = fs.readFileSync(path.join(__dirname, 'deck.css'), 'utf8');
-  html = html.replace(/<link rel="stylesheet" href="deck.css">/, `<style>\n${css}\n</style>`);
+  const css = fs.readFileSync(path.join(__dirname, `${DECK}.css`), 'utf8');
+  html = html.replace(new RegExp(`<link rel="stylesheet" href="${DECK}.css">`), `<style>\n${css}\n</style>`);
   html = html.split('../assets/').join(repoBase + 'assets/');
-  html = html.split('__IMG__').join(repoBase + 'canva/img/');
-  fs.writeFileSync(path.join(outDir, 'deck.html'), html);
-  console.log('wrote canva/deck.html with', svgs.length, 'svg images');
+  html = html.split('__IMG__').join(repoBase + `canva/${imgName}/`);
+  fs.writeFileSync(path.join(outDir, `${DECK}.html`), html);
+  console.log(`wrote canva/${DECK}.html with`, svgs.length, 'svg images');
 })();
