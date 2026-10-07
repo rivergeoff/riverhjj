@@ -1,23 +1,28 @@
 // Bakes deck.html into a single static HTML file for Canva's URL import:
-// runs the page scripts, inlines deck.css, points asset URLs at the public repo
-// and drops <script> tags. Output: ../canva/deck.html
-// Usage: node build-canva.js <branch>
+// runs the page scripts, inlines deck.css, points asset URLs at the public repo,
+// and swaps every inline SVG (which Canva's importer drops) for a transparent PNG.
+// Output: ../canva/deck.html and ../canva/img/*.png
+// Usage: node build-canva.js <branch-or-commit>
 const path = require('path');
 const fs = require('fs');
 const { chromium } = require('/opt/node-tools/node_modules/playwright');
 
-const branch = process.argv[2] || 'main';
-const assetBase = `https://raw.githubusercontent.com/rivergeoff/riverhjj/${branch}/portfolio/assets/`;
+const ref = process.argv[2] || 'main';
+const repoBase = `https://raw.githubusercontent.com/rivergeoff/riverhjj/${ref}/portfolio/`;
+const outDir = path.join(__dirname, '..', 'canva');
+const imgDir = path.join(outDir, 'img');
 
 (async () => {
+  fs.rmSync(imgDir, { recursive: true, force: true });
+  fs.mkdirSync(imgDir, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   await page.goto('file://' + path.join(__dirname, 'deck.html'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => {
+
+  const svgs = await page.evaluate(() => {
     document.querySelectorAll('script').forEach(s => s.remove());
-    // Canva's importer ignores <use> references, so inline every symbol (and the
-    // gradient/pattern defs it needs) into the SVG that uses it.
     const defs = document.querySelector('svg defs');
+    // inline <use> symbols so each SVG is self-contained
     document.querySelectorAll('svg use').forEach(use => {
       const sym = document.querySelector(use.getAttribute('href'));
       const svg = use.closest('svg');
@@ -29,18 +34,44 @@ const assetBase = `https://raw.githubusercontent.com/rivergeoff/riverhjj/${branc
       if (/url\(#/.test(sym.innerHTML) && defs) svg.insertBefore(defs.cloneNode(true), svg.firstChild);
       use.replaceWith(g);
     });
-    const sprite = document.querySelector('body > svg[width="0"]');
-    if (sprite) sprite.remove();
+    document.querySelector('body > svg[width="0"]')?.remove();
+
+    // replace each remaining SVG with an <img> placeholder, keeping its box styles
+    const list = [];
+    document.querySelectorAll('svg').forEach((svg, i) => {
+      const cs = getComputedStyle(svg);
+      const w = parseFloat(cs.width), h = parseFloat(cs.height);
+      const clone = svg.cloneNode(true);
+      clone.removeAttribute('class');
+      clone.setAttribute('style', `display:block;width:${w}px;height:${h}px;overflow:visible;color:${cs.color};fill:${cs.fill};stroke:${cs.stroke};stroke-width:${cs.strokeWidth}`);
+      clone.setAttribute('width', w); clone.setAttribute('height', h);
+      list.push({ i, w, h, markup: clone.outerHTML });
+      const img = document.createElement('img');
+      img.setAttribute('src', `__IMG__svg-${i}.png`);
+      if (svg.getAttribute('class')) img.setAttribute('class', svg.getAttribute('class'));
+      img.setAttribute('style', (svg.getAttribute('style') || '') + `;width:${w}px;height:${h}px;display:block`);
+      if (!svg.closest('.abs, .ico, .cursor') && cs.position === 'static') img.style.display = 'inline-block';
+      svg.replaceWith(img);
+    });
+    return list;
   });
+
   let html = await page.content();
+
+  // render each SVG on a transparent page at 2x
+  const shot = await browser.newPage({ deviceScaleFactor: 2 });
+  for (const s of svgs) {
+    const pad = 8;
+    await shot.setViewportSize({ width: Math.ceil(s.w) + pad * 2, height: Math.ceil(s.h) + pad * 2 });
+    await shot.setContent(`<html><body style="margin:0;padding:${pad}px;background:transparent">${s.markup}</body></html>`);
+    await shot.locator('svg').screenshot({ path: path.join(imgDir, `svg-${s.i}.png`), omitBackground: true });
+  }
   await browser.close();
 
   const css = fs.readFileSync(path.join(__dirname, 'deck.css'), 'utf8');
   html = html.replace(/<link rel="stylesheet" href="deck.css">/, `<style>\n${css}\n</style>`);
-  html = html.split('../assets/').join(assetBase);
-
-  const out = path.join(__dirname, '..', 'canva');
-  fs.mkdirSync(out, { recursive: true });
-  fs.writeFileSync(path.join(out, 'deck.html'), html);
-  console.log('wrote canva/deck.html', html.length, 'bytes');
+  html = html.split('../assets/').join(repoBase + 'assets/');
+  html = html.split('__IMG__').join(repoBase + 'canva/img/');
+  fs.writeFileSync(path.join(outDir, 'deck.html'), html);
+  console.log('wrote canva/deck.html with', svgs.length, 'svg images');
 })();
