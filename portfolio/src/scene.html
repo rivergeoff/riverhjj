@@ -1,0 +1,142 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0;background:transparent}
+  #c{display:block}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<script>
+// Procedural backdrops rendered to PNG. ?kind=hill|field|paper&w=&h=&color=
+const q = new URLSearchParams(location.search);
+const kind = q.get('kind') || 'hill';
+const W = +q.get('w') || 1920, H = +q.get('h') || 1080;
+const cv = document.getElementById('c'); cv.width = W; cv.height = H;
+const g = cv.getContext('2d');
+
+// deterministic PRNG so renders are reproducible
+let seed = +(q.get('seed') || 7);
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+function grain(alpha, size = 1) {
+  const img = g.getImageData(0, 0, W, H), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const n = (rnd() - 0.5) * 255 * alpha;
+    d[i] += n; d[i + 1] += n; d[i + 2] += n;
+  }
+  g.putImageData(img, 0, 0);
+}
+
+function fibres(color, count, len) {
+  g.strokeStyle = color; g.lineWidth = 0.6;
+  for (let i = 0; i < count; i++) {
+    const x = rnd() * W, y = rnd() * H, a = rnd() * Math.PI * 2, l = len * (0.3 + rnd());
+    g.globalAlpha = 0.05 + rnd() * 0.08;
+    g.beginPath(); g.moveTo(x, y);
+    g.quadraticCurveTo(x + Math.cos(a + 0.6) * l * 0.5, y + Math.sin(a + 0.6) * l * 0.5, x + Math.cos(a) * l, y + Math.sin(a) * l);
+    g.stroke();
+  }
+  g.globalAlpha = 1;
+}
+
+function sky(top, bottom, horizon) {
+  const s = g.createLinearGradient(0, 0, 0, horizon);
+  s.addColorStop(0, top); s.addColorStop(1, bottom);
+  g.fillStyle = s; g.fillRect(0, 0, W, H);
+  // soft clouds
+  g.filter = 'blur(38px)';
+  for (let i = 0; i < 9; i++) {
+    const cx = rnd() * W, cy = horizon * (0.15 + rnd() * 0.55), r = 120 + rnd() * 260;
+    g.fillStyle = `rgba(255,255,255,${0.25 + rnd() * 0.3})`;
+    g.beginPath(); g.ellipse(cx, cy, r * 1.8, r * 0.35, 0, 0, Math.PI * 2); g.fill();
+  }
+  g.filter = 'none';
+}
+
+function hillPath(baseY, amp, phase, freq) {
+  const pts = [];
+  for (let x = -20; x <= W + 20; x += 8) {
+    const t = x / W;
+    const y = baseY - amp * Math.sin(t * Math.PI * freq + phase) - amp * 0.35 * Math.sin(t * Math.PI * freq * 2.3 + phase * 1.7);
+    pts.push([x, y]);
+  }
+  return pts;
+}
+
+function drawHill(pts, light, dark, bladeCount) {
+  // body
+  const minY = Math.min(...pts.map(p => p[1]));
+  const grd = g.createLinearGradient(0, minY, 0, H);
+  grd.addColorStop(0, light); grd.addColorStop(1, dark);
+  g.fillStyle = grd;
+  g.beginPath(); g.moveTo(pts[0][0], H);
+  pts.forEach(p => g.lineTo(p[0], p[1]));
+  g.lineTo(W + 20, H); g.closePath(); g.fill();
+
+  // grass blades: dense short strokes across the hill body, longer at the crest
+  g.save(); g.clip();
+  g.lineCap = 'round';
+  const yAt = x => { const i = Math.max(0, Math.min(pts.length - 1, Math.round((x + 20) / 8))); return pts[i][1]; };
+  for (let i = 0; i < bladeCount; i++) {
+    const x = rnd() * W, top = yAt(x);
+    const y = top + Math.pow(rnd(), 1.6) * (H - top);
+    const depth = (y - top) / (H - top + 1);
+    const l = 6 + rnd() * 14 + depth * 22;
+    const lean = (rnd() - 0.5) * l * 0.9;
+    const shade = rnd();
+    g.strokeStyle = shade > 0.62 ? 'rgba(214,232,150,0.55)' : shade > 0.3 ? 'rgba(70,110,40,0.55)' : 'rgba(30,60,22,0.5)';
+    g.lineWidth = 0.8 + rnd() * 1.4;
+    g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + lean * 0.3, y - l * 0.6, x + lean, y - l); g.stroke();
+  }
+  g.restore();
+
+  // fuzzy crest
+  g.lineCap = 'round';
+  for (let x = -10; x < W + 10; x += 1.6) {
+    const top = yAt(x), l = 6 + rnd() * 16;
+    g.strokeStyle = rnd() > 0.5 ? 'rgba(160,196,92,0.9)' : 'rgba(96,140,56,0.9)';
+    g.lineWidth = 0.9 + rnd();
+    const lean = (rnd() - 0.5) * 10;
+    g.beginPath(); g.moveTo(x, top + 6); g.quadraticCurveTo(x + lean * 0.4, top - l * 0.5, x + lean, top - l); g.stroke();
+  }
+}
+
+if (kind === 'hill') {
+  sky('#b9cbd6', '#dde6e8', H * 0.7);
+  drawHill(hillPath(H * 0.80, 70, 0.4, 1.4), '#7fa14a', '#3d5f26', 26000);
+  drawHill(hillPath(H * 0.93, 60, 2.2, 1.9), '#8db353', '#2f4f1d', 30000);
+  grain(0.06);
+} else if (kind === 'field') {
+  // close-up meadow, horizon high — for full-bleed backdrops
+  sky('#aec3d0', '#e3e9e6', H * 0.38);
+  drawHill(hillPath(H * 0.42, 14, 1.0, 1.1), '#a2b86a', '#4f6b2c', 60000);
+  // long blades in foreground
+  g.lineCap = 'round';
+  for (let i = 0; i < 2600; i++) {
+    const x = rnd() * W, y = H * 0.7 + rnd() * H * 0.35, l = 60 + rnd() * 160, lean = (rnd() - 0.4) * 70;
+    g.strokeStyle = rnd() > 0.5 ? 'rgba(122,150,64,0.55)' : 'rgba(58,86,32,0.6)';
+    g.lineWidth = 1 + rnd() * 2.4;
+    g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + lean * 0.2, y - l * 0.6, x + lean, y - l); g.stroke();
+  }
+  g.filter = 'none';
+  grain(0.07);
+} else if (kind === 'paper') {
+  g.fillStyle = q.get('color') || '#ede6d6'; g.fillRect(0, 0, W, H);
+  // mottled fibre + tooth
+  g.filter = 'blur(30px)';
+  for (let i = 0; i < 40; i++) {
+    g.fillStyle = rnd() > 0.5 ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.035)';
+    g.beginPath(); g.arc(rnd() * W, rnd() * H, 80 + rnd() * 260, 0, Math.PI * 2); g.fill();
+  }
+  g.filter = 'none';
+  fibres(q.get('fibre') || '#000', Math.round(W * H / 900), 18);
+  grain(+(q.get('grain') || 0.07));
+} else if (kind === 'felt') {
+  g.fillStyle = q.get('color') || '#5a3a2a'; g.fillRect(0, 0, W, H);
+  fibres('#000', Math.round(W * H / 120), 10);
+  fibres('#fff', Math.round(W * H / 400), 8);
+  grain(0.12);
+}
+document.title = 'done';
+</script>
+</body></html>
