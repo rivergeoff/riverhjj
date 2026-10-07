@@ -167,25 +167,6 @@
   .nav svg { width: 27px; height: 27px; }
   .nav .me { width: 28px; height: 28px; border-radius: 50%; background: var(--pine); outline: 2px solid #000; outline-offset: 2px; display: grid; place-items: center; font-family: Fraunces; font-style: italic; color: var(--cream); font-size: 11px; }
   .homebar { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: #000; }
-
-  /* photo posts: photo untouched, a soft pine/door-blue veil only where text sits */
-  .phone { height: 932px; }
-  .nav { position: absolute; left: 0; right: 0; bottom: 0; }
-  .shot { background-size: cover; background-position: center top; }
-  .shot.top { background-size: 100% auto; background-repeat: no-repeat; background-color: #e9eeec; }
-  .shot .veil { position: absolute; inset: 0; z-index: 1; background:
-      linear-gradient(180deg, rgba(14,36,46,.42) 0%, rgba(14,36,46,0) 22%),
-      linear-gradient(0deg, rgba(16,40,36,.82) 0%, rgba(20,52,58,.45) 30%, rgba(20,52,58,0) 52%); }
-  .shot .veil-top { position: absolute; left: 0; right: 0; top: 0; height: 40px; z-index: 1; background: linear-gradient(180deg, rgba(14,36,46,.45), rgba(14,36,46,0)); }
-  .shot .pad { z-index: 2; color: var(--cream); padding: 11px 10px 9px; }
-  .shot .tag { font-size: 6.3px; letter-spacing: .28em; color: #dcebe2; text-shadow: 0 1px 3px rgba(0,0,0,.35); }
-  .shot .bottom { margin-top: auto; }
-  .shot h2 { font-weight: 300; font-size: 21px; line-height: .95; letter-spacing: -0.02em; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
-  .shot h2 i { color: #c8e0b0; font-weight: 300; }
-  .shot .list { list-style: none; margin-top: 6px; font-family: Inter; font-size: 6.3px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.75; color: #e8f0ec; }
-  .shot .list b { font-weight: 500; color: #a9cfe0; margin-right: 6px; }
-  .shot .sig { display: flex; justify-content: space-between; align-items: baseline; margin-top: 7px; padding-top: 5px; border-top: .5px solid rgba(242,239,230,.45); font-family: Inter; font-size: 5.6px; letter-spacing: .22em; text-transform: uppercase; color: #dcebe2; }
-  .shot .sig .wm { font-family: Fraunces; font-style: italic; font-size: 10px; letter-spacing: 0; text-transform: none; color: var(--cream); }
 </style>
 </head>
 <body>
@@ -256,57 +237,179 @@
     <div><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5a6 6 0 0 1 11 0"/></svg></div>
   </div>
 
-  <!-- ───── FEED: original photos, untouched — brand type layered on top ───── -->
+  <!-- ───── FEED (newest first) ───── -->
   <div class="grid">
 
-    <!-- whisk pour (pinned) -->
-    <div class="post shot" style="background-image:url(img/orig-whisk.jpg)">
+    <!-- 1 · pinned hero photo -->
+    <div class="post photo p-whisk">
       <span class="badge"><svg viewBox="0 0 24 24"><path d="M15 2l7 7-2 1-3 3 .5 5L16 19.5 11.5 15 5 21.5 3 22l.5-2L10 13.5 4.5 8 6 6.5l5 .5 3-3z"/></svg></span>
-      <div class="veil"></div>
       <div class="pad">
-        <span class="tag">no.01 · the ritual</span>
-        <div class="bottom">
-          <h2>whisked<br><i>to order.</i></h2>
-          <div class="sig"><span>ceremonial grade</span><span class="wm">yuga</span></div>
-        </div>
+        <span class="tag">no.01 — the ritual</span>
+        <h2>whisked<br><i>to order.</i></h2>
       </div>
     </div>
 
-    <!-- green poster (carousel) -->
-    <div class="post shot" style="background-image:url(img/orig-poster.jpg)">
+    <!-- 2 · blue door (carousel) -->
+    <div class="post p-door">
       <span class="badge"><svg viewBox="0 0 24 24"><path d="M7 2h13a2 2 0 0 1 2 2v13h-2V4H7z"/><rect x="2" y="7" width="15" height="15" rx="2"/></svg></span>
-      <div class="veil"></div>
+      <svg class="doorart" viewBox="0 0 100 130">
+        <path d="M14 128V44a36 36 0 0 1 72 0v84" fill="#3d7396" stroke="#f2efe6" stroke-width="1.6"/>
+        <path d="M24 128V48a26 26 0 0 1 52 0v80" fill="none" stroke="#f2efe6" stroke-width=".8" opacity=".6"/>
+        <circle cx="66" cy="86" r="2.6" fill="#f2efe6"/>
+        <path d="M4 128h92" stroke="#f2efe6" stroke-width="1.6"/>
+        <path d="M76 116c4-8 12-10 16-6-2 6-9 9-16 6zM80 128c-1-6 0-10 4-13" fill="#8fb06a" stroke="#8fb06a" stroke-width="1"/>
+        <text x="50" y="40" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="9" fill="#f2efe6">yuga</text>
+      </svg>
       <div class="pad">
-        <span class="tag">yuga × greenspace</span>
-        <div class="bottom">
-          <h2>green<br><i>on green.</i></h2>
-          <div class="sig"><span>poster drop · vol. I</span><span class="wm">yuga</span></div>
-        </div>
+        <span class="tag">how to find us</span>
+        <h2>look for<br><i>the blue door.</i></h2>
       </div>
     </div>
 
-    <!-- three cups -->
-    <div class="post shot" style="background-image:url(img/orig-trio.jpg)">
-      <div class="veil"></div>
+    <!-- 3 · summer trio photo -->
+    <div class="post photo p-trio">
       <div class="pad">
         <span class="tag">new this week</span>
-        <div class="bottom">
-          <h2>the <i>tide</i> trio</h2>
-          <ul class="list"><li><b>01</b>usucha latte</li><li><b>02</b>hojicha cloud</li><li><b>03</b>ocean matcha</li></ul>
-          <div class="sig"><span>iced · to order</span><span class="wm">yuga</span></div>
+        <div class="names">
+          <h2>the tide trio</h2>
+          <ul><li>01 · usucha latte</li><li>02 · hojicha cloud</li><li>03 · ocean matcha</li></ul>
         </div>
       </div>
     </div>
 
-    <!-- second row: only the top edge shows above the tab bar -->
-    <div class="post shot top" style="background-image:url(img/orig-menu-top.jpg)">
-      <span class="badge"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 5h14M8 3l3 5M13 3l3 5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 11.5v5.5l4.8-2.75z"/></svg></span>
-      <div class="veil-top"></div><div class="pad"><span class="tag">menu · no.04</span></div>
+    <!-- 4 · manifesto -->
+    <div class="post p-slow">
+      <div class="pad">
+        <span class="tag">yuga · 悠雅 · <i>graceful, unhurried</i></span>
+        <h2>slow<br>is a<br><i>flavor.</i></h2>
+        <div class="foot"><span>yuga matcha</span><span>est. '24</span></div>
+      </div>
     </div>
-    <div class="post shot top" style="background-image:url(img/orig-powder-top.jpg)">
-      <div class="veil-top"></div><div class="pad"><span class="tag">uji · stone-milled</span></div>
+
+    <!-- 5 · ocean matcha (reel) -->
+    <div class="post p-ocean">
+      <span class="badge" style="color:#16302b;filter:none"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 5h14M8 3l3 5M13 3l3 5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 11.5v5.5l4.8-2.75z"/></svg></span>
+      <svg class="glass" viewBox="0 0 100 140">
+        <defs><clipPath id="cup"><path d="M18 22h64l-7 112H25z"/></clipPath></defs>
+        <g clip-path="url(#cup)">
+          <rect x="0" y="22" width="100" height="120" fill="#f6f8f4"/>
+          <path d="M0 60c20-6 30 6 50 0s30-8 50 0v90H0z" fill="#9cc3d6"/>
+          <path d="M0 78c18 8 34-6 50 0s32 6 50-2v70H0z" fill="#5d93b2"/>
+          <path d="M0 104c20-6 32 6 50 0s30-6 50 0v40H0z" fill="#5f9a62"/>
+          <path d="M0 118c22 4 30-4 50 0s30 4 50 0v30H0z" fill="#3f7a64"/>
+          <rect x="30" y="44" width="10" height="10" rx="2" fill="#fff" opacity=".7" transform="rotate(12 35 49)"/>
+          <rect x="52" y="54" width="9" height="9" rx="2" fill="#fff" opacity=".6" transform="rotate(-10 56 58)"/>
+        </g>
+        <path d="M18 22h64l-7 112H25z" fill="none" stroke="#16302b" stroke-width="1.4"/>
+        <path d="M58 22 66 2" stroke="#16302b" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="pad">
+        <span class="tag" style="text-align:left;margin:0">limited · summer</span>
+        <h2>matcha, but<br>make it <i>ocean.</i></h2>
+        <span class="tag">butterfly pea · coconut · uji</span>
+      </div>
     </div>
-    <div class="post shot top" style="background-image:url(img/orig-grain-top.jpg)"></div>
+
+    <!-- 6 · menu card -->
+    <div class="post p-menu">
+      <div class="pad">
+        <span class="tag">menu · no.04</span>
+        <h2>the green list</h2>
+        <ol>
+          <li><span>usucha<em>straight, hot</em></span><span>5.5</span></li>
+          <li><span>iced latte<em>oat or whole</em></span><span>6.5</span></li>
+          <li><span>ocean matcha<em>butterfly pea</em></span><span>7</span></li>
+          <li><span>yuzu tonic<em>sparkling</em></span><span>7</span></li>
+        </ol>
+        <div class="foot" style="color:var(--jade)"><span>whisked to order</span><span>yuga</span></div>
+      </div>
+    </div>
+
+    <!-- 7 · ritual steps -->
+    <div class="post p-steps">
+      <span class="badge" style="color:#16302b;filter:none"><svg viewBox="0 0 24 24"><path d="M7 2h13a2 2 0 0 1 2 2v13h-2V4H7z"/><rect x="2" y="7" width="15" height="15" rx="2"/></svg></span>
+      <div class="pad">
+        <span class="tag">the ritual</span>
+        <h2>four steps,<br><i>no shortcuts.</i></h2>
+        <div class="row"><b>1</b><span><strong>sift</strong>2g ceremonial grade</span></div>
+        <div class="row"><b>2</b><span><strong>pour</strong>70ml at 80°C</span></div>
+        <div class="row"><b>3</b><span><strong>whisk</strong>“m” strokes, 20 sec</span></div>
+        <div class="row"><b>4</b><span><strong>sip</strong>slowly. that's it.</span></div>
+      </div>
+    </div>
+
+    <!-- 8 · brand seal -->
+    <div class="post p-seal">
+      <svg viewBox="0 0 200 200">
+        <defs><path id="ring" d="M100 100m-72 0a72 72 0 1 1 144 0a72 72 0 1 1-144 0"/></defs>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#f2efe6" stroke-width="1"/>
+        <circle cx="100" cy="100" r="56" fill="none" stroke="#f2efe6" stroke-width=".6" opacity=".6"/>
+        <text font-family="Inter" font-size="10.5" letter-spacing="4.1" fill="#f2efe6"><textPath href="#ring">CEREMONIAL GRADE · WHISKED TO ORDER · </textPath></text>
+        <text x="100" y="98" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="300" font-size="34" fill="#f2efe6">yuga</text>
+        <text x="100" y="118" text-anchor="middle" font-family="Inter" font-size="8" letter-spacing="5" fill="#cfe3b3">MATCHA</text>
+        <path d="M100 128c-6 4-6 10 0 14 6-4 6-10 0-14z" fill="#cfe3b3"/>
+      </svg>
+    </div>
+
+    <!-- 9 · origin / grade -->
+    <div class="post p-grade">
+      <svg class="tin" viewBox="0 0 80 110">
+        <rect x="8" y="16" width="64" height="90" rx="4" fill="#e3ece8"/>
+        <rect x="6" y="8" width="68" height="14" rx="3" fill="#8fb06a"/>
+        <rect x="8" y="46" width="64" height="34" fill="#16302b"/>
+        <text x="40" y="62" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="#f2efe6">yuga</text>
+        <text x="40" y="72" text-anchor="middle" font-family="Inter" font-size="4.2" letter-spacing="2" fill="#8fb06a">UJI · 30G</text>
+        <text x="40" y="96" text-anchor="middle" font-family="Inter" font-size="4" letter-spacing="1.6" fill="#2c5a7a">FIRST HARVEST</text>
+      </svg>
+      <div class="pad">
+        <span class="tag" style="opacity:.8">origin story</span>
+        <h2>shade-grown<br>in <i>uji, kyoto.</i></h2>
+        <div class="facts"><span>1st flush</span><span>·</span><span>stone-milled</span></div>
+      </div>
+    </div>
+
+    <!-- 10 · hiring -->
+    <div class="post p-hire">
+      <div class="pad">
+        <span class="tag">now hiring</span>
+        <h2>baristas<br><i>with a</i><br>steady wrist.</h2>
+        <p>part-time · weekends · we'll teach you the whisk.</p>
+        <span class="cta">apply → link in bio</span>
+      </div>
+    </div>
+
+    <!-- 11 · hours -->
+    <div class="post p-hours">
+      <div class="pad">
+        <svg class="sun" viewBox="0 0 60 40"><path d="M8 34a22 22 0 0 1 44 0" fill="none" stroke="#8fb06a" stroke-width="1.4"/><path d="M2 34h56" stroke="#6f9bb3" stroke-width="1.4"/><path d="M10 39h40" stroke="#6f9bb3" stroke-width=".8" opacity=".6"/><path d="M30 6v5M12 14l3 3M48 14l-3 3" stroke="#8fb06a" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <span class="tag">open daily</span>
+        <h2>8:00 <i>—</i><br>20:00</h2>
+        <p>first whisk at sunrise,<br>last one at dusk.</p>
+        <div class="foot" style="color:var(--tide)"><span>find the blue door</span><span>yuga</span></div>
+      </div>
+    </div>
+
+    <!-- 12 · how we whisk (reel) -->
+    <div class="post p-reel">
+      <span class="badge" style="color:#16302b;filter:none"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 5h14M8 3l3 5M13 3l3 5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 11.5v5.5l4.8-2.75z"/></svg></span>
+      <svg class="bowl" viewBox="0 0 120 100">
+        <g stroke="#16302b" stroke-width="1" fill="none">
+          <path d="M60 4v26"/>
+          <path d="M52 14h16v18H52z" fill="#e7d9b8"/>
+          <path d="M50 32c0 10 4 18 10 22 6-4 10-12 10-22" fill="#efe4c8"/>
+          <path d="M54 32l2 20M58 32l1 22M62 32l-1 22M66 32l-2 20"/>
+        </g>
+        <path d="M10 52h100c0 24-22 42-50 42S10 76 10 52z" fill="#2c5a7a"/>
+        <ellipse cx="60" cy="52" rx="50" ry="8" fill="#5f9a62"/>
+        <ellipse cx="60" cy="52" rx="34" ry="5" fill="#8fb06a"/>
+        <path d="M40 70c10 6 30 6 40 0" stroke="#6f9bb3" stroke-width="1.2" fill="none" opacity=".8"/>
+      </svg>
+      <div class="pad">
+        <h2>how we whisk:<br><i>a 20-second</i> ritual</h2>
+        <span class="play">▶ watch the reel</span>
+      </div>
+    </div>
+
   </div>
 
   <div class="nav">
