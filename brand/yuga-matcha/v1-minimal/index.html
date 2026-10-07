@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yuga Matcha Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..500,100,1;1,9..144,300..500,100,1&family=Instrument+Sans:wght@400;500;600&family=Shippori+Mincho:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pine: #16302b; --jade: #3f7a64; --matcha: #8fb06a; --foam: #c3dba4;
+    --door: #2c5a7a; --tide: #6f9bb3; --mist: #e3ece8; --cream: #f2efe6; --ink: #0f1f1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--pine); font-family: "Instrument Sans", system-ui, sans-serif; }
+  .sheet { width: 1200px; max-width: 100%; margin: 0 auto; }
+  .serif { font-family: Fraunces, serif; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .label { font-size: 11px; letter-spacing: .32em; text-transform: uppercase; font-weight: 500; }
+  section { padding: 72px 80px; }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; border-bottom: 1px solid rgba(22,48,43,.18); padding-bottom: 14px; }
+  .sec-head h2 { font-family: Fraunces, serif; font-weight: 300; font-style: italic; font-size: 34px; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .sec-head .label { color: var(--door); }
+
+  /* hero */
+  .hero { background: var(--pine); color: var(--cream); padding: 64px 80px 72px; position: relative; overflow: hidden; }
+  .hero .top { display: flex; justify-content: space-between; color: var(--matcha); }
+  .hero .logo { display: block; width: 560px; margin: 70px auto 60px; }
+  .hero .bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .hero .bottom p { font-family: Fraunces, serif; font-style: italic; font-weight: 300; font-size: 26px; line-height: 1.2; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .hero .bottom p span { color: var(--matcha); }
+  .hero .jp { font-family: "Shippori Mincho", serif; writing-mode: vertical-rl; font-size: 22px; letter-spacing: .5em; color: var(--tide); }
+
+  /* concept */
+  .concept { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; }
+  .concept .parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .part { background: var(--mist); border-radius: 18px; padding: 26px 18px 18px; text-align: center; }
+  .part svg { width: 100%; height: 150px; }
+  .part h3 { font-family: Fraunces, serif; font-weight: 400; font-style: italic; font-size: 22px; margin-top: 10px; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .part p { font-size: 12.5px; line-height: 1.5; color: #3d5651; margin-top: 4px; }
+  .concept .copy h3 { font-family: Fraunces, serif; font-weight: 300; font-size: 44px; line-height: 1.02; letter-spacing: -0.02em; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .concept .copy h3 i { color: var(--door); }
+  .concept .copy p { font-size: 15px; line-height: 1.65; margin-top: 18px; color: #2f4a45; max-width: 440px; }
+  .concept .copy .jpline { margin-top: 22px; display: flex; gap: 14px; align-items: baseline; }
+  .concept .copy .jpline b { font-family: "Shippori Mincho"; font-weight: 500; font-size: 28px; color: var(--jade); }
+
+  /* lockups */
+  .lockups { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .tile { border-radius: 18px; display: grid; place-items: center; position: relative; padding: 34px; min-height: 280px; }
+  .tile img { width: 100%; max-height: 240px; object-fit: contain; }
+  .tile .cap { position: absolute; left: 20px; bottom: 16px; font-size: 10px; letter-spacing: .28em; text-transform: uppercase; opacity: .7; }
+  .t-pine { background: var(--pine); color: var(--cream); }
+  .t-mist { background: var(--mist); }
+  .t-paper { background: #fbfaf6; border: 1px solid rgba(22,48,43,.12); }
+  .t-door { background: var(--door); color: var(--cream); }
+  .t-matcha { background: var(--matcha); }
+  .s3 { grid-column: span 3; } .s2 { grid-column: span 2; }
+
+  /* palette */
+  .palette { display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 12px; }
+  .sw { height: 230px; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .sw b { font-family: Fraunces, serif; font-weight: 400; font-style: italic; font-size: 22px; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .sw span { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; }
+
+  /* type */
+  .type { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 18px; }
+  .spec { background: #fbfaf6; border: 1px solid rgba(22,48,43,.12); border-radius: 18px; padding: 28px; }
+  .spec .label { color: var(--door); }
+  .spec .big { font-size: 92px; line-height: 1.25; margin: 10px 0 18px; }
+  .spec .name { font-size: 20px; font-weight: 500; }
+  .spec p { font-size: 13px; line-height: 1.55; color: #3d5651; margin-top: 8px; }
+  .spec .sample { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(22,48,43,.12); }
+
+  /* applications */
+  .apps { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; gap: 18px; }
+  .app { border-radius: 18px; overflow: hidden; position: relative; display: grid; place-items: center; }
+  .app .cap { position: absolute; left: 20px; bottom: 16px; font-size: 10px; letter-spacing: .28em; text-transform: uppercase; opacity: .7; }
+  .wide { grid-column: span 2; }
+  .ig { background: var(--mist); }
+  .ig .phonebar { width: 360px; background: #fff; border-radius: 22px; padding: 22px; box-shadow: 0 20px 50px rgba(22,48,43,.12); display: flex; gap: 18px; align-items: center; }
+  .ig .phonebar img { width: 86px; height: 86px; border-radius: 50%; }
+  .ig .phonebar b { display: block; font-size: 15px; color: #000; }
+  .ig .phonebar small { font-size: 12px; color: #666; line-height: 1.5; display: block; margin-top: 2px; }
+
+  .card { width: 270px; height: 160px; border-radius: 10px; position: absolute; box-shadow: 0 18px 40px rgba(0,0,0,.18); padding: 22px; }
+  .card.front { background: var(--pine); transform: rotate(-6deg) translate(-120px, -40px); display: grid; place-items: center; }
+  .card.front img { width: 190px; }
+  .card.back { background: var(--cream); transform: rotate(4deg) translate(110px, 18px); color: var(--pine); display: flex; flex-direction: column; justify-content: space-between; }
+  .card.back b { font-family: Fraunces; font-style: italic; font-weight: 400; font-size: 20px; }
+  .card.back span { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; line-height: 1.8; }
+  .card.back img { position: absolute; right: 22px; bottom: 22px; width: 30px; }
+
+  .signage { background: #dfe7e3; }
+  .footer { background: var(--pine); color: var(--cream); padding: 40px 80px; display: flex; justify-content: space-between; align-items: center; }
+  .footer img { width: 170px; }
+  .footer .label { color: var(--matcha); }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="top label"><span>yuga matcha — brand identity</span><span>vol. 01 · 2026</span></div>
+    <img class="logo" src="logo/yuga-logo-horizontal-cream.svg" alt="yuga matcha logo" />
+    <div class="bottom">
+      <p>graceful, unhurried.<br><span>ceremonial matcha, whisked to order.</span></p>
+      <div class="jp">悠雅</div>
+    </div>
+  </header>
+
+  <!-- CONCEPT -->
+  <section>
+    <div class="sec-head"><h2>the idea</h2><span class="label">01 · concept</span></div>
+    <div class="concept">
+      <div class="copy">
+        <h3>a door, a bowl,<br>and one <i>leaf.</i></h3>
+        <p>The mark is the café in one shape. The arch is the blue door people look for. Inside it sits a chawan with a wave of whisked foam on top, so it reads as both matcha and the sea. A single tea leaf rises above it like a slow morning sun.</p>
+        <p>The wordmark is set in a soft, slightly irregular italic serif, so it looks hand-whisked rather than machined. Wide-spaced capitals underneath keep it calm and ordered.</p>
+        <div class="jpline"><b>悠雅</b><span class="label" style="color:var(--door)">yū·ga — graceful, at ease</span></div>
+      </div>
+      <div class="parts">
+        <div class="part">
+          <svg viewBox="0 0 200 240"><path d="M34 232V100a66 66 0 0 1 132 0v132z" fill="#2c5a7a"/></svg>
+          <h3>the door</h3><p>find the blue door: the café's landmark.</p>
+        </div>
+        <div class="part">
+          <svg viewBox="0 0 200 240"><path d="M54 154h92a46 46 0 0 1-92 0z" fill="#8fb06a"/><path d="M54 154h92c-11 8-24 8-31 3s-19-5-30 0-20 5-31-3z" fill="#c3dba4"/><path d="M86 202h28v8a3 3 0 0 1-3 3H89a3 3 0 0 1-3-3z" fill="#8fb06a"/></svg>
+          <h3>the bowl</h3><p>a chawan with whisked foam, shaped like a wave.</p>
+        </div>
+        <div class="part">
+          <svg viewBox="0 0 200 240"><g transform="rotate(18 100 91)"><path d="M100 64c-20 14-20 40 0 54 20-14 20-40 0-54z" fill="#3f7a64"/><path d="M100 74v34" stroke="#e3ece8" stroke-width="2.4" stroke-linecap="round"/></g></svg>
+          <h3>the leaf</h3><p>one shade-grown leaf, rising like the sun.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCKUPS -->
+  <section style="padding-top:0">
+    <div class="sec-head"><h2>the logo family</h2><span class="label">02 · lockups</span></div>
+    <div class="lockups">
+      <div class="tile t-paper s3"><img src="logo/yuga-logo-stacked-pine.svg" alt=""><span class="cap">primary · stacked</span></div>
+      <div class="tile t-pine s3"><img src="logo/yuga-logo-stacked-cream.svg" alt=""><span class="cap">primary · reversed</span></div>
+      <div class="tile t-mist s3"><img src="logo/yuga-logo-horizontal-pine.svg" alt="" style="width:88%"><span class="cap">horizontal</span></div>
+      <div class="tile t-door s3"><img src="logo/yuga-seal-cream.svg" alt="" style="max-height:250px"><span class="cap">seal · stickers, cups, stamps</span></div>
+      <div class="tile t-paper s2"><img src="logo/yuga-mark.svg" alt="" style="max-height:200px"><span class="cap">symbol</span></div>
+      <div class="tile t-matcha s2"><img src="logo/yuga-mark-line-pine.svg" alt="" style="max-height:200px"><span class="cap">symbol · one colour</span></div>
+      <div class="tile t-pine s2"><img src="logo/yuga-wordmark-cream.svg" alt=""><span class="cap">wordmark</span></div>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section style="padding-top:0">
+    <div class="sec-head"><h2>colour</h2><span class="label">03 · palette</span></div>
+    <div class="palette">
+      <div class="sw" style="background:var(--pine);color:var(--cream)"><b>pine</b><span>#16302B<br>primary ink · dark ground</span></div>
+      <div class="sw" style="background:var(--door);color:var(--cream)"><b>blue door</b><span>#2C5A7A<br>the symbol · signature blue</span></div>
+      <div class="sw" style="background:var(--matcha)"><b>matcha</b><span>#8FB06A<br>the bowl</span></div>
+      <div class="sw" style="background:var(--jade);color:var(--cream)"><b>jade</b><span>#3F7A64<br>accent</span></div>
+      <div class="sw" style="background:var(--tide);color:var(--ink)"><b>tide</b><span>#6F9BB3<br>accent</span></div>
+      <div class="sw" style="background:var(--cream);border:1px solid rgba(22,48,43,.15)"><b>foam</b><span>#F2EFE6<br>paper · light ground</span></div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section style="padding-top:0">
+    <div class="sec-head"><h2>typography</h2><span class="label">04 · type</span></div>
+    <div class="type">
+      <div class="spec">
+        <span class="label">display · headlines</span>
+        <div class="big serif" style="font-style:italic;font-weight:300">yuga Aa</div>
+        <div class="name">Fraunces Italic — Light</div>
+        <p>Soft and a little irregular, like a hand-whisked bowl. Use it lowercase for the wordmark, headlines and menu items.</p>
+        <div class="sample serif" style="font-size:26px;font-weight:300">slow is a <i>flavor.</i></div>
+      </div>
+      <div class="spec">
+        <span class="label">labels · body</span>
+        <div class="big" style="font-weight:500;font-size:84px">Aa</div>
+        <div class="name">Instrument Sans — Medium</div>
+        <p>Clean and quiet. Set labels in capitals with wide spacing, and body copy in sentence case.</p>
+        <div class="sample label" style="font-size:12px;color:var(--pine)">whisked to order · 8:00–20:00</div>
+      </div>
+      <div class="spec">
+        <span class="label">japanese accent</span>
+        <div class="big" style="font-family:'Shippori Mincho';font-size:84px">悠雅</div>
+        <div class="name">Shippori Mincho — Medium</div>
+        <p>Used sparingly as a detail: on the seal, cups and signage.</p>
+        <div class="sample" style="font-family:'Shippori Mincho';font-size:20px;color:var(--jade)">抹茶 · 宇治</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section style="padding-top:0">
+    <div class="sec-head"><h2>in the world</h2><span class="label">05 · applications</span></div>
+    <div class="apps">
+      <!-- takeaway cup -->
+      <div class="app" style="background:var(--door)">
+        <svg viewBox="0 0 240 300" width="210">
+          <ellipse cx="120" cy="282" rx="70" ry="8" fill="#000" opacity=".18"/>
+          <path d="M58 70h124l-14 208H72z" fill="#f2efe6"/>
+          <path d="M60 98h120l-2.5 36H62.5z" fill="#16302b"/>
+          <path d="M50 54h140a6 6 0 0 1 6 6v10H44V60a6 6 0 0 1 6-6z" fill="#e3ece8"/>
+          <path d="M70 40h100l8 14H62z" fill="#d5e1dc"/>
+          <image href="logo/yuga-mark.svg" x="98" y="152" width="44" height="53"/>
+          <text x="120" y="122" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="20" fill="#f2efe6">yuga</text>
+          <text x="120" y="228" text-anchor="middle" font-family="Instrument Sans" font-size="6" letter-spacing="1.8" fill="#2c5a7a">WHISKED TO ORDER</text>
+          <text x="120" y="244" text-anchor="middle" font-family="Shippori Mincho" font-size="9" letter-spacing="3" fill="#3f7a64">悠雅</text>
+        </svg>
+        <span class="cap" style="color:var(--cream)">takeaway cup</span>
+      </div>
+      <!-- stickers -->
+      <div class="app" style="background:var(--matcha)">
+        <img src="logo/yuga-seal-pine.svg" alt="" style="width:200px;background:var(--cream);border-radius:50%;padding:6px;box-shadow:0 14px 30px rgba(0,0,0,.18);transform:rotate(-10deg)">
+        <span class="cap">seal sticker</span>
+      </div>
+      <!-- IG avatar -->
+      <div class="app ig wide">
+        <div class="phonebar"><img src="logo/yuga-avatar.svg" alt=""><div><b>yuga.matcha</b><small>Café<br>ceremonial-grade matcha bar<br>find the blue door</small></div></div>
+        <span class="cap">instagram profile picture</span>
+      </div>
+      <!-- business card -->
+      <div class="app wide" style="background:var(--mist)">
+        <div class="card front"><img src="logo/yuga-logo-horizontal-cream.svg" alt=""></div>
+        <div class="card back">
+          <img src="logo/yuga-mark.svg" alt="">
+          <b>see you at<br>the blue door.</b>
+          <span>yugamatcha.cafe<br>@yuga.matcha<br>open daily 8:00–20:00</span>
+        </div>
+        <span class="cap">cards</span>
+      </div>
+      <!-- tote / bag -->
+      <div class="app" style="background:var(--cream);border:1px solid rgba(22,48,43,.1)">
+        <svg viewBox="0 0 240 300" width="200">
+          <path d="M88 70c0-30 64-30 64 0" fill="none" stroke="#16302b" stroke-width="6"/>
+          <path d="M50 76h140l10 200H40z" fill="#16302b"/>
+          <image href="logo/yuga-logo-stacked-cream.svg" x="58" y="120" width="124" height="99"/>
+        </svg>
+        <span class="cap">tote</span>
+      </div>
+      <!-- door sign -->
+      <div class="app signage">
+        <svg viewBox="0 0 240 300" width="190">
+          <path d="M40 290V120a80 80 0 0 1 160 0v170z" fill="#2c5a7a"/>
+          <path d="M52 290V122a68 68 0 0 1 136 0v168" fill="none" stroke="#f2efe6" stroke-width="1.5" opacity=".5"/>
+          <circle cx="170" cy="205" r="5" fill="#f2efe6"/>
+          <image href="logo/yuga-seal-cream.svg" x="80" y="88" width="80" height="80"/>
+          <text x="120" y="236" text-anchor="middle" font-family="Instrument Sans" font-size="8" letter-spacing="3.5" fill="#f2efe6">OPEN · 8:00–20:00</text>
+        </svg>
+        <span class="cap">the blue door</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <img src="logo/yuga-logo-horizontal-cream.svg" alt="" />
+    <span class="label">graceful, unhurried · 悠雅</span>
+  </footer>
+</div>
+</body>
+</html>

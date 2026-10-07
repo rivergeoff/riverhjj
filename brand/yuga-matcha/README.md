@@ -1,20 +1,28 @@
-# yuga matcha — logo & identity
+# yuga matcha — logo & identity (vol. 02, crafted)
 
 Open `index.html` (or `yuga-brand-sheet.png`) for the full brand sheet.
 
-- `logo/` — vector SVGs, text converted to outlines (safe for print, Canva, Figma)
-- `png/` — transparent PNGs, ~2400px; `yuga-avatar.png` is 1080×1080 for Instagram
-- `-pine` files go on light backgrounds, `-cream` files on dark backgrounds
+The mark: a hand-brushed ensō holding a hand-thrown chawan glazed with
+seigaiha waves, matcha foam, rising steam, a falling leaf, and a worn 悠雅 hanko stamp.
+
+- `logo/` — SVGs, lettering converted to outlines
+- `png/` — transparent PNGs (~2400px); `yuga-avatar.png` is 1080×1080 for Instagram
+- `-light` files go on light backgrounds, `-dark` files on dark backgrounds
+- `v1-minimal/` — the earlier flat, minimal version, kept for reference
 
 | Colour | Hex |
 | --- | --- |
 | pine | `#16302B` |
 | blue door | `#2C5A7A` |
-| matcha | `#8FB06A` |
 | jade | `#3F7A64` |
-| tide | `#6F9BB3` |
-| foam | `#F2EFE6` |
+| matcha | `#8FB06A` |
+| tide | `#8DB4C8` |
+| celadon | `#DFE6D6` |
+| washi | `#F2EFE6` |
 
-Fonts (free, Google Fonts): Fraunces Italic Light · Instrument Sans Medium · Shippori Mincho Medium.
+Fonts (free, Google Fonts): Fraunces Italic · Fraunces caps · Shippori Mincho · Instrument Sans (body).
 
-Rebuild the SVGs: `python3 build_logo.py <folder with the font .ttf files>` (needs `fonttools`).
+Note: the brush texture and worn stamp use SVG filters. Browsers, Figma and the
+PNGs render them; for print or Illustrator, use the PNGs or ask for a flattened version.
+
+Rebuild: `python3 build_logo.py <folder with the font .ttf files>` (needs `fonttools`).
