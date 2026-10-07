@@ -70,8 +70,9 @@ const imgDir = path.join(outDir, imgName);
   }
   await browser.close();
 
-  const css = fs.readFileSync(path.join(__dirname, `${DECK}.css`), 'utf8');
-  html = html.replace(new RegExp(`<link rel="stylesheet" href="${DECK}.css">`), `<style>\n${css}\n</style>`);
+  // inline every local stylesheet the page links to
+  html = html.replace(/<link rel="stylesheet" href="([\w.-]+\.css)">/g,
+    (_, f) => `<style>\n${fs.readFileSync(path.join(__dirname, f), 'utf8')}\n</style>`);
   html = html.split('../assets/').join(repoBase + 'assets/');
   html = html.split('__IMG__').join(repoBase + `canva/${imgName}/`);
   fs.writeFileSync(path.join(outDir, `${DECK}.html`), html);

@@ -1,0 +1,27 @@
+/* Website edition: the formal deck's content laid out as one scrolling
+   site — a header with in-page links, a hero, stacked sections, a footer.
+   Builds on formal.css (tokens + components). */
+html, body { background: var(--win); }
+
+.site-sec { position: relative; width: 1920px; background: var(--win); padding: 112px 250px; border-top: 1px solid var(--line); }
+.site-sec.alt { background: var(--panel); }
+.site-sec .wrap { position: relative; width: 1420px; height: 848px; margin: 0 auto; }
+
+/* header */
+.hdr { position: absolute; left: 0; right: 0; top: 0; height: 96px; display: flex; align-items: center; padding: 0 120px; border-bottom: 1px solid var(--line); background: var(--win); z-index: 5; }
+.hdr .brand { display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--ink); text-decoration: none; }
+.hdr nav { display: flex; gap: 40px; margin: 0 auto; }
+.hdr nav a, .ftr a { font-size: 16px; color: var(--ink-2); text-decoration: none; }
+.hdr nav a.on { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--sage); padding-bottom: 4px; }
+a.btn { text-decoration: none; }
+
+/* hero */
+.hero { height: 1080px; padding: 0; border-top: 0; overflow: hidden; }
+.hero .h1 { font-size: 128px; line-height: .95; }
+
+/* section label strip on the left edge, like a site index */
+.idx { position: absolute; left: 120px; top: 120px; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* footer */
+.ftr { display: flex; align-items: center; gap: 36px; width: 1420px; margin: 72px auto 0; padding-top: 28px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.ftr .sp { margin-left: auto; }
