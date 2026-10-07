@@ -296,21 +296,14 @@
 </section>
 
 <!-- ============ 06 · ARCHIVE INDEX ============ -->
-<section class="slide bg-olive" data-document-role="page" data-label="06 Work index">
-  <div class="abs anton" style="left:80px;top:50px;font-size:134px;color:var(--ink);transform-origin:0 0;transform:translateX(126px) rotate(90deg);white-space:nowrap">Selected work_</div>
-  <div class="abs mono" style="left:40px;top:330px;font-size:14px;color:var(--cream);transform-origin:0 0;transform:translateX(14px) rotate(90deg);white-space:nowrap;opacity:.8">Visual studies: type · image · emotion · [your tagline]</div>
-  <div class="abs mono" style="left:40px;bottom:34px;font-size:13px;line-height:1.5;color:var(--ink)">FILE_04 // index<br>06 / 18</div>
-
-  <div class="strip f-cream" style="left:330px"><div class="tab" style="top:110px"><span>CODE_001 //</span></div><div class="lbl">Social media</div><div class="ph" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.07</div></div>
-  <div class="strip f-slate" style="left:489px"><div class="tab" style="top:180px"><span>CODE_002 //</span></div><div class="lbl">Carousels</div><div class="ph slate" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.08</div></div>
-  <div class="strip f-kraft" style="left:648px"><div class="tab" style="top:250px"><span>CODE_003 //</span></div><div class="lbl">Reels</div><div class="ph kraft" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.09</div></div>
-  <div class="strip f-ink" style="left:807px"><div class="tab" style="top:320px"><span>CODE_004 //</span></div><div class="lbl">Checkout videos</div><div class="ph dark" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.09</div></div>
-  <div class="strip f-caramel" style="left:966px"><div class="tab" style="top:390px"><span>CODE_005 //</span></div><div class="lbl">Websites</div><div class="ph kraft" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.10</div></div>
-  <div class="strip f-sage" style="left:1125px"><div class="tab" style="top:460px"><span>CODE_006 //</span></div><div class="lbl">IG layout</div><div class="ph sage" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.11</div></div>
-  <div class="strip f-bone" style="left:1284px"><div class="tab" style="top:530px"><span>CODE_007 //</span></div><div class="lbl">Case study</div><div class="ph" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.12</div></div>
-  <div class="strip f-olive" style="left:1443px"><div class="tab" style="top:600px"><span>CODE_008 //</span></div><div class="lbl">Calendar</div><div class="ph olive" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.13</div></div>
-  <div class="strip f-slate" style="left:1602px"><div class="tab" style="top:670px"><span>CODE_009 //</span></div><div class="lbl">Brand kit</div><div class="ph slate" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.15</div></div>
-  <div class="strip f-ink" style="left:1761px;width:240px"><div class="tab" style="top:740px"><span>CODE_010 //</span></div><div class="lbl">Campaigns</div><div class="ph dark" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.16</div></div>
+<section class="slide bg-ink" data-document-role="page" data-label="06 Work index">
+  <div class="abs" id="idx" style="left:28px;top:28px;width:1864px;height:1024px;border-radius:30px;overflow:hidden">
+    <div class="abs f-sage" style="left:0;top:0;width:340px;height:1024px">
+      <div class="abs anton" style="left:40px;top:44px;font-size:98px;color:var(--ink);transform-origin:0 0;transform:translateX(94px) rotate(90deg);white-space:nowrap">Selected work_01—10</div>
+      <div class="abs mono" style="left:200px;top:44px;font-size:13px;line-height:1.5;color:var(--ink);transform-origin:0 0;transform:translateX(40px) rotate(90deg);white-space:nowrap;opacity:.75">Visual studies:<br>Type · Image · Emotion</div>
+      <div class="abs mono" style="left:40px;bottom:30px;font-size:13px;color:var(--ink)">FILE_04 // 06 / 18</div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 07 · SOCIAL MEDIA ============ -->
@@ -752,6 +745,46 @@
     const p = plan[i];
     cal.insertAdjacentHTML('beforeend', `<div class="c"><div class="n">${day}</div>${p ? `<span class="pill ${names[p][1]}"><b>${names[p][0]}</b><i>[topic]</i></span>` : ''}</div>`);
   }
+})();
+// work index: overlapping folder cards that each hold a cropped mini-poster
+(() => {
+  const idx = document.getElementById('idx');
+  const cards = [
+    ['Social media', 'P.07', 'f-bone', 'kraft', 'A', 'SOCIAL'],
+    ['Carousels', 'P.08', 'f-slate', '', 'B', 'SWIPE'],
+    ['Reels', 'P.09', 'f-kraft', 'dark', 'C', 'PLAY'],
+    ['Checkout videos', 'P.09', 'f-ink', 'kraft', 'A', 'SHOP'],
+    ['Websites', 'P.10', 'f-caramel', '', 'B', 'WWW'],
+    ['IG layout', 'P.11', 'f-sage', 'olive', 'C', 'GRID'],
+    ['Case study', 'P.12', 'f-bone', 'dark', 'A', 'CASE'],
+    ['Calendar', 'P.13', 'f-olive', '', 'B', 'PLAN'],
+    ['Brand kit', 'P.15', 'f-slate', 'dark', 'C', 'KIT'],
+    ['Campaigns', 'P.16', 'f-ink', 'sage', 'A', 'LAUNCH'],
+  ];
+  const tabTop = [70, 150, 50, 120, 190, 80, 160, 60, 130, 200];
+  cards.forEach(([name, pg, cls, ph, layout, word], i) => {
+    const left = 300 + i * 150, w = i === 9 ? 1864 - left : 430, n = String(i + 1).padStart(3, '0');
+    const dark = cls === 'f-ink' || cls === 'f-olive' || cls === 'f-slate' || cls === 'f-caramel';
+    const ink = dark ? 'var(--cream)' : 'var(--ink)';
+    const t = tabTop[i];
+    const type = (top) => `<div class="abs anton" style="left:46px;top:${top}px;font-size:150px;line-height:.85;color:${ink};opacity:.92">${word}</div>`;
+    const cover = (top, h) => `<div class="ph ${ph}" style="position:absolute;left:46px;top:${top}px;width:360px;height:${h}px;justify-content:flex-start;align-items:flex-start;padding:14px;font-size:11px">[ cover ]</div>`;
+    const micro = (top) => `<div class="abs mono" style="left:46px;top:${top}px;font-size:12px;line-height:1.5;color:${ink};opacity:.8">LOG<br>00:${String(9 + i).padStart(2, '0')}:47<br>[${n}]</div>`;
+    let body = '';
+    if (layout === 'A') body = type(470) + cover(610, 300) + micro(390);
+    if (layout === 'B') body = cover(360, 420) + type(800) + micro(300);
+    if (layout === 'C') body = micro(420) + `<div class="barcode" style="position:absolute;left:46px;top:500px;width:90px;height:40px;${dark ? 'filter:invert(1)' : ''}"></div>` + cover(570, 380);
+    idx.insertAdjacentHTML('beforeend', `
+      <div class="abs ${cls}" style="left:${left}px;top:0;width:${w}px;height:1024px;border-radius:22px 0 0 22px;box-shadow:-16px 0 26px -14px rgba(0,0,0,.55)">
+        <div class="abs ${cls}" style="left:-40px;top:${t}px;width:52px;height:260px;border-radius:16px 0 0 16px;box-shadow:-10px 0 16px -10px rgba(0,0,0,.4)"></div>
+        <div class="abs" style="left:-30px;top:${t + 22}px;width:220px;transform-origin:0 0;transform:translateX(40px) rotate(90deg);color:${ink};white-space:nowrap">
+          <div class="mono" style="font-size:11px;opacity:.8">CODE_${n} //</div>
+          <div class="anton" style="font-size:24px;line-height:1.05">${name}</div>
+        </div>
+        ${body}
+        <div class="abs mono" style="left:46px;bottom:30px;font-size:12px;color:${ink};opacity:.8">${pg}</div>
+      </div>`);
+  });
 })();
 // spiral rings
 (() => {
