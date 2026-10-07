@@ -6,15 +6,12 @@
 <link rel="stylesheet" href="deck.css">
 <style>
   /* per-slide tweaks */
-  .folder.t2::before { left: 110px; }
-  .folder.t3::before { left: 150px; }
-  .folder.tr::before { left: auto; right: 0; }
   .strip { position: absolute; top: 0; height: 1080px; width: 200px; box-shadow: -14px 0 24px -12px rgba(0,0,0,.45); }
   .strip .tab { position: absolute; left: -46px; width: 52px; height: 210px; border-radius: 14px 0 0 14px; background: inherit; box-shadow: -8px 0 14px -8px rgba(0,0,0,.35); }
   .strip .tab span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); white-space: nowrap; font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .12em; }
   .strip .lbl { position: absolute; left: 112px; top: 70px; transform-origin: 0 0; transform: rotate(90deg); white-space: nowrap; font-family: 'Anton', sans-serif; font-size: 58px; text-transform: uppercase; line-height: 1; }
   .strip .pg { position: absolute; bottom: 34px; left: 24px; font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .1em; }
-  .strip .ph { position: absolute; left: 22px; width: 132px; }
+  .strip .ph { position: absolute; left: 20px; width: 90px; font-size: 11px; writing-mode: vertical-rl; }
 
   .phone { position: absolute; border-radius: 46px; background: #141412; padding: 12px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); }
   .phone .scr { position: relative; width: 100%; height: 100%; border-radius: 36px; overflow: hidden; }
@@ -27,7 +24,7 @@
   .cal .n { font-family: 'Space Mono', monospace; font-size: 13px; opacity: .6; }
   .pill { display: block; margin-top: 8px; border-radius: 6px; padding: 6px 9px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .08em; color: #fff; line-height: 1.25; }
   .pill b { display: block; font-weight: 700; }
-  .pill i { font-style: normal; opacity: .8; text-transform: none; letter-spacing: 0; font-family: 'Inter Tight'; font-size: 13px; }
+  .pill i { font-style: normal; opacity: .8; text-transform: none; letter-spacing: 0; font-family: 'Inter'; font-size: 13px; }
   .p-reel { background: var(--caramel); } .p-car { background: var(--slate); } .p-story { background: var(--pink); } .p-static { background: var(--olive); }
 
   .kcard { position: relative; background: var(--bone) url(../assets/paper-bone.jpg) center/cover; padding: 22px 24px; height: 150px; margin-top: 24px; }
@@ -136,191 +133,202 @@
 
 <!-- ============ 02 · HOOK ============ -->
 <section class="slide bg-ink" data-document-role="page" data-label="02 Hook">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_00.5 // attention.exe</span><div class="rule"></div><span>[Your Name] archive</span><span>02 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_00 // attention.exe</span><div class="rule"></div><span>~/archive/start</span><span>02 / 18</span></div>
 
-  <div class="abs anton" style="left:60px;top:150px;font-size:250px;color:var(--cream)">You stopped</div>
-  <div class="abs serif" style="left:70px;top:350px;font-size:290px;color:#d9b58c">scrolling.</div>
+  <div class="abs anton" style="left:60px;top:140px;font-size:250px;color:var(--cream)">You stopped</div>
+  <div class="abs serif" style="left:68px;top:356px;font-size:290px;color:#d9b58c">scrolling.</div>
 
-  <div class="abs" style="left:68px;top:760px">
-    <div class="mono" style="font-size:86px;letter-spacing:.02em;color:var(--cream)">00:00:01.7</div>
-    <div class="mono" style="font-size:15px;opacity:.6;margin-top:10px">≈ the time a post gets to earn a pause. I design for that window.</div>
+  <div class="abs" style="left:64px;top:796px">
+    <div class="mono" style="font-size:86px;letter-spacing:.02em;line-height:1;color:var(--cream)">00:00:01.7</div>
+    <div class="mono" style="font-size:14px;opacity:.6;margin-top:18px">≈ the time a post gets to earn a pause. I design for that window.</div>
   </div>
 
-  <div class="win shadow" style="left:1070px;top:470px;width:780px;height:420px;color:var(--ink)">
+  <div class="win shadow" style="left:1076px;top:500px;width:780px;height:420px;color:var(--ink)">
     <div class="bar"><div class="d"><i></i><i></i><i></i></div><span>system alert — attention detected</span></div>
     <div style="padding:40px 44px">
       <div style="display:flex;gap:26px;align-items:flex-start">
-        <svg width="62" height="62" viewBox="0 0 100 100" style="flex:none"><use href="#spark" fill="#a87b4f"/></svg>
+        <svg width="56" height="56" viewBox="0 0 100 100" style="flex:none;margin-top:4px"><use href="#spark" fill="#a87b4f"/></svg>
         <div>
-          <div style="font-size:34px;font-weight:600;line-height:1.2;letter-spacing:-.01em">That pause you just took? That's exactly what I design for.</div>
-          <div class="body ph-text" style="margin-top:14px;font-size:20px">[One line on the result you bring — e.g. content that turns followers into customers.]</div>
+          <div style="font-size:32px;font-weight:600;line-height:1.25">That pause you just took? That's exactly what I design for.</div>
+          <div class="ph-text" style="margin-top:14px;font-size:20px;line-height:1.45">[ One line on the result you bring — e.g. content that turns followers into customers. ]</div>
         </div>
       </div>
-      <div style="display:flex;gap:16px;justify-content:flex-end;margin-top:34px">
+      <div style="display:flex;gap:16px;justify-content:flex-end;margin-top:30px">
         <span class="btn" style="opacity:.4;text-decoration:line-through">Keep scrolling</span>
         <span class="btn car">Open the file →</span>
       </div>
     </div>
   </div>
-  <svg class="cursor" style="left:1712px;top:836px"><use href="#hand"/></svg>
+  <svg class="cursor" style="left:1720px;top:862px"><use href="#hand"/></svg>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → about me</span></div>
 </section>
 
 <!-- ============ 03 · ABOUT ============ -->
 <section class="slide" data-document-role="page" data-label="03 About">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_01 // about</span><div class="rule"></div><span>~/archive/who-made-this</span><span>03 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_01 // about</span><div class="rule"></div><span>~/archive/about</span><span>03 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:126px;font-size:150px">The person<br>behind</div>
-  <div class="abs serif" style="left:64px;top:416px;font-size:170px">the pixels.</div>
-  <div class="abs body ph-text" style="left:66px;top:630px;width:620px;font-size:24px">[Write 2–3 lines: who you are, what you design and who you love designing for. Make it sound like you talking, not like a CV.]</div>
-  <div class="abs" style="left:66px;top:790px;display:flex;flex-wrap:wrap;gap:12px;width:640px">
-    <span class="chip">[based in ____ ]</span><span class="chip">[ _ yrs designing ]</span><span class="chip">[ languages ]</span><span class="chip">[ open for work ]</span>
+  <div class="col" style="width:600px">
+    <div class="anton">The person<br>behind</div>
+    <div class="serif">the pixels.</div>
+    <div class="lead ph-text" style="width:520px">[ 2–3 lines: who you are, what you design and who you love designing for — in your own voice. ]</div>
+    <div class="end">
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <span class="chip">[ based in ____ ]</span><span class="chip">[ _ yrs designing ]</span><span class="chip">[ languages ]</span><span class="chip">[ open for work ]</span>
+      </div>
+    </div>
   </div>
-  <div class="abs mono" style="left:66px;top:900px;font-size:13px;opacity:.55">scroll ↓ to see what I can do</div>
 
   <!-- ID folder -->
-  <div class="folder f-olive shadow" data-tab="ID // [YOUR NAME]" style="left:790px;top:220px;width:640px;height:760px;transform:rotate(-1.5deg)">
-    <div class="polaroid" style="left:40px;top:44px;width:260px;height:330px;transform:rotate(-4deg)"><div class="ph">[ your<br>photo ]</div><div class="cap">that's me</div></div>
-    <div class="tape grid" style="left:100px;top:26px;width:140px;transform:rotate(-8deg)"></div>
-    <div class="abs" style="left:338px;top:56px;right:36px;color:var(--cream)">
+  <div class="folder f-olive shadow" style="left:730px;top:200px;width:620px;height:800px;transform:rotate(-1.2deg)">
+    <div class="tab">ID // [Your Name]</div>
+    <div class="polaroid" style="left:36px;top:48px;width:240px;height:310px;transform:rotate(-4deg)"><div class="ph">[ your<br>photo ]</div><div class="cap">that's me</div></div>
+    <div class="tape grid" style="left:90px;top:30px;width:130px;transform:rotate(-8deg)"></div>
+    <div class="abs" style="left:310px;top:56px;right:36px;color:var(--cream)">
       <div class="mono small" style="opacity:.7">Designer ID</div>
-      <div class="serif" style="font-size:58px;margin:6px 0 22px">[Your Name]</div>
-      <div class="mono small" style="opacity:.7">Role</div><div style="font-size:21px;margin:4px 0 16px">[Social media &amp; brand designer]</div>
-      <div class="mono small" style="opacity:.7">Speciality</div><div style="font-size:21px;margin:4px 0 16px">[What you're known for]</div>
-      <div class="mono small" style="opacity:.7">Archive no.</div><div style="font-size:21px;margin-top:4px">001</div>
+      <div class="serif" style="font-size:50px;margin:8px 0 22px;white-space:nowrap">[Your Name]</div>
+      <div class="mono small" style="opacity:.7">Role</div><div style="font-size:20px;line-height:1.3;margin:6px 0 18px">[ Social media &amp; brand designer ]</div>
+      <div class="mono small" style="opacity:.7">Speciality</div><div style="font-size:20px;line-height:1.3;margin:6px 0 18px">[ Your signature style ]</div>
+      <div class="mono small" style="opacity:.7">Archive no.</div><div style="font-size:20px;margin-top:6px">001</div>
     </div>
-    <div class="abs" style="left:40px;right:40px;top:430px;color:var(--cream)">
-      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:200px 1fr"><span class="k">Superpower</span><span class="v ph-text">[ the thing clients thank you for ]</span></div>
-      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:200px 1fr"><span class="k">Design style</span><span class="v ph-text">[ 3 words ]</span></div>
-      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:200px 1fr"><span class="k">Worked with</span><span class="v ph-text">[ industries / brands ]</span></div>
+    <div class="abs" style="left:36px;right:36px;top:446px;color:var(--cream)">
+      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:180px 1fr"><span class="k">Superpower</span><span class="v ph-text">[ what clients thank you for ]</span></div>
+      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:180px 1fr"><span class="k">Design style</span><span class="v ph-text">[ 3 words ]</span></div>
+      <div class="field" style="border-color:rgba(237,230,214,.25);grid-template-columns:180px 1fr"><span class="k">Worked with</span><span class="v ph-text">[ industries / brands ]</span></div>
     </div>
-    <div class="abs" style="left:40px;bottom:36px;display:flex;align-items:flex-end;gap:20px;color:var(--cream)">
+    <div class="abs" style="left:40px;bottom:40px;display:flex;align-items:flex-end;gap:20px;color:var(--cream)">
       <div class="barcode" style="width:180px;height:44px;background:repeating-linear-gradient(90deg,#ede6d6 0 2px,transparent 2px 4px,#ede6d6 4px 7px,transparent 7px 9px,#ede6d6 9px 10px,transparent 10px 14px)"></div>
-      <span class="mono small" style="opacity:.7">issued 2026</span>
+      <span class="mono small" style="opacity:.7">Issued 2026</span>
     </div>
   </div>
-  <div class="stamp" style="left:1310px;top:830px;width:176px;height:176px;font-size:15px;transform:rotate(-14deg)">verified<br><span style="font-size:24px">creative</span><br>✶ 2026 ✶</div>
+  <div class="stamp" style="left:1226px;top:820px;width:170px;height:170px;font-size:14px;transform:rotate(-14deg)">verified<br><span style="font-size:22px">creative</span><br>✶ 2026 ✶</div>
 
-  <div class="sticky pink" style="left:1510px;top:200px;width:350px;height:380px;transform:rotate(3deg)">
+  <div class="sticky pink" style="left:1476px;top:190px;width:380px;height:380px;transform:rotate(2.5deg)">
     <h4>currently obsessed with</h4>
-    <div class="hand ph-text" style="font-size:28px">[ ... ]</div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+    <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
   </div>
-  <div class="tape" style="left:1620px;top:184px;width:120px;transform:rotate(-4deg)"></div>
-  <div class="sticky" style="left:1520px;top:620px;width:330px;height:330px;transform:rotate(-4deg)">
+  <div class="tape" style="left:1600px;top:174px;width:130px;transform:rotate(-4deg)"></div>
+  <div class="sticky" style="left:1476px;top:620px;width:380px;height:360px;transform:rotate(-2.5deg)">
     <h4>fun fact</h4>
     <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → services</span></div>
 </section>
 
 <!-- ============ 04 · SERVICES ============ -->
 <section class="slide bg-bone" data-document-role="page" data-label="04 Services">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_02 // services</span><div class="rule"></div><span>~/archive/what-i-do</span><span>04 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_02 // services</span><div class="rule"></div><span>~/archive/services</span><span>04 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:130px;font-size:132px">What<br>I can<br>do</div>
-  <div class="abs serif" style="left:64px;top:470px;font-size:120px">for your<br>brand.</div>
-  <div class="abs body ph-text" style="left:66px;top:740px;width:440px">[One line on how you pick the right mix for each brand — clients love knowing it's tailored.]</div>
-  <div class="abs mono" style="left:66px;top:900px;font-size:14px">Mix &amp; match → packages on p.05</div>
-  <svg class="ico" style="left:380px;top:940px;width:120px;height:40px;color:var(--ink)"><use href="#arrow"/></svg>
+  <div class="col">
+    <div class="anton">What<br>I can do</div>
+    <div class="serif">for your<br>brand.</div>
+    <div class="lead ph-text">[ One line on how you pick the right mix for each brand — clients love knowing it's tailored. ]</div>
+    <div class="end mono small" style="display:flex;align-items:center;gap:16px">Mix &amp; match → packages on p.05</div>
+  </div>
 
-  <div class="folder f-olive shadow-s" data-tab="S/01" style="left:600px;top:200px;width:400px;height:226px"></div>
-  <div class="folder f-slate shadow-s t2" data-tab="S/02" style="left:1028px;top:200px;width:400px;height:226px"></div>
-  <div class="folder f-caramel shadow-s t3" data-tab="S/03" style="left:1456px;top:200px;width:400px;height:226px"></div>
-  <div class="folder f-sage shadow-s" data-tab="S/04" style="left:600px;top:480px;width:400px;height:226px"></div>
-  <div class="folder f-ink shadow-s t2" data-tab="S/05" style="left:1028px;top:480px;width:400px;height:226px"></div>
-  <div class="folder f-kraft shadow-s t3" data-tab="S/06" style="left:1456px;top:480px;width:400px;height:226px"></div>
-  <div class="folder f-cream shadow-s" data-tab="S/07" style="left:600px;top:760px;width:400px;height:226px"></div>
-  <div class="folder f-olive shadow-s t2" data-tab="S/08" style="left:1028px;top:760px;width:400px;height:226px"></div>
-  <div class="folder f-slate shadow-s t3" data-tab="S/09" style="left:1456px;top:760px;width:400px;height:226px"></div>
-  <!-- card contents (kept as separate layers so each line stays editable) -->
-  <div class="abs" style="left:632px;top:232px;width:340px;color:var(--cream)"><div class="anton" style="font-size:46px">Social media<br>design</div><div style="font-size:18px;margin-top:14px;opacity:.7">[ posts that stop the scroll ]</div></div>
-  <div class="abs" style="left:1060px;top:232px;width:340px;color:#fff"><div class="anton" style="font-size:46px">Carousels</div><div class="ph-text" style="font-size:18px;margin-top:14px;color:rgba(255,255,255,.75)">[ swipe-worthy stories, slide by slide ]</div></div>
-  <div class="abs" style="left:1488px;top:232px;width:340px;color:#fff8ec"><div class="anton" style="font-size:46px">Reels &amp;<br>short-form</div><div style="font-size:18px;margin-top:14px;color:rgba(255,248,236,.7)">[ edits, hooks, captions ]</div></div>
-  <div class="abs" style="left:632px;top:512px;width:340px"><div class="anton" style="font-size:46px">Checkout &amp;<br>product videos</div><div class="ph-text" style="font-size:18px;margin-top:14px">[ videos that make people buy ]</div></div>
-  <div class="abs" style="left:1060px;top:512px;width:340px;color:var(--cream)"><div class="anton" style="font-size:46px">Websites</div><div style="font-size:18px;margin-top:14px;opacity:.7">[ landing pages, shops, portfolios ]</div></div>
-  <div class="abs" style="left:1488px;top:512px;width:340px"><div class="anton" style="font-size:46px">Instagram<br>feed layout</div><div class="ph-text" style="font-size:18px;margin-top:14px">[ a grid with a plan ]</div></div>
-  <div class="abs" style="left:632px;top:792px;width:340px"><div class="anton" style="font-size:46px">Brand kits</div><div class="ph-text" style="font-size:18px;margin-top:14px">[ logos, colours, type, rules ]</div></div>
-  <div class="abs" style="left:1060px;top:792px;width:340px;color:var(--cream)"><div class="anton" style="font-size:46px">Campaign<br>design</div><div style="font-size:18px;margin-top:14px;opacity:.7">[ launches, promos, seasonal ]</div></div>
-  <div class="abs" style="left:1488px;top:792px;width:340px;color:#fff"><div class="anton" style="font-size:46px">Content calendar<br>&amp; management</div><div style="font-size:18px;margin-top:14px;color:rgba(255,255,255,.75)">[ planning, posting, reporting ]</div></div>
+  <div class="folder f-olive shadow-s" style="left:600px;top:158px;width:400px;height:232px"><div class="tab">S/01</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Social media<br>design</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.75">[ posts that stop the scroll ]</div></div>
+  <div class="folder f-slate shadow-s" style="left:1028px;top:158px;width:400px;height:232px"><div class="tab" style="left:100px">S/02</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Carousels</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.8">[ swipe-worthy, slide by slide ]</div></div>
+  <div class="folder f-caramel shadow-s" style="left:1456px;top:158px;width:400px;height:232px"><div class="tab" style="left:180px">S/03</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Reels &amp;<br>short-form</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.8">[ edits, hooks, captions ]</div></div>
+
+  <div class="folder f-sage shadow-s" style="left:600px;top:458px;width:400px;height:232px"><div class="tab">S/04</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Checkout &amp;<br>product videos</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.7">[ videos that make people buy ]</div></div>
+  <div class="folder f-ink shadow-s" style="left:1028px;top:458px;width:400px;height:232px"><div class="tab" style="left:100px">S/05</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Websites</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.7">[ landing pages, shops, portfolios ]</div></div>
+  <div class="folder f-kraft shadow-s" style="left:1456px;top:458px;width:400px;height:232px"><div class="tab" style="left:180px">S/06</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Instagram<br>feed layout</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.7">[ a grid with a plan ]</div></div>
+
+  <div class="folder f-cream shadow-s" style="left:600px;top:758px;width:400px;height:232px"><div class="tab">S/07</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Brand kits</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.6">[ logos, colours, type, rules ]</div></div>
+  <div class="folder f-olive shadow-s" style="left:1028px;top:758px;width:400px;height:232px"><div class="tab" style="left:100px">S/08</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Campaign<br>design</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.75">[ launches, promos, seasonal ]</div></div>
+  <div class="folder f-slate shadow-s" style="left:1456px;top:758px;width:400px;height:232px"><div class="tab" style="left:180px">S/09</div>
+    <div class="abs anton" style="left:32px;top:30px;font-size:46px">Content calendar<br>&amp; management</div><div class="abs" style="left:32px;bottom:26px;font-size:17px;opacity:.8">[ planning, posting, reporting ]</div></div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → packages</span></div>
 </section>
 
 <!-- ============ 05 · WORK TOGETHER ============ -->
 <section class="slide" data-document-role="page" data-label="05 Work together">
   <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_03 // work with me</span><div class="rule"></div><span>~/archive/packages</span><span>05 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:118px;display:flex;align-items:baseline;gap:30px">
-    <span class="anton" style="font-size:136px">Pick your</span><span class="serif" style="font-size:168px">folder.</span>
-  </div>
-  <div class="abs body ph-text" style="left:1300px;top:150px;width:556px">[Every package is a starting point. Tell them you'll tailor it — and how fast you can start.]</div>
+  <div class="title"><span class="anton">Pick your</span><span class="serif">folder.</span></div>
+  <div class="title-lead lead ph-text">[ Every package is a starting point. Tell them you'll tailor it — and how fast you can start. ]</div>
 
-  <div class="folder f-bone shadow" data-tab="PKG_01" style="left:64px;top:360px;width:540px;height:440px;padding:40px 40px">
-    <div class="anton" style="font-size:66px">Starter</div>
-    <div class="serif ph-text" style="font-size:30px;margin-top:6px">[ for brands just getting going ]</div>
-    <div style="display:flex;align-items:baseline;gap:10px;margin:22px 0 14px"><span style="font-size:44px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ month</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+  <div class="folder f-bone shadow" style="left:64px;top:358px;width:560px;height:420px;padding:40px">
+    <div class="tab">PKG_01</div>
+    <div class="anton" style="font-size:64px">Starter</div>
+    <div class="serif ph-text" style="font-size:30px;margin-top:8px">[ for brands just getting going ]</div>
+    <div style="display:flex;align-items:baseline;gap:12px;margin:24px 0 10px"><span style="font-size:42px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ month</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
   </div>
-  <div class="folder f-ink shadow t2" data-tab="PKG_02" style="left:690px;top:360px;width:540px;height:440px;padding:40px 40px">
-    <div class="anton" style="font-size:66px">Growth</div>
-    <div class="serif ph-text" style="font-size:30px;margin-top:6px">[ for brands ready to scale ]</div>
-    <div style="display:flex;align-items:baseline;gap:10px;margin:22px 0 14px"><span style="font-size:44px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ month</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+  <div class="folder f-ink shadow" style="left:680px;top:358px;width:560px;height:420px;padding:40px">
+    <div class="tab" style="left:120px">PKG_02</div>
+    <div class="anton" style="font-size:64px">Growth</div>
+    <div class="serif ph-text" style="font-size:30px;margin-top:8px">[ for brands ready to scale ]</div>
+    <div style="display:flex;align-items:baseline;gap:12px;margin:24px 0 10px"><span style="font-size:42px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ month</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(237,230,214,.2)"><span>☐</span><span class="ph-text" style="font-size:20px">[ deliverable ]</span></div>
   </div>
-  <div class="sticker" style="left:1110px;top:300px;width:150px;height:150px;background:var(--pink);color:#fff;transform:rotate(12deg)"><span class="mono" style="font-size:15px;font-weight:700;line-height:1.3">most<br>picked<br>✶</span></div>
-  <div class="folder f-caramel shadow t3" data-tab="PKG_03" style="left:1316px;top:360px;width:540px;height:440px;padding:40px 40px">
-    <div class="anton" style="font-size:66px">Full brand</div>
-    <div class="serif" style="font-size:30px;margin-top:6px;opacity:.75">[ the whole takeover ]</div>
-    <div style="display:flex;align-items:baseline;gap:10px;margin:22px 0 14px"><span style="font-size:44px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ project</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
-    <div class="field" style="grid-template-columns:30px 1fr;padding:9px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
+  <div class="sticker" style="left:1130px;top:296px;width:150px;height:150px;background:var(--pink);color:#fff;transform:rotate(12deg)"><span class="mono" style="font-size:15px;font-weight:700;line-height:1.3">most<br>picked<br>✶</span></div>
+  <div class="folder f-caramel shadow" style="left:1296px;top:358px;width:560px;height:420px;padding:40px">
+    <div class="tab" style="left:240px">PKG_03</div>
+    <div class="anton" style="font-size:64px">Full brand</div>
+    <div class="serif" style="font-size:30px;margin-top:8px;opacity:.75">[ the whole takeover ]</div>
+    <div style="display:flex;align-items:baseline;gap:12px;margin:24px 0 10px"><span style="font-size:42px;font-weight:600">[ $ ___ ]</span><span class="mono small">/ project</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
+    <div class="field" style="grid-template-columns:32px 1fr;padding:10px 0;border-color:rgba(255,255,255,.25)"><span>☐</span><span style="font-size:20px;opacity:.75">[ deliverable ]</span></div>
   </div>
 
   <!-- process -->
-  <div class="abs" style="left:64px;right:64px;top:886px;border-top:1.5px dashed rgba(35,35,30,.4)"></div>
-  <div class="abs" style="left:64px;right:64px;top:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px">
-    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:15px">01</div><div class="anton" style="font-size:38px;margin-top:16px">Discover</div><div class="ph-text" style="font-size:18px;margin-top:6px">[ call, brief, goals ]</div></div>
-    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--olive);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:15px">02</div><div class="anton" style="font-size:38px;margin-top:16px">Strategize</div><div class="ph-text" style="font-size:18px;margin-top:6px">[ pillars, calendar, look ]</div></div>
-    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--slate);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px">03</div><div class="anton" style="font-size:38px;margin-top:16px">Create</div><div class="ph-text" style="font-size:18px;margin-top:6px">[ design, edit, revise ]</div></div>
-    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--caramel);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px">04</div><div class="anton" style="font-size:38px;margin-top:16px">Launch</div><div class="ph-text" style="font-size:18px;margin-top:6px">[ post, track, report ]</div></div>
+  <div class="abs" style="left:64px;right:64px;top:850px;border-top:1.5px dashed rgba(35,35,30,.4)"></div>
+  <div class="abs" style="left:64px;right:64px;top:824px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:15px">01</div><div class="anton" style="font-size:38px;margin-top:16px">Discover</div><div class="ph-text" style="font-size:18px;margin-top:8px">[ call, brief, goals ]</div></div>
+    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--olive);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:15px">02</div><div class="anton" style="font-size:38px;margin-top:16px">Strategize</div><div class="ph-text" style="font-size:18px;margin-top:8px">[ pillars, calendar, look ]</div></div>
+    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--slate);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px">03</div><div class="anton" style="font-size:38px;margin-top:16px">Create</div><div class="ph-text" style="font-size:18px;margin-top:8px">[ design, edit, revise ]</div></div>
+    <div><div class="mono" style="width:52px;height:52px;border-radius:50%;background:var(--caramel);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px">04</div><div class="anton" style="font-size:38px;margin-top:16px">Launch</div><div class="ph-text" style="font-size:18px;margin-top:8px">[ post, track, report ]</div></div>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → selected work</span></div>
 </section>
 
 <!-- ============ 06 · ARCHIVE INDEX ============ -->
 <section class="slide bg-olive" data-document-role="page" data-label="06 Work index">
   <div class="abs anton" style="left:80px;top:50px;font-size:134px;color:var(--ink);transform-origin:0 0;transform:translateX(126px) rotate(90deg);white-space:nowrap">Selected work_</div>
   <div class="abs mono" style="left:40px;top:330px;font-size:14px;color:var(--cream);transform-origin:0 0;transform:translateX(14px) rotate(90deg);white-space:nowrap;opacity:.8">Visual studies: type · image · emotion · [your tagline]</div>
-  <div class="abs mono" style="left:40px;bottom:34px;font-size:14px;color:var(--ink)">FILE_04 // 01—10</div>
+  <div class="abs mono" style="left:40px;bottom:34px;font-size:13px;line-height:1.5;color:var(--ink)">FILE_04 // index<br>06 / 18</div>
 
-  <div class="strip f-cream" style="left:330px"><div class="tab" style="top:110px"><span>CODE_001 //</span></div><div class="lbl">Social media</div><div class="ph" style="top:640px;height:280px">[ cover ]</div><div class="pg">P.07</div></div>
-  <div class="strip f-slate" style="left:489px"><div class="tab" style="top:180px"><span>CODE_002 //</span></div><div class="lbl">Carousels</div><div class="ph slate" style="top:560px;height:240px">[ cover ]</div><div class="pg">P.08</div></div>
-  <div class="strip f-kraft" style="left:648px"><div class="tab" style="top:250px"><span>CODE_003 //</span></div><div class="lbl">Reels</div><div class="ph kraft" style="top:470px;height:330px">[ cover ]</div><div class="pg">P.09</div></div>
-  <div class="strip f-ink" style="left:807px"><div class="tab" style="top:320px"><span>CODE_004 //</span></div><div class="lbl">Checkout videos</div><div class="ph dark" style="top:720px;height:220px">[ cover ]</div><div class="pg">P.09</div></div>
-  <div class="strip f-caramel" style="left:966px"><div class="tab" style="top:390px"><span>CODE_005 //</span></div><div class="lbl">Websites</div><div class="ph kraft" style="top:560px;height:300px">[ cover ]</div><div class="pg">P.10</div></div>
-  <div class="strip f-sage" style="left:1125px"><div class="tab" style="top:460px"><span>CODE_006 //</span></div><div class="lbl">IG layout</div><div class="ph sage" style="top:480px;height:260px">[ cover ]</div><div class="pg">P.11</div></div>
-  <div class="strip f-bone" style="left:1284px"><div class="tab" style="top:530px"><span>CODE_007 //</span></div><div class="lbl">Case study</div><div class="ph" style="top:620px;height:300px">[ cover ]</div><div class="pg">P.12</div></div>
-  <div class="strip f-olive" style="left:1443px"><div class="tab" style="top:600px"><span>CODE_008 //</span></div><div class="lbl">Calendar</div><div class="ph olive" style="top:520px;height:260px">[ cover ]</div><div class="pg">P.13</div></div>
-  <div class="strip f-slate" style="left:1602px"><div class="tab" style="top:670px"><span>CODE_009 //</span></div><div class="lbl">Brand kit</div><div class="ph slate" style="top:520px;height:120px">[ cover ]</div><div class="pg">P.15</div></div>
-  <div class="strip f-ink" style="left:1761px;width:240px"><div class="tab" style="top:740px"><span>CODE_010 //</span></div><div class="lbl">Campaigns</div><div class="pg">P.16</div></div>
+  <div class="strip f-cream" style="left:330px"><div class="tab" style="top:110px"><span>CODE_001 //</span></div><div class="lbl">Social media</div><div class="ph" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.07</div></div>
+  <div class="strip f-slate" style="left:489px"><div class="tab" style="top:180px"><span>CODE_002 //</span></div><div class="lbl">Carousels</div><div class="ph slate" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.08</div></div>
+  <div class="strip f-kraft" style="left:648px"><div class="tab" style="top:250px"><span>CODE_003 //</span></div><div class="lbl">Reels</div><div class="ph kraft" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.09</div></div>
+  <div class="strip f-ink" style="left:807px"><div class="tab" style="top:320px"><span>CODE_004 //</span></div><div class="lbl">Checkout videos</div><div class="ph dark" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.09</div></div>
+  <div class="strip f-caramel" style="left:966px"><div class="tab" style="top:390px"><span>CODE_005 //</span></div><div class="lbl">Websites</div><div class="ph kraft" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.10</div></div>
+  <div class="strip f-sage" style="left:1125px"><div class="tab" style="top:460px"><span>CODE_006 //</span></div><div class="lbl">IG layout</div><div class="ph sage" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.11</div></div>
+  <div class="strip f-bone" style="left:1284px"><div class="tab" style="top:530px"><span>CODE_007 //</span></div><div class="lbl">Case study</div><div class="ph" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.12</div></div>
+  <div class="strip f-olive" style="left:1443px"><div class="tab" style="top:600px"><span>CODE_008 //</span></div><div class="lbl">Calendar</div><div class="ph olive" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.13</div></div>
+  <div class="strip f-slate" style="left:1602px"><div class="tab" style="top:670px"><span>CODE_009 //</span></div><div class="lbl">Brand kit</div><div class="ph slate" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.15</div></div>
+  <div class="strip f-ink" style="left:1761px;width:240px"><div class="tab" style="top:740px"><span>CODE_010 //</span></div><div class="lbl">Campaigns</div><div class="ph dark" style="top:660px;height:300px">[ cover ]</div><div class="pg">P.16</div></div>
 </section>
 
 <!-- ============ 07 · SOCIAL MEDIA ============ -->
 <section class="slide bg-field" data-document-role="page" data-label="07 Social media">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_001 // social media</span><div class="rule"></div><span>[Your Name] archive</span><span>07 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_001 // social media</span><div class="rule"></div><span>~/archive/work/social</span><span>07 / 18</span></div>
 
   <!-- clipboard -->
-  <div class="abs f-bone shadow" style="left:300px;top:150px;width:800px;height:880px;border-radius:26px"></div>
+  <div class="abs f-bone shadow" style="left:300px;top:150px;width:800px;height:850px;border-radius:26px"></div>
   <div class="abs f-bone" style="left:500px;top:112px;width:400px;height:80px;border-radius:22px 22px 0 0"></div>
   <svg class="ico" style="left:620px;top:84px;width:160px;height:136px;fill:#151514"><use href="#binder"/></svg>
-  <div class="abs mono" style="left:344px;top:186px;font-size:13px;line-height:1.4">Portfolio<br><b>Social media design</b></div>
-  <div class="abs mono" style="left:870px;top:186px;width:190px;text-align:right;font-size:13px;line-height:1.4">[Your studio]<br><b>[Your Name]</b></div>
-  <div class="abs" style="left:440px;top:240px;width:520px;height:520px;background:var(--caramel);padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+  <div class="abs mono" style="left:344px;top:190px;font-size:13px;line-height:1.5">Portfolio<br><b>Social media design</b></div>
+  <div class="abs mono" style="left:856px;top:190px;width:200px;text-align:right;font-size:13px;line-height:1.5">[Your studio]<br><b>[Your Name]</b></div>
+  <div class="abs" style="left:440px;top:250px;width:520px;height:520px;background:var(--caramel);padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <div class="ph">[ post 01 ]</div><div class="ph kraft">[ post 02 ]</div><div class="ph sage">[ post 03 ]</div><div class="ph">[ post 04 ]</div>
   </div>
-  <div class="abs anton" style="left:342px;top:800px;font-size:150px">Social</div>
-  <div class="abs serif" style="left:724px;top:812px;font-size:150px">media</div>
-  <div class="abs" style="left:346px;top:950px;width:700px;font-size:13px;line-height:1.4;opacity:.6">[ A short line about this set — the brand, the goal, the vibe. Keep it to two lines so the work does the talking. ]</div>
+  <div class="abs anton" style="left:344px;top:790px;font-size:140px">Social</div>
+  <div class="abs serif" style="left:720px;top:796px;font-size:146px">media</div>
+  <div class="abs" style="left:346px;top:944px;width:700px;font-size:13px;line-height:1.5;opacity:.6">[ A short line about this set — the brand, the goal, the vibe. Keep it to two lines so the work does the talking. ]</div>
 
   <!-- scattered prints -->
   <div class="abs f-bone shadow-s" style="left:120px;top:400px;width:270px;height:330px;padding:14px;transform:rotate(-9deg)"><div class="ph sage" style="height:100%">[ extra post ]</div></div>
@@ -329,37 +337,38 @@
   <div class="tape pink" style="left:1050px;top:286px;width:130px;transform:rotate(14deg)"></div>
 
   <!-- brief card -->
-  <div class="abs f-cream shadow" style="left:1330px;top:160px;width:520px;height:820px;padding:44px 44px;border-radius:6px">
+  <div class="abs f-cream shadow" style="left:1336px;top:150px;width:520px;height:850px;padding:44px;border-radius:6px">
     <span class="chip">CODE_001</span>
-    <div class="serif" style="font-size:78px;margin:26px 0 30px">The feed,<br>refined.</div>
+    <div class="serif" style="font-size:80px;margin:28px 0 32px">The feed,<br>refined.</div>
     <div class="field" style="grid-template-columns:150px 1fr"><span class="k">Client</span><span class="v ph-text">[ brand name ]</span></div>
     <div class="field" style="grid-template-columns:150px 1fr"><span class="k">Brief</span><span class="v ph-text">[ what they asked for ]</span></div>
     <div class="field" style="grid-template-columns:150px 1fr"><span class="k">I made</span><span class="v ph-text">[ deliverables ]</span></div>
     <div class="field" style="grid-template-columns:150px 1fr"><span class="k">Result</span><span class="v ph-text">[ the win ]</span></div>
-    <div class="hand" style="font-size:34px;margin-top:40px">swipe for more →</div>
+    <div class="ph" style="height:200px;margin-top:28px">[ detail / close-up ]</div>
+    <div class="abs hand" style="left:44px;bottom:36px;font-size:34px">swipe for more →</div>
   </div>
-  <svg class="ico" style="left:1290px;top:130px;width:44px;height:44px;fill:#e46b8a"><use href="#star"/></svg>
+  <svg class="ico" style="left:1300px;top:122px;width:44px;height:44px;fill:#e46b8a"><use href="#star"/></svg>
+  <div class="foot on-photo"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → carousels</span></div>
 </section>
 
 <!-- ============ 08 · CAROUSELS ============ -->
 <section class="slide bg-bone" data-document-role="page" data-label="08 Carousels">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_002 // carousels</span><div class="rule"></div><span>[Your Name] archive</span><span>08 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_002 // carousels</span><div class="rule"></div><span>~/archive/work/carousels</span><span>08 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:118px;font-size:150px">Carousels</div>
-  <div class="abs serif" style="left:740px;top:126px;font-size:128px">people actually swipe.</div>
+  <div class="title"><span class="anton">Carousels</span><span class="serif">people actually swipe.</span></div>
 
-  <div class="abs" style="left:124px;top:344px;width:1672px;height:420px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px">
+  <div class="abs" style="left:64px;top:320px;width:1792px;height:430px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px">
     <div class="ph kraft shadow-s">[ slide 1 — hook ]</div>
     <div class="ph shadow-s">[ slide 2 ]</div>
     <div class="ph sage shadow-s">[ slide 3 ]</div>
     <div class="ph shadow-s">[ slide 4 ]</div>
     <div class="ph olive shadow-s">[ slide 5 — cta ]</div>
   </div>
-  <div class="tape" style="left:385px;top:326px;width:110px;transform:rotate(-4deg)"></div>
-  <div class="tape slate" style="left:722px;top:744px;width:110px;transform:rotate(5deg)"></div>
-  <div class="tape" style="left:1060px;top:328px;width:110px;transform:rotate(3deg)"></div>
-  <div class="tape grid" style="left:1398px;top:744px;width:110px;transform:rotate(-6deg)"></div>
-  <div class="abs mono" style="left:124px;top:780px;font-size:13px;display:flex;gap:10px;align-items:center">
+  <div class="tape" style="left:350px;top:302px;width:110px;transform:rotate(-4deg)"></div>
+  <div class="tape slate" style="left:712px;top:730px;width:110px;transform:rotate(5deg)"></div>
+  <div class="tape" style="left:1074px;top:304px;width:110px;transform:rotate(3deg)"></div>
+  <div class="tape grid" style="left:1436px;top:730px;width:110px;transform:rotate(-6deg)"></div>
+  <div class="abs mono" style="left:64px;top:784px;font-size:13px;display:flex;gap:10px;align-items:center">
     <span style="width:10px;height:10px;border-radius:50%;background:var(--ink);display:block"></span>
     <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);display:block"></span>
     <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);display:block"></span>
@@ -367,184 +376,192 @@
     <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);display:block"></span>
     <span style="margin-left:12px">01 / 05</span>
   </div>
-  <div class="abs hand" style="left:1630px;top:772px;font-size:38px">swipe →</div>
+  <div class="abs hand" style="right:64px;top:770px;font-size:38px">swipe →</div>
 
-  <div class="abs" style="left:124px;right:124px;top:860px;display:grid;grid-template-columns:repeat(3,1fr);gap:50px">
-    <div style="border-top:1.5px solid var(--ink);padding-top:16px"><div class="mono small">Slide 01 — the hook</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ why someone stops on this ]</div></div>
-    <div style="border-top:1.5px solid var(--ink);padding-top:16px"><div class="mono small">Slides 02–04 — the value</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ what makes them keep swiping ]</div></div>
-    <div style="border-top:1.5px solid var(--ink);padding-top:16px"><div class="mono small">Slide 05 — the ask</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ save / share / shop / DM ]</div></div>
+  <div class="abs" style="left:64px;right:64px;top:850px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+    <div style="border-top:1.5px solid var(--ink);padding-top:18px"><div class="mono small">Slide 01 — the hook</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ why someone stops on this ]</div></div>
+    <div style="border-top:1.5px solid var(--ink);padding-top:18px"><div class="mono small">Slides 02–04 — the value</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ what makes them keep swiping ]</div></div>
+    <div style="border-top:1.5px solid var(--ink);padding-top:18px"><div class="mono small">Slide 05 — the ask</div><div class="ph-text" style="font-size:20px;margin-top:10px">[ save / share / shop / DM ]</div></div>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → reels &amp; videos</span></div>
 </section>
 
 <!-- ============ 09 · REELS & CHECKOUT VIDEOS ============ -->
 <section class="slide bg-ink" data-document-role="page" data-label="09 Reels and videos">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_003 + 004 // motion</span><div class="rule"></div><span>[Your Name] archive</span><span>09 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_003 + 004 // reels &amp; checkout videos</span><div class="rule"></div><span>~/archive/work/motion</span><span>09 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:140px;font-size:124px;color:var(--cream)">Reels &amp;<br>checkout<br>videos</div>
-  <div class="abs serif" style="left:64px;top:470px;font-size:140px;color:#d9b58c">press play.</div>
-  <div class="abs body ph-text" style="left:66px;top:640px;width:520px">[ What you handle — scripting, editing, captions, sound — and your editing style in one line. ]</div>
-  <div class="abs" style="left:66px;top:820px;display:grid;grid-template-columns:auto auto;gap:14px 46px;color:var(--cream)">
-    <div><div style="font-size:52px;font-weight:600">[ ]</div><div class="mono small" style="opacity:.6">total views</div></div>
-    <div><div style="font-size:52px;font-weight:600">[ ]%</div><div class="mono small" style="opacity:.6">avg. watch time</div></div>
+  <div class="col" style="color:var(--cream)">
+    <div class="anton">Reels &amp;<br>checkout<br>videos</div>
+    <div class="serif" style="color:#d9b58c">press play.</div>
+    <div class="lead ph-text">[ What you handle — scripting, editing, captions, sound — and your editing style in one line. ]</div>
+    <div class="end" style="display:flex;gap:56px">
+      <div><div style="font-size:52px;font-weight:600;line-height:1">[ ]</div><div class="mono small" style="opacity:.6;margin-top:10px">Total views</div></div>
+      <div><div style="font-size:52px;font-weight:600;line-height:1">[ ]%</div><div class="mono small" style="opacity:.6;margin-top:10px">Avg. watch time</div></div>
+    </div>
   </div>
 
   <!-- phones -->
-  <div class="phone" style="left:690px;top:230px;width:330px;height:640px">
+  <div class="phone" style="left:746px;top:230px;width:330px;height:640px">
     <div class="scr ph dark" style="align-items:flex-start;padding-top:170px">[ reel 01 ]<div class="notch"></div></div>
   </div>
-  <div class="phone" style="left:1080px;top:190px;width:330px;height:640px">
-    <div class="scr ph" style="background-color:#8e7357;color:rgba(255,255,255,.7);align-items:flex-start;padding-top:170px">[ checkout video ]<div class="notch"></div></div>
+  <div class="phone" style="left:1136px;top:190px;width:330px;height:640px">
+    <div class="scr ph" style="background-color:#8e7357;color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.25);align-items:flex-start;padding-top:170px">[ checkout video ]<div class="notch"></div></div>
   </div>
-  <div class="phone" style="left:1470px;top:230px;width:330px;height:640px">
+  <div class="phone" style="left:1526px;top:230px;width:330px;height:640px">
     <div class="scr ph dark" style="align-items:flex-start;padding-top:170px">[ reel 02 ]<div class="notch"></div></div>
   </div>
-  <!-- reel UI overlays -->
-  <svg class="ico" style="left:819px;top:500px;width:72px;height:72px"><use href="#play"/></svg>
-  <svg class="ico" style="left:1209px;top:460px;width:72px;height:72px"><use href="#play"/></svg>
-  <svg class="ico" style="left:1599px;top:500px;width:72px;height:72px"><use href="#play"/></svg>
-  <svg class="ico" style="left:968px;top:640px;width:26px;height:26px"><use href="#ig-heart"/></svg>
-  <svg class="ico" style="left:968px;top:690px;width:26px;height:26px"><use href="#ig-com"/></svg>
-  <svg class="ico" style="left:968px;top:740px;width:26px;height:26px"><use href="#ig-send"/></svg>
-  <svg class="ico" style="left:1748px;top:640px;width:26px;height:26px"><use href="#ig-heart"/></svg>
-  <svg class="ico" style="left:1748px;top:690px;width:26px;height:26px"><use href="#ig-com"/></svg>
-  <svg class="ico" style="left:1748px;top:740px;width:26px;height:26px"><use href="#ig-send"/></svg>
-  <div class="abs" style="left:722px;top:800px;color:#fff;font-size:15px;font-weight:600">@[client] <span style="font-weight:400;opacity:.7">· [caption]</span></div>
-  <div class="abs" style="left:1502px;top:800px;color:#fff;font-size:15px;font-weight:600">@[client] <span style="font-weight:400;opacity:.7">· [caption]</span></div>
-  <div class="abs" style="left:1112px;top:736px;width:266px;height:56px;border-radius:12px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:15px;font-weight:600;color:var(--ink)">[ Product ] <span class="mono" style="font-size:12px;background:var(--ink);color:#fff;padding:7px 12px;border-radius:999px">Shop now</span></div>
-  <div class="abs" style="left:1112px;top:806px;width:266px;height:3px;background:rgba(255,255,255,.3)"><div style="width:62%;height:100%;background:#fff"></div></div>
-  <div class="abs" style="left:1080px;top:150px;width:330px;text-align:center"><span class="chip" style="background:var(--caramel);border-color:var(--caramel);color:#fff">Checkout video</span></div>
+  <svg class="ico" style="left:875px;top:514px;width:72px;height:72px"><use href="#play"/></svg>
+  <svg class="ico" style="left:1265px;top:474px;width:72px;height:72px"><use href="#play"/></svg>
+  <svg class="ico" style="left:1655px;top:514px;width:72px;height:72px"><use href="#play"/></svg>
+  <svg class="ico" style="left:1024px;top:640px;width:26px;height:26px"><use href="#ig-heart"/></svg>
+  <svg class="ico" style="left:1024px;top:690px;width:26px;height:26px"><use href="#ig-com"/></svg>
+  <svg class="ico" style="left:1024px;top:740px;width:26px;height:26px"><use href="#ig-send"/></svg>
+  <svg class="ico" style="left:1804px;top:640px;width:26px;height:26px"><use href="#ig-heart"/></svg>
+  <svg class="ico" style="left:1804px;top:690px;width:26px;height:26px"><use href="#ig-com"/></svg>
+  <svg class="ico" style="left:1804px;top:740px;width:26px;height:26px"><use href="#ig-send"/></svg>
+  <div class="abs" style="left:778px;top:800px;color:#fff;font-size:15px;font-weight:600">@[client] <span style="font-weight:400;opacity:.7">· [caption]</span></div>
+  <div class="abs" style="left:1558px;top:800px;color:#fff;font-size:15px;font-weight:600">@[client] <span style="font-weight:400;opacity:.7">· [caption]</span></div>
+  <div class="abs" style="left:1168px;top:736px;width:266px;height:56px;border-radius:12px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:15px;font-weight:600;color:var(--ink)">[ Product ] <span class="mono" style="font-size:12px;background:var(--ink);color:#fff;padding:7px 12px;border-radius:999px">Shop now</span></div>
+  <div class="abs" style="left:1168px;top:806px;width:266px;height:3px;background:rgba(255,255,255,.3)"><div style="width:62%;height:100%;background:#fff"></div></div>
+  <div class="abs" style="left:1136px;top:146px;width:330px;text-align:center"><span class="chip" style="background:var(--caramel);border-color:var(--caramel);color:#fff">Checkout video</span></div>
 
-  <div class="abs mono small" style="left:690px;top:900px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · ♥ [ ]</div>
-  <div class="abs mono small" style="left:1080px;top:860px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · [ ]% CTR</div>
-  <div class="abs mono small" style="left:1470px;top:900px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · ♥ [ ]</div>
+  <div class="abs mono small" style="left:746px;top:900px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · ♥ [ ]</div>
+  <div class="abs mono small" style="left:1136px;top:860px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · [ ]% CTR</div>
+  <div class="abs mono small" style="left:1526px;top:900px;width:330px;text-align:center;color:var(--cream);opacity:.75">▶ [ ] views · ♥ [ ]</div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → websites</span></div>
 </section>
 
 <!-- ============ 10 · WEBSITES ============ -->
 <section class="slide" data-document-role="page" data-label="10 Websites">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_005 // websites</span><div class="rule"></div><span>[Your Name] archive</span><span>10 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_005 // websites</span><div class="rule"></div><span>~/archive/work/web</span><span>10 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:112px;display:flex;align-items:baseline;gap:28px">
-    <span class="anton" style="font-size:136px">Websites</span><span class="serif" style="font-size:132px">built to be clicked.</span>
-  </div>
+  <div class="title"><span class="anton">Websites</span><span class="serif">built to be clicked.</span></div>
 
-  <div class="win shadow" style="left:64px;top:310px;width:1160px;height:690px">
+  <div class="win shadow" style="left:64px;top:320px;width:1150px;height:680px">
     <div class="bar"><div class="d"><i></i><i></i><i></i></div>
       <span style="flex:1;margin:0 70px;height:28px;border:1.2px solid var(--ink);border-radius:999px;display:flex;align-items:center;justify-content:center;text-transform:none;letter-spacing:.02em;background:var(--bone)">https://[yourproject].com</span>
       <span>↻</span>
     </div>
-    <div class="ph" style="position:absolute;top:44px;left:0;right:0;bottom:0">[ desktop screenshot ]</div>
+    <div class="ph" style="position:absolute;top:44px;left:0;right:0;bottom:0;border:0">[ desktop screenshot ]</div>
   </div>
-  <div class="phone" style="left:1110px;top:470px;width:270px;height:540px;border-radius:40px">
+  <div class="phone" style="left:1104px;top:500px;width:250px;height:500px;border-radius:40px">
     <div class="scr ph kraft" style="border-radius:30px">[ mobile ]<div class="notch" style="width:70px;margin-left:-35px;top:16px;height:20px"></div></div>
   </div>
-  <svg class="ico" style="left:1380px;top:880px;width:38px;height:48px"><use href="#cursor"/></svg>
+  <svg class="ico" style="left:1352px;top:880px;width:38px;height:48px"><use href="#cursor"/></svg>
 
-  <div class="abs" style="left:1460px;top:320px;width:396px">
+  <div class="abs" style="left:1460px;top:306px;width:396px">
     <div class="field" style="grid-template-columns:140px 1fr"><span class="k">Project</span><span class="v ph-text">[ name ]</span></div>
     <div class="field" style="grid-template-columns:140px 1fr"><span class="k">Role</span><span class="v ph-text">[ design / build ]</span></div>
     <div class="field" style="grid-template-columns:140px 1fr"><span class="k">Pages</span><span class="v ph-text">[ home, shop… ]</span></div>
     <div class="field" style="grid-template-columns:140px 1fr"><span class="k">Built on</span><span class="v ph-text">[ platform ]</span></div>
     <div class="field" style="grid-template-columns:140px 1fr"><span class="k">Live</span><span class="v ph-text">[ link ]</span></div>
   </div>
-  <div class="sticky blue" style="left:1480px;top:700px;width:360px;height:280px;transform:rotate(-3deg)">
+  <div class="sticky blue" style="left:1476px;top:706px;width:380px;height:290px;transform:rotate(-2.5deg)">
     <h4>what I solved</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → instagram layout</span></div>
 </section>
 
 <!-- ============ 11 · IG LAYOUT & THOUGHT PROCESS ============ -->
 <section class="slide bg-sage" data-document-role="page" data-label="11 IG layout">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_006 // instagram layout</span><div class="rule"></div><span>[Your Name] archive</span><span>11 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_006 // instagram layout</span><div class="rule"></div><span>~/archive/work/ig-layout</span><span>11 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:130px;font-size:118px">The grid<br>is a plan,</div>
-  <div class="abs serif" style="left:64px;top:340px;font-size:134px">not a vibe.</div>
-  <div class="abs body ph-text" style="left:66px;top:520px;width:500px;color:rgba(35,35,30,.6)">[ Explain the thinking behind this feed: what each row does and why the pattern repeats. ]</div>
-  <div class="abs" style="left:66px;top:720px;width:500px">
-    <div class="field"><span class="k">Account</span><span class="v ph-text" style="color:rgba(35,35,30,.6)">[ @handle ]</span></div>
-    <div class="field"><span class="k">Rhythm</span><span class="v ph-text" style="color:rgba(35,35,30,.6)">[ e.g. 3-post rows ]</span></div>
-    <div class="field"><span class="k">Growth</span><span class="v ph-text" style="color:rgba(35,35,30,.6)">[ +__ followers ]</span></div>
+  <div class="col">
+    <div class="anton">The grid<br>is a plan,</div>
+    <div class="serif">not a vibe.</div>
+    <div class="lead" style="color:rgba(35,35,30,.6)">[ The thinking behind this feed: what each row does and why the pattern repeats. ]</div>
+    <div class="end">
+      <div class="field"><span class="k">Account</span><span class="v" style="color:rgba(35,35,30,.6)">[ @handle ]</span></div>
+      <div class="field"><span class="k">Rhythm</span><span class="v" style="color:rgba(35,35,30,.6)">[ e.g. 3-post rows ]</span></div>
+      <div class="field"><span class="k">Growth</span><span class="v" style="color:rgba(35,35,30,.6)">[ +__ followers ]</span></div>
+    </div>
   </div>
 
   <!-- phone with IG profile -->
-  <div class="phone" style="left:640px;top:100px;width:470px;height:950px">
+  <div class="phone" style="left:660px;top:112px;width:460px;height:888px">
     <div class="scr" style="background:#fbfaf6">
       <div class="notch"></div>
       <div class="abs" style="left:24px;top:74px;right:24px;display:flex;align-items:center;gap:22px">
-        <div class="ph" style="width:96px;height:96px;border-radius:50%;flex:none;font-size:10px">[ logo ]</div>
-        <div style="flex:1;display:flex;justify-content:space-around;text-align:center;font-size:13px">
+        <div class="ph" style="width:92px;height:92px;border-radius:50%;flex:none;font-size:10px">[ logo ]</div>
+        <div style="flex:1;display:flex;justify-content:space-around;text-align:center;font-size:13px;line-height:1.35">
           <div><b style="font-size:19px">[ ]</b><br>posts</div><div><b style="font-size:19px">[ ]</b><br>followers</div><div><b style="font-size:19px">[ ]</b><br>following</div>
         </div>
       </div>
-      <div class="abs" style="left:24px;top:186px;font-size:15px;font-weight:700">[Brand name]</div>
-      <div class="abs" style="left:24px;top:210px;width:300px;height:9px;border-radius:5px;background:#e3dfd4"></div>
-      <div class="abs" style="left:24px;top:228px;width:230px;height:9px;border-radius:5px;background:#e3dfd4"></div>
-      <div class="abs" style="left:24px;top:258px;display:flex;gap:18px">
-        <i style="width:52px;height:52px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:52px;height:52px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:52px;height:52px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:52px;height:52px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i>
+      <div class="abs" style="left:24px;top:182px;font-size:15px;font-weight:700">[Brand name]</div>
+      <div class="abs" style="left:24px;top:208px;width:300px;height:9px;border-radius:5px;background:#e3dfd4"></div>
+      <div class="abs" style="left:24px;top:226px;width:230px;height:9px;border-radius:5px;background:#e3dfd4"></div>
+      <div class="abs" style="left:24px;top:254px;display:flex;gap:18px">
+        <i style="width:50px;height:50px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:50px;height:50px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:50px;height:50px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i><i style="width:50px;height:50px;border-radius:50%;border:2px solid #d4cfc2;display:block;background:#ece7db"></i>
       </div>
-      <div class="abs" style="left:0;right:0;top:330px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px">
-        <div class="ph" style="height:192px;font-size:11px">[ 1 ]</div><div class="ph olive" style="height:192px;font-size:11px">[ 2 ]</div><div class="ph" style="height:192px;font-size:11px">[ 3 ]</div>
-        <div class="ph kraft" style="height:192px;font-size:11px">[ 4 ]</div><div class="ph" style="height:192px;font-size:11px">[ 5 ]</div><div class="ph kraft" style="height:192px;font-size:11px">[ 6 ]</div>
-        <div class="ph" style="height:192px;font-size:11px">[ 7 ]</div><div class="ph olive" style="height:192px;font-size:11px">[ 8 ]</div><div class="ph" style="height:192px;font-size:11px">[ 9 ]</div>
+      <div class="abs" style="left:0;right:0;top:322px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px">
+        <div class="ph" style="height:176px;font-size:11px;border:0">[ 1 ]</div><div class="ph olive" style="height:176px;font-size:11px;border:0">[ 2 ]</div><div class="ph" style="height:176px;font-size:11px;border:0">[ 3 ]</div>
+        <div class="ph kraft" style="height:176px;font-size:11px;border:0">[ 4 ]</div><div class="ph" style="height:176px;font-size:11px;border:0">[ 5 ]</div><div class="ph kraft" style="height:176px;font-size:11px;border:0">[ 6 ]</div>
+        <div class="ph" style="height:176px;font-size:11px;border:0">[ 7 ]</div><div class="ph olive" style="height:176px;font-size:11px;border:0">[ 8 ]</div><div class="ph" style="height:176px;font-size:11px;border:0">[ 9 ]</div>
       </div>
     </div>
   </div>
 
-  <div class="sticky" style="left:1180px;top:150px;width:320px;height:350px;transform:rotate(-3deg)"><h4>the goal</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
-  <div class="sticky pink" style="left:1540px;top:170px;width:320px;height:350px;transform:rotate(2.5deg)"><h4>the audience</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
-  <div class="sticky blue" style="left:1190px;top:570px;width:320px;height:360px;transform:rotate(2deg)"><h4>visual direction</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
-  <div class="sticky sage" style="left:1550px;top:580px;width:320px;height:360px;transform:rotate(-2deg);background:#eae3c9"><h4>grid pattern</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
-  <div class="tape" style="left:1290px;top:132px;width:110px;transform:rotate(-6deg)"></div>
-  <div class="tape slate" style="left:1650px;top:560px;width:110px;transform:rotate(4deg)"></div>
+  <div class="sticky" style="left:1196px;top:130px;width:320px;height:380px;transform:rotate(-2.5deg)"><h4>the goal</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="sticky pink" style="left:1536px;top:130px;width:320px;height:380px;transform:rotate(2.5deg)"><h4>the audience</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="sticky blue" style="left:1196px;top:580px;width:320px;height:380px;transform:rotate(2deg)"><h4>visual direction</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="sticky" style="left:1536px;top:580px;width:320px;height:380px;transform:rotate(-2deg);background:#eae3c9"><h4>grid pattern</h4><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+  <div class="tape" style="left:1300px;top:114px;width:110px;transform:rotate(-6deg)"></div>
+  <div class="tape slate" style="left:1640px;top:564px;width:110px;transform:rotate(4deg)"></div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → case study</span></div>
 </section>
 
 <!-- ============ 12 · CASE STUDY ============ -->
 <section class="slide" data-document-role="page" data-label="12 Case study">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_007 // case study</span><div class="rule"></div><span>[Your Name] archive</span><span>12 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_007 // case file no. 001</span><div class="rule"></div><span>~/archive/work/case-study</span><span>12 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:104px"><span class="chip">Case file no. 001</span></div>
-  <div class="abs anton" style="left:64px;top:158px;font-size:112px">[Project name]</div>
+  <div class="title"><span class="anton">[Project name]</span><span class="serif">a case study.</span></div>
 
-  <div class="folder f-kraft shadow" data-tab="CLIENT // [NAME]" style="left:64px;top:340px;width:880px;height:680px">
-    <div class="abs f-bone shadow-s" style="left:28px;top:28px;right:28px;bottom:28px;padding:30px 38px">
-      <div class="field" style="grid-template-columns:200px 1fr;padding:20px 0"><span class="k">01 The client</span><span class="v ph-text">[ who they are, what they sell, who they sell to ]</span></div>
-      <div class="field" style="grid-template-columns:200px 1fr;padding:20px 0"><span class="k">02 The problem</span><span class="v ph-text">[ what wasn't working — low reach, messy feed, no sales… ]</span></div>
-      <div class="field" style="grid-template-columns:200px 1fr;padding:20px 0"><span class="k">03 The strategy</span><span class="v ph-text">[ the plan you proposed and why ]</span></div>
-      <div class="field" style="grid-template-columns:200px 1fr;padding:20px 0"><span class="k">04 The execution</span><span class="v ph-text">[ what you designed, posted and tested ]</span></div>
-      <div class="field" style="grid-template-columns:200px 1fr;padding:20px 0"><span class="k">Timeline</span><span class="v ph-text">[ __ weeks ]</span></div>
-      <div class="serif ph-text" style="font-size:40px;line-height:1.1;margin-top:34px;width:560px">“[ The one insight that changed everything for this client. ]”</div>
+  <div class="folder f-kraft shadow" style="left:64px;top:358px;width:880px;height:642px">
+    <div class="tab">Client // [name]</div>
+    <div class="abs f-bone shadow-s" style="left:28px;top:28px;right:28px;bottom:28px;padding:20px 38px">
+      <div class="field" style="grid-template-columns:200px 1fr;padding:18px 0"><span class="k">01 The client</span><span class="v ph-text">[ who they are, what they sell, who they sell to ]</span></div>
+      <div class="field" style="grid-template-columns:200px 1fr;padding:18px 0"><span class="k">02 The problem</span><span class="v ph-text">[ what wasn't working — reach, feed, sales… ]</span></div>
+      <div class="field" style="grid-template-columns:200px 1fr;padding:18px 0"><span class="k">03 The strategy</span><span class="v ph-text">[ the plan you proposed and why ]</span></div>
+      <div class="field" style="grid-template-columns:200px 1fr;padding:18px 0"><span class="k">04 The execution</span><span class="v ph-text">[ what you designed, posted and tested ]</span></div>
+      <div class="field" style="grid-template-columns:200px 1fr;padding:18px 0"><span class="k">Timeline</span><span class="v ph-text">[ __ weeks ]</span></div>
+      <div class="serif ph-text" style="font-size:38px;line-height:1.1;margin-top:28px;width:540px">“[ The one insight that changed everything for this client. ]”</div>
     </div>
   </div>
-  <div class="stamp" style="left:770px;top:840px;width:190px;height:190px;font-size:15px;transform:rotate(-14deg)">case<br><span style="font-size:26px">closed</span><br>✓ results</div>
+  <div class="stamp" style="left:770px;top:820px;width:180px;height:180px;font-size:14px;transform:rotate(-14deg)">case<br><span style="font-size:24px">closed</span><br>✓ results</div>
 
-  <div class="polaroid" style="left:1010px;top:150px;width:390px;height:450px;transform:rotate(-4deg)"><div class="ph">[ before ]</div><div class="cap">before</div></div>
-  <div class="polaroid" style="left:1440px;top:180px;width:390px;height:450px;transform:rotate(4deg)"><div class="ph kraft">[ after ]</div><div class="cap">after ✶</div></div>
-  <div class="tape" style="left:1140px;top:132px;width:130px;transform:rotate(-8deg)"></div>
-  <div class="tape pink" style="left:1580px;top:162px;width:130px;transform:rotate(6deg)"></div>
-  <svg class="ico" style="left:1352px;top:360px;width:110px;height:40px;color:var(--ink)"><use href="#arrow"/></svg>
+  <div class="polaroid" style="left:1010px;top:300px;width:390px;height:400px;transform:rotate(-3deg)"><div class="ph">[ before ]</div><div class="cap">before</div></div>
+  <div class="polaroid" style="left:1466px;top:300px;width:390px;height:400px;transform:rotate(3deg)"><div class="ph kraft">[ after ]</div><div class="cap">after ✶</div></div>
+  <div class="tape" style="left:1140px;top:284px;width:130px;transform:rotate(-8deg)"></div>
+  <div class="tape pink" style="left:1596px;top:284px;width:130px;transform:rotate(6deg)"></div>
+  <svg class="ico" style="left:1374px;top:470px;width:110px;height:40px;color:var(--ink)"><use href="#arrow"/></svg>
 
-  <div class="abs" style="left:1010px;top:700px;width:846px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
-    <div class="f-ink shadow-s" style="height:270px;padding:28px;border-radius:6px"><div class="mono small" style="opacity:.6">05 Results</div><div style="font-size:64px;font-weight:600;margin-top:48px">+[ ]%</div><div class="mono small">reach</div></div>
-    <div class="f-olive shadow-s" style="height:270px;padding:28px;border-radius:6px"><div class="mono small" style="opacity:.6">05 Results</div><div style="font-size:64px;font-weight:600;margin-top:48px">+[ ]</div><div class="mono small">followers</div></div>
-    <div class="f-caramel shadow-s" style="height:270px;padding:28px;border-radius:6px"><div class="mono small" style="opacity:.6">05 Results</div><div style="font-size:64px;font-weight:600;margin-top:48px">[ ]x</div><div class="mono small">engagement</div></div>
+  <div class="abs" style="left:1010px;top:748px;width:846px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+    <div class="f-ink shadow-s" style="height:252px;padding:28px;border-radius:6px;position:relative"><div class="mono small" style="opacity:.6">05 Result / 01</div><div class="abs" style="left:28px;bottom:28px"><div style="font-size:60px;font-weight:600;line-height:1">+[ ]%</div><div class="mono small" style="margin-top:10px">Reach</div></div></div>
+    <div class="f-olive shadow-s" style="height:252px;padding:28px;border-radius:6px;position:relative"><div class="mono small" style="opacity:.6">05 Result / 02</div><div class="abs" style="left:28px;bottom:28px"><div style="font-size:60px;font-weight:600;line-height:1">+[ ]</div><div class="mono small" style="margin-top:10px">Followers</div></div></div>
+    <div class="f-caramel shadow-s" style="height:252px;padding:28px;border-radius:6px;position:relative"><div class="mono small" style="opacity:.6">05 Result / 03</div><div class="abs" style="left:28px;bottom:28px"><div style="font-size:60px;font-weight:600;line-height:1">[ ]x</div><div class="mono small" style="margin-top:10px">Engagement</div></div></div>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → content calendar</span></div>
 </section>
 
 <!-- ============ 13 · CONTENT CALENDAR ============ -->
 <section class="slide bg-bone" data-document-role="page" data-label="13 Content calendar">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_008 // content calendar</span><div class="rule"></div><span>[Your Name] archive</span><span>13 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_008 // content calendar</span><div class="rule"></div><span>~/archive/work/calendar</span><span>13 / 18</span></div>
 
-  <div class="abs anton" style="left:64px;top:126px;font-size:128px">Planned,</div>
-  <div class="abs serif" style="left:64px;top:240px;font-size:130px">not<br>panicked.</div>
-  <div class="abs body ph-text" style="left:66px;top:520px;width:420px">[ How you plan a month: pillars, rhythm, approvals — and how far ahead you work. ]</div>
-  <div class="abs" style="left:66px;top:700px;width:420px">
-    <div class="mono small" style="margin-bottom:14px">Legend</div>
-    <div style="display:flex;flex-wrap:wrap;gap:10px">
-      <span class="pill p-reel" style="margin:0"><b>REEL</b></span><span class="pill p-car" style="margin:0"><b>CAROUSEL</b></span><span class="pill p-story" style="margin:0"><b>STORY</b></span><span class="pill p-static" style="margin:0"><b>STATIC</b></span>
+  <div class="col">
+    <div class="anton">Planned,</div>
+    <div class="serif">not<br>panicked.</div>
+    <div class="lead ph-text">[ How you plan a month: pillars, rhythm, approvals — and how far ahead you work. ]</div>
+    <div class="end">
+      <div class="mono small" style="margin-bottom:14px">Legend</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px">
+        <span class="pill p-reel" style="margin:0"><b>REEL</b></span><span class="pill p-car" style="margin:0"><b>CAROUSEL</b></span><span class="pill p-story" style="margin:0"><b>STORY</b></span><span class="pill p-static" style="margin:0"><b>STATIC</b></span>
+      </div>
+      <div class="field" style="grid-template-columns:170px 1fr"><span class="k">Rhythm</span><span class="v ph-text">[ _x / week ]</span></div>
+      <div class="field" style="grid-template-columns:170px 1fr"><span class="k">Pillars</span><span class="v ph-text">[ 3–4 themes ]</span></div>
     </div>
-    <div class="field" style="grid-template-columns:170px 1fr;margin-top:26px"><span class="k">Rhythm</span><span class="v ph-text">[ _x / week ]</span></div>
-    <div class="field" style="grid-template-columns:170px 1fr"><span class="k">Pillars</span><span class="v ph-text">[ 3–4 themes ]</span></div>
   </div>
 
-  <div class="abs shadow" style="left:540px;top:120px;width:1316px;height:880px;background:#fcfbf7;padding:40px 40px">
+  <div class="abs shadow" style="left:640px;top:120px;width:1216px;height:880px;background:#fcfbf7;padding:40px">
     <div style="display:flex;align-items:baseline;gap:22px;margin-bottom:26px">
       <span class="anton" style="font-size:70px">[Month]</span><span class="serif" style="font-size:72px">2026</span>
       <span class="mono small" style="margin-left:auto;opacity:.6">Content calendar · [client]</span>
@@ -552,106 +569,105 @@
     <div class="cal" id="cal"></div>
   </div>
   <!-- spiral binding -->
-  <div class="abs" style="left:600px;top:100px;width:1200px;display:flex;justify-content:space-between">
-    <i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i><i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i>
-  </div>
+  <div class="abs" style="left:700px;top:100px;width:1096px;display:flex;justify-content:space-between" id="rings"></div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → workflow</span></div>
 </section>
 
 <!-- ============ 14 · HOW I MANAGE ============ -->
 <section class="slide bg-kraft" data-document-role="page" data-label="14 How I manage">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_05 // workflow</span><div class="rule"></div><span>[Your Name] archive</span><span>14 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_05 // workflow</span><div class="rule"></div><span>~/archive/workflow</span><span>14 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:110px;display:flex;align-items:baseline;gap:28px">
-    <span class="anton" style="font-size:132px">How I manage</span><span class="serif" style="font-size:150px">the chaos.</span>
-  </div>
-  <div class="abs" style="left:64px;top:290px;width:1792px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px" id="kanban"></div>
+  <div class="title"><span class="anton">How I manage</span><span class="serif">the chaos.</span></div>
+  <div class="title-lead lead" style="width:420px;color:rgba(35,35,30,.6)">[ Weekly check-ins, one shared board, clear approvals — say how you work. ]</div>
+  <div class="abs" style="left:64px;top:320px;width:1792px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px" id="kanban"></div>
 
-  <div class="abs" style="left:64px;top:966px;display:flex;align-items:center;gap:14px">
+  <div class="abs" style="left:64px;top:950px;display:flex;align-items:center;gap:14px">
     <span class="mono small" style="margin-right:10px">My toolkit →</span>
     <span class="chip" style="background:var(--bone)">[ Notion ]</span><span class="chip" style="background:var(--bone)">[ Canva ]</span><span class="chip" style="background:var(--bone)">[ CapCut ]</span><span class="chip" style="background:var(--bone)">[ Meta Business Suite ]</span><span class="chip" style="background:var(--bone)">[ Google Drive ]</span><span class="chip" style="background:var(--bone)">[ + your tool ]</span>
   </div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → brand kit</span></div>
 </section>
 
 <!-- ============ 15 · BRAND KIT ============ -->
 <section class="slide" data-document-role="page" data-label="15 Brand kit">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_009 // brand kit</span><div class="rule"></div><span>[Client / brand name]</span><span>15 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_009 // brand kit — [client]</span><div class="rule"></div><span>~/archive/work/brand-kit</span><span>15 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:108px;display:flex;align-items:baseline;gap:28px">
-    <span class="anton" style="font-size:140px">Brand kit</span><span class="serif" style="font-size:150px">the rulebook.</span>
+  <div class="title"><span class="anton">Brand kit</span><span class="serif">the rulebook.</span></div>
+
+  <div class="abs f-bone shadow-s" style="left:64px;top:320px;width:720px;height:400px;padding:16px;border-radius:6px"><div class="ph" style="height:100%">[ primary logo ]</div></div>
+  <div class="abs f-bone shadow-s" style="left:64px;top:748px;width:350px;height:252px;padding:16px;border-radius:6px"><div class="ph kraft" style="height:100%">[ secondary logo ]</div></div>
+  <div class="abs f-bone shadow-s" style="left:434px;top:748px;width:350px;height:252px;padding:16px;border-radius:6px"><div class="ph sage" style="height:100%">[ icon / mark ]</div></div>
+
+  <div class="abs" style="left:820px;top:320px;width:1036px;height:400px;display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+    <div class="shadow-s" style="background:#fbf9f4;padding:12px;border-radius:6px"><div style="height:240px;background:#ede6d6;border:1px solid var(--line)"></div><div class="anton" style="font-size:26px;margin-top:16px">[Colour 01]</div><div class="mono small" style="opacity:.7;margin-top:4px">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
+    <div class="shadow-s" style="background:#fbf9f4;padding:12px;border-radius:6px"><div style="height:240px;background:var(--olive)"></div><div class="anton" style="font-size:26px;margin-top:16px">[Colour 02]</div><div class="mono small" style="opacity:.7;margin-top:4px">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
+    <div class="shadow-s" style="background:#fbf9f4;padding:12px;border-radius:6px"><div style="height:240px;background:var(--slate)"></div><div class="anton" style="font-size:26px;margin-top:16px">[Colour 03]</div><div class="mono small" style="opacity:.7;margin-top:4px">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
+    <div class="shadow-s" style="background:#fbf9f4;padding:12px;border-radius:6px"><div style="height:240px;background:var(--caramel)"></div><div class="anton" style="font-size:26px;margin-top:16px">[Colour 04]</div><div class="mono small" style="opacity:.7;margin-top:4px">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
+    <div class="shadow-s" style="background:#fbf9f4;padding:12px;border-radius:6px"><div style="height:240px;background:var(--ink)"></div><div class="anton" style="font-size:26px;margin-top:16px">[Colour 05]</div><div class="mono small" style="opacity:.7;margin-top:4px">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
   </div>
 
-  <div class="abs f-bone shadow-s" style="left:64px;top:300px;width:720px;height:420px;padding:16px"><div class="ph" style="height:100%">[ primary logo ]</div></div>
-  <div class="abs f-bone shadow-s" style="left:64px;top:750px;width:350px;height:260px;padding:16px"><div class="ph kraft" style="height:100%">[ secondary logo ]</div></div>
-  <div class="abs f-bone shadow-s" style="left:434px;top:750px;width:350px;height:260px;padding:16px"><div class="ph sage" style="height:100%">[ icon / mark ]</div></div>
-
-  <div class="chipcard shadow-s" style="left:820px"><div class="sw" style="background:#ede6d6;border:1px solid var(--line)"></div><div class="nm">[Colour 01]</div><div class="mono small" style="opacity:.7">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
-  <div class="chipcard shadow-s" style="left:1028px"><div class="sw" style="background:var(--olive)"></div><div class="nm">[Colour 02]</div><div class="mono small" style="opacity:.7">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
-  <div class="chipcard shadow-s" style="left:1236px"><div class="sw" style="background:var(--slate)"></div><div class="nm">[Colour 03]</div><div class="mono small" style="opacity:.7">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
-  <div class="chipcard shadow-s" style="left:1444px"><div class="sw" style="background:var(--caramel)"></div><div class="nm">[Colour 04]</div><div class="mono small" style="opacity:.7">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
-  <div class="chipcard shadow-s" style="left:1652px"><div class="sw" style="background:var(--ink)"></div><div class="nm">[Colour 05]</div><div class="mono small" style="opacity:.7">[#HEX]</div><div class="mono small" style="opacity:.5;margin-top:4px">RGB [ ]</div></div>
-
-  <div class="abs f-ink shadow-s" style="left:820px;top:750px;width:600px;height:260px;padding:28px 34px;border-radius:6px;display:flex;gap:34px;align-items:center">
+  <div class="abs f-ink shadow-s" style="left:820px;top:748px;width:600px;height:252px;padding:28px 34px;border-radius:6px;display:flex;gap:34px;align-items:center">
     <div class="serif" style="font-size:170px;line-height:.8">Aa</div>
     <div style="flex:1">
-      <div class="mono small" style="opacity:.6">Headline</div><div style="font-size:24px;margin:2px 0 14px">[ Font name ]</div>
-      <div class="mono small" style="opacity:.6">Body</div><div style="font-size:24px;margin:2px 0 14px">[ Font name ]</div>
-      <div class="mono small" style="opacity:.6">Accent</div><div style="font-size:24px;margin-top:2px">[ Font name ]</div>
+      <div class="mono small" style="opacity:.6">Headline</div><div style="font-size:22px;margin:4px 0 14px">[ Font name ]</div>
+      <div class="mono small" style="opacity:.6">Body</div><div style="font-size:22px;margin:4px 0 14px">[ Font name ]</div>
+      <div class="mono small" style="opacity:.6">Accent</div><div style="font-size:22px;margin-top:4px">[ Font name ]</div>
     </div>
   </div>
-  <div class="abs f-bone shadow-s" style="left:1444px;top:750px;width:400px;height:260px;padding:16px"><div class="ph olive" style="height:100%">[ patterns &amp;<br>graphic elements ]</div></div>
-  <svg class="ico" style="left:1800px;top:276px;width:48px;height:48px;fill:#e46b8a;transform:rotate(14deg)"><use href="#star"/></svg>
+  <div class="abs f-bone shadow-s" style="left:1440px;top:748px;width:416px;height:252px;padding:16px;border-radius:6px"><div class="ph olive" style="height:100%">[ patterns &amp;<br>graphic elements ]</div></div>
+  <svg class="ico" style="left:1826px;top:296px;width:48px;height:48px;fill:#e46b8a;transform:rotate(14deg)"><use href="#star"/></svg>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → campaigns</span></div>
 </section>
 
 <!-- ============ 16 · CAMPAIGNS & STORIES ============ -->
 <section class="slide bg-olive" data-document-role="page" data-label="16 Campaigns and stories">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_010 // campaigns + ig stories</span><div class="rule"></div><span>[Your Name] archive</span><span>16 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>CODE_010 // campaigns + ig stories</span><div class="rule"></div><span>~/archive/work/campaigns</span><span>16 / 18</span></div>
 
-  <div class="abs" style="left:64px;top:106px;display:flex;align-items:baseline;gap:28px">
-    <span class="anton" style="font-size:132px">Campaigns</span><span class="serif" style="font-size:150px">&amp; stories.</span>
-  </div>
+  <div class="title"><span class="anton">Campaigns</span><span class="serif">&amp; stories.</span></div>
 
   <!-- moodboard -->
-  <div class="abs shadow" style="left:70px;top:320px;width:420px;height:520px;transform:rotate(-3deg)"><div class="ph kraft" style="height:100%">[ campaign key visual ]</div></div>
-  <div class="abs shadow" style="left:440px;top:300px;width:300px;height:300px;transform:rotate(4deg)"><div class="ph" style="height:100%">[ mood ]</div></div>
-  <div class="abs shadow" style="left:540px;top:600px;width:300px;height:380px;transform:rotate(-2deg)"><div class="ph dark" style="height:100%">[ ad / poster ]</div></div>
-  <div class="tape" style="left:200px;top:300px;transform:rotate(-6deg)"></div>
-  <div class="tape pink" style="left:560px;top:284px;width:120px;transform:rotate(8deg)"></div>
-  <div class="abs f-bone shadow-s" style="left:100px;top:820px;width:420px;height:180px;padding:24px 28px;transform:rotate(1.5deg);color:var(--ink)">
+  <div class="abs shadow" style="left:74px;top:336px;width:420px;height:500px;transform:rotate(-3deg)"><div class="ph kraft" style="height:100%">[ campaign key visual ]</div></div>
+  <div class="abs shadow" style="left:450px;top:320px;width:300px;height:300px;transform:rotate(4deg)"><div class="ph" style="height:100%">[ mood ]</div></div>
+  <div class="abs shadow" style="left:540px;top:610px;width:300px;height:380px;transform:rotate(-2deg)"><div class="ph dark" style="height:100%">[ ad / poster ]</div></div>
+  <div class="tape" style="left:206px;top:318px;transform:rotate(-6deg)"></div>
+  <div class="tape pink" style="left:570px;top:304px;width:120px;transform:rotate(8deg)"></div>
+  <div class="abs f-bone shadow-s" style="left:96px;top:810px;width:420px;height:180px;padding:24px 28px;transform:rotate(1.5deg);color:var(--ink)">
     <div class="mono small">Campaign // [name]</div>
-    <div class="serif" style="font-size:44px;margin:10px 0 6px">[The idea in one line]</div>
+    <div class="serif" style="font-size:44px;margin:12px 0 8px">[The idea in one line]</div>
     <div class="mono small" style="opacity:.6">[ channels · dates · results ]</div>
   </div>
-  <svg class="ico" style="left:780px;top:560px;width:46px;height:46px;fill:#fff"><use href="#spark"/></svg>
+  <svg class="ico" style="left:790px;top:570px;width:46px;height:46px;fill:#fff"><use href="#spark"/></svg>
 
   <!-- stories -->
-  <div class="phone story" style="left:930px;top:310px;width:290px;height:580px;border-radius:38px">
-    <div class="scr ph" style="border-radius:28px;background-color:#c9bfa9">[ story 01 ]<div class="bars"><i class="on"></i><i></i><i></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
+  <div class="phone story" style="left:926px;top:340px;width:290px;height:580px;border-radius:38px">
+    <div class="scr ph" style="border-radius:28px;background-color:#c9bfa9;align-items:flex-start;padding-top:150px">[ story 01 ]<div class="bars"><i class="on"></i><i></i><i></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
   </div>
-  <div class="phone story" style="left:1250px;top:270px;width:290px;height:580px;border-radius:38px">
-    <div class="scr ph dark" style="border-radius:28px">[ story 02 ]<div class="bars"><i class="on"></i><i class="on"></i><i></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
+  <div class="phone story" style="left:1246px;top:300px;width:290px;height:580px;border-radius:38px">
+    <div class="scr ph dark" style="border-radius:28px;align-items:flex-start;padding-top:150px">[ story 02 ]<div class="bars"><i class="on"></i><i class="on"></i><i></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
   </div>
-  <div class="phone story" style="left:1570px;top:310px;width:290px;height:580px;border-radius:38px">
-    <div class="scr ph" style="border-radius:28px;background-color:#b9a184;color:rgba(255,255,255,.75)">[ story 03 ]<div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
+  <div class="phone story" style="left:1566px;top:340px;width:290px;height:580px;border-radius:38px">
+    <div class="scr ph" style="border-radius:28px;background-color:#b9a184;color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.3);align-items:flex-start;padding-top:150px">[ story 03 ]<div class="bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><div class="who"><i></i>[brand] · 2h</div></div>
   </div>
   <!-- story stickers -->
-  <div class="abs" style="left:966px;top:640px;width:218px;background:#fff;border-radius:14px;padding:14px;color:var(--ink);box-shadow:0 8px 20px -8px rgba(0,0,0,.4)">
+  <div class="abs" style="left:962px;top:660px;width:218px;background:#fff;border-radius:14px;padding:14px;color:var(--ink);box-shadow:0 8px 20px -8px rgba(0,0,0,.4)">
     <div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:10px">[ poll question? ]</div>
     <div style="display:flex;gap:8px"><span style="flex:1;text-align:center;border-radius:8px;background:#f1eee6;padding:8px 0;font-size:13px;font-weight:600">[ yes ]</span><span style="flex:1;text-align:center;border-radius:8px;background:#f1eee6;padding:8px 0;font-size:13px;font-weight:600">[ no ]</span></div>
   </div>
-  <div class="abs" style="left:1300px;top:700px;width:190px;height:44px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;color:#3b6fd8;font-size:15px;font-weight:700;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)"><svg width="18" height="18" viewBox="0 0 24 24" style="color:#3b6fd8"><use href="#link"/></svg>[ SHOP NOW ]</div>
-  <div class="abs" style="left:1606px;top:650px;width:218px;border-radius:14px;overflow:hidden;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)">
+  <div class="abs" style="left:1296px;top:700px;width:190px;height:44px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;color:#3b6fd8;font-size:15px;font-weight:700;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)"><svg width="18" height="18" viewBox="0 0 24 24" style="color:#3b6fd8"><use href="#link"/></svg>[ SHOP NOW ]</div>
+  <div class="abs" style="left:1602px;top:660px;width:218px;border-radius:14px;overflow:hidden;box-shadow:0 8px 20px -8px rgba(0,0,0,.4)">
     <div style="background:var(--pink);color:#fff;font-size:14px;font-weight:700;text-align:center;padding:10px">[ ask me anything ]</div>
     <div style="background:#fff;color:#999;font-size:13px;text-align:center;padding:12px">type something…</div>
   </div>
 
-  <div class="abs mono small" style="left:930px;top:914px;width:290px;text-align:center;opacity:.8">01 — tease</div>
-  <div class="abs mono small" style="left:1250px;top:874px;width:290px;text-align:center;opacity:.8">02 — convert</div>
-  <div class="abs mono small" style="left:1570px;top:914px;width:290px;text-align:center;opacity:.8">03 — engage</div>
+  <div class="abs mono small" style="left:926px;top:946px;width:290px;text-align:center;opacity:.8">01 — tease</div>
+  <div class="abs mono small" style="left:1246px;top:906px;width:290px;text-align:center;opacity:.8">02 — convert</div>
+  <div class="abs mono small" style="left:1566px;top:946px;width:290px;text-align:center;opacity:.8">03 — engage</div>
+  <div class="foot"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → more work</span></div>
 </section>
 
 <!-- ============ 17 · MORE SAMPLES ============ -->
 <section class="slide bg-field" data-document-role="page" data-label="17 More samples">
-  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>ARCHIVE_LOG // more work</span><div class="rule"></div><span>[Your Name] archive</span><span>17 / 18</span></div>
+  <div class="meta"><div class="dots"><i></i><i></i><i></i></div><span>FILE_06 // archive log</span><div class="rule"></div><span>~/archive/more</span><span>17 / 18</span></div>
 
   <div class="polaroid" style="left:90px;top:110px;width:300px;height:360px;transform:rotate(-6deg)"><div class="ph">[ work ]</div><div class="cap">[ label ]</div></div>
   <div class="polaroid" style="left:460px;top:90px;width:280px;height:330px;transform:rotate(5deg)"><div class="ph kraft">[ work ]</div><div class="cap">[ label ]</div></div>
@@ -679,13 +695,15 @@
   <svg class="ico" style="left:612px;top:680px;width:54px;height:50px;fill:#2b2b28;transform:rotate(-10deg)"><use href="#heart"/></svg>
   <svg class="ico" style="left:420px;top:480px;width:40px;height:40px;fill:#fff"><use href="#spark"/></svg>
   <svg class="ico" style="left:1500px;top:500px;width:34px;height:34px;fill:#6b3a22"><use href="#star"/></svg>
+  <div class="foot on-photo"><span>[Your Name] — Portfolio 2026</span><span class="nx">Next → contact</span></div>
 </section>
 
 <!-- ============ 18 · CONTACT ============ -->
 <section class="slide bg-hill" data-document-role="page" data-label="18 Contact">
   <div class="abs mono" style="left:0;right:0;top:44px;text-align:center;font-size:14px;opacity:.6">FILE_CLOSED // 18 / 18</div>
 
-  <div class="folder f-bone shadow" data-tab="FILE_NEW // [YOUR NAME] + YOU" style="left:340px;top:150px;width:1240px;height:720px">
+  <div class="folder f-bone shadow" style="left:340px;top:150px;width:1240px;height:720px">
+    <div class="tab">FILE_NEW // [Your Name] + you</div>
     <div class="abs anton" style="left:60px;top:70px;font-size:132px">Let's open</div>
     <div class="abs serif" style="left:60px;top:190px;font-size:158px">a new file.</div>
     <div class="abs body ph-text" style="left:64px;top:380px;width:520px">[ One inviting line — what to send you (brand, goals, timeline) and how fast you reply. ]</div>
@@ -734,6 +752,11 @@
     const p = plan[i];
     cal.insertAdjacentHTML('beforeend', `<div class="c"><div class="n">${day}</div>${p ? `<span class="pill ${names[p][1]}"><b>${names[p][0]}</b><i>[topic]</i></span>` : ''}</div>`);
   }
+})();
+// spiral rings
+(() => {
+  const r = document.getElementById('rings');
+  for (let i = 0; i < 11; i++) r.insertAdjacentHTML('beforeend', '<i style="width:16px;height:40px;border-radius:8px;background:linear-gradient(90deg,#777,#ddd,#777);display:block"></i>');
 })();
 // kanban
 (() => {

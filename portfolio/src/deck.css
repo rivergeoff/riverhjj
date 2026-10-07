@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
   --cream: #ede6d6;
@@ -20,7 +20,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: #777; }
-body { font-family: 'Inter Tight', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
 
 @page { size: 1920px 1080px; margin: 0; }
 
@@ -42,7 +42,7 @@ body { font-family: 'Inter Tight', sans-serif; color: var(--ink); -webkit-font-s
 
 /* ---------- type ---------- */
 .anton { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: .93; letter-spacing: .005em; font-weight: 400; }
-.serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; line-height: .9; letter-spacing: -.01em; }
+.serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; line-height: .92; }
 .mono { font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .06em; }
 .hand { font-family: 'Caveat', cursive; font-weight: 500; }
 .body { font-size: 22px; line-height: 1.45; }
@@ -71,15 +71,13 @@ body { font-family: 'Inter Tight', sans-serif; color: var(--ink); -webkit-font-s
 /* ---------- placeholders ---------- */
 .ph {
   position: relative; overflow: hidden;
-  background-color: #d9d2c1;
-  background-image: repeating-linear-gradient(135deg, rgba(35,35,30,.06) 0 2px, transparent 2px 14px);
+  background-color: #d9d2c1; border: 1.5px dashed rgba(35,35,30,.28);
   display: flex; align-items: center; justify-content: center; text-align: center;
   font-family: 'Space Mono', monospace; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: rgba(35,35,30,.55);
 }
-.ph::before { content: '+'; position: absolute; top: 12px; left: 14px; font-size: 18px; opacity: .6; }
-.ph.dark { background-color: #3a3a33; color: rgba(237,230,214,.5); background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 2px, transparent 2px 14px); }
-.ph.olive { background-color: #8b8b6f; color: rgba(255,255,255,.7); }
-.ph.slate { background-color: #a5aeb9; color: rgba(255,255,255,.8); }
+.ph.dark { background-color: #3a3a33; color: rgba(237,230,214,.5); border-color: rgba(237,230,214,.22); }
+.ph.olive { background-color: #8b8b6f; color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.3); }
+.ph.slate { background-color: #a5aeb9; color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.35); }
 .ph.kraft { background-color: #cdb38f; color: rgba(35,35,30,.55); }
 .ph.sage { background-color: #c5c6ae; }
 
@@ -108,12 +106,12 @@ body { font-family: 'Inter Tight', sans-serif; color: var(--ink); -webkit-font-s
 .sticky .ln { height: 30px; border-bottom: 1.5px dashed rgba(35,35,30,.28); }
 
 /* folder card with a tab on top */
-.folder { position: absolute; border-radius: 4px 14px 14px 14px; background-size: cover; }
-.folder::before {
-  content: attr(data-tab); position: absolute; top: -38px; left: 0; height: 40px; min-width: 210px; padding: 0 24px;
+.folder { position: absolute; border-radius: 0 14px 14px 14px; background-size: cover; }
+.folder > .tab {
+  position: absolute; top: -38px; left: 0; height: 40px; min-width: 200px; padding: 0 24px;
   background: inherit; background-position: top left; border-radius: 12px 12px 0 0;
   font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
-  display: flex; align-items: center;
+  display: flex; align-items: center; white-space: nowrap;
 }
 .f-olive { background: var(--olive) url(../assets/paper-olive.jpg) center/cover; color: var(--cream); }
 .f-slate { background: var(--slate) url(../assets/paper-slate.jpg) center/cover; color: #fff; }
@@ -144,7 +142,7 @@ body { font-family: 'Inter Tight', sans-serif; color: var(--ink); -webkit-font-s
 .stamp { position: absolute; border: 3px solid var(--red); color: var(--red); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; opacity: .85; }
 .stamp::after { content: ''; position: absolute; inset: 7px; border: 1.5px solid currentColor; border-radius: 50%; }
 
-.sticker { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 0 0 6px #fff, 0 10px 24px -8px rgba(0,0,0,.4); }
+.sticker { position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; border: 6px solid #fff; box-shadow: 0 10px 24px -8px rgba(0,0,0,.4); }
 
 svg.ico { position: absolute; overflow: visible; }
 .cursor { position: absolute; width: 38px; height: 48px; }
@@ -152,6 +150,22 @@ svg.ico { position: absolute; overflow: visible; }
 
 .field { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 16px 0; border-bottom: 1.2px solid var(--line); align-items: baseline; }
 .field .k { font-family: 'Space Mono', monospace; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
-.field .v { font-size: 22px; }
+.field .v { font-size: 22px; line-height: 1.3; }
 
 .dash { border-bottom: 1.5px dashed var(--line); height: 34px; }
+
+/* ---------- layout system ---------- */
+/* inline title: display word + serif accent on one baseline */
+.title { position: absolute; left: 64px; top: 104px; display: flex; align-items: baseline; gap: 28px; white-space: nowrap; }
+.title .anton { font-size: 132px; }
+.title .serif { font-size: 148px; }
+/* left column: stacked title, lead, and a block pinned to the bottom edge */
+.col { position: absolute; left: 64px; top: 112px; bottom: 80px; width: 500px; display: flex; flex-direction: column; }
+.col > .anton { font-size: 124px; }
+.col > .serif { font-size: 134px; margin-top: 2px; }
+.col > .lead { margin-top: 36px; }
+.col > .end { margin-top: auto; }
+.lead { font-size: 24px; line-height: 1.45; }
+.title-lead { position: absolute; top: 140px; right: 64px; width: 470px; }
+.foot .nx { opacity: 1; }
+.foot.on-photo { color: #fff; opacity: 1; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 0 14px rgba(0,0,0,.35); }
