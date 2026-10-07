@@ -7,23 +7,23 @@
 /* Formal edition: a calm, light app interface. One window per slide with a
    sidebar, soft cards and a single sage accent. */
 :root {
-  --desk: #eeebe5;
-  --win: #ffffff;
-  --panel: #f8f7f4;
-  --ink: #1f2226;
-  --ink-2: #4a4f56;
-  --muted: #8a8f96;
-  --line: #e7e4de;
-  --line-2: #d9d5cd;
-  --sage: #5f7a69;
-  --sage-2: #e9efea;
-  --sage-3: #c9d6cd;
-  --sand: #c4a37f;
-  --sand-2: #f4ece2;
-  --slate: #7f8ea0;
-  --slate-2: #e8ecf1;
-  --rose: #b98d86;
-  --rose-2: #f4e9e6;
+  --desk: #e7e1d6;
+  --win: #fbfaf7;
+  --panel: #f2eee7;
+  --ink: #1d1b18;
+  --ink-2: #45403a;
+  --muted: #847b70;
+  --line: #e3ddd2;
+  --line-2: #d3cbbd;
+  --sage: #4b5a2a;     /* olive — primary accent */
+  --sage-2: #4b5a2a;
+  --sage-3: #3c4822;
+  --sand: #a2481f;     /* rust */
+  --sand-2: #a2481f;
+  --slate: #22324a;    /* navy */
+  --slate-2: #22324a;
+  --rose: #4a2c20;     /* chocolate */
+  --rose-2: #4a2c20;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +34,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .slide {
   width: 1920px; height: 1080px; position: relative; overflow: hidden;
   background-color: var(--desk);
-  background-image: radial-gradient(rgba(31,34,38,.07) 1px, transparent 1.2px);
+  background-image: radial-gradient(rgba(29,27,24,.09) 1px, transparent 1.2px);
   background-size: 24px 24px;
   page-break-after: always; break-after: page;
 }
@@ -63,7 +63,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .bar { position: absolute; left: 0; right: 0; top: 0; height: 56px; border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 22px; gap: 18px; background: var(--win); z-index: 2; }
 .lights { display: flex; gap: 8px; }
 .lights i { width: 12px; height: 12px; border-radius: 50%; display: block; background: #e3dfd8; }
-.lights i:nth-child(1) { background: #e4b5aa; } .lights i:nth-child(2) { background: #e8d3a8; } .lights i:nth-child(3) { background: #b9cdbf; }
+.lights i:nth-child(1) { background: #a2481f; } .lights i:nth-child(2) { background: #c08a3e; } .lights i:nth-child(3) { background: #4b5a2a; }
 .crumbs { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
 .crumbs b { color: var(--ink); font-weight: 500; }
 .search { margin-left: auto; width: 300px; height: 34px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); display: flex; align-items: center; padding: 0 12px; gap: 10px; font-size: 14px; color: var(--muted); }
@@ -82,7 +82,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .nav.on .n { color: var(--sage); }
 .nav.on::after { content: ''; margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
 .status { position: absolute; left: 16px; right: 16px; bottom: 18px; border-radius: 12px; background: #fff; border: 1px solid var(--line); padding: 12px 14px; font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 10px; }
-.status i { width: 8px; height: 8px; border-radius: 50%; background: #7ba88a; box-shadow: 0 0 0 4px #e3efe7; display: block; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); display: block; }
 
 .main { position: absolute; left: 292px; top: 56px; right: 0; bottom: 0; padding: 48px 56px 40px; }
 .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-bottom: 34px; }
@@ -90,11 +90,11 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .head .lead { max-width: 520px; font-size: 18px; }
 
 /* ---------- components ---------- */
-.card { background: #fbfaf7; border: 1px solid #e0dcd4; border-radius: 16px; box-shadow: 0 1px 2px rgba(31,34,38,.04), 0 10px 24px -18px rgba(31,34,38,.18); }
-.card.soft { background: #f4f2ee; box-shadow: none; }
+.card { background: #fff; border: 1px solid #ddd5c8; border-radius: 16px; box-shadow: 0 1px 2px rgba(31,34,38,.04), 0 10px 24px -18px rgba(31,34,38,.18); }
+.card.soft { background: #efeae1; box-shadow: none; }
 .pad { padding: 26px 28px; }
 .chip { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 13px; border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); }
-.chip.sage { background: var(--sage-2); border-color: var(--sage-3); color: var(--sage); }
+.chip.sage { background: var(--sage); border-color: var(--sage); color: #fff; }
 .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 12px; font-size: 15px; font-weight: 600; border: 1px solid var(--line-2); background: #fff; color: var(--ink); }
 .btn.pri { background: var(--ink); border-color: var(--ink); color: #fff; }
@@ -104,21 +104,21 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .row .k { font-size: 13.5px; color: var(--muted); }
 .row .v { font-size: 16px; line-height: 1.45; color: var(--ink); }
 .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
-.t-reel { background: var(--sand-2); color: #8f6c45; }
-.t-car { background: var(--slate-2); color: #55657a; }
-.t-story { background: var(--rose-2); color: #8e625b; }
-.t-static { background: var(--sage-2); color: var(--sage); }
+.t-reel { background: var(--sand); color: #fff; }
+.t-car { background: var(--slate); color: #fff; }
+.t-story { background: var(--rose); color: #fff; }
+.t-static { background: var(--sage); color: #fff; }
 
 .ph {
   position: relative; border-radius: 12px; overflow: hidden;
-  background: #f1efeb; border: 1px dashed #d4cfc6;
+  background: #e2dbcf; border: 1px dashed #c9bfae;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   font-size: 13px; color: var(--muted); text-align: center;
 }
 .ph::before { content: ''; width: 30px; height: 24px; border: 1.6px solid #c2bcb2; border-radius: 5px; background: linear-gradient(135deg, transparent 55%, #c2bcb2 56%, #c2bcb2 62%, transparent 63%), radial-gradient(circle at 30% 35%, #c2bcb2 2.5px, transparent 3px); }
-.ph.sage { background: var(--sage-2); border-color: var(--sage-3); }
-.ph.sand { background: var(--sand-2); border-color: #e3d3bf; }
-.ph.slate { background: var(--slate-2); border-color: #cfd7e1; }
+.ph.sage { background: #4b5a2a; border: 0; color: rgba(255,255,255,.75); }
+.ph.sand { background: #a2481f; border: 0; color: rgba(255,255,255,.8); }
+.ph.slate { background: #22324a; border: 0; color: rgba(255,255,255,.75); }
 .ph.dark { background: #2b2e33; border-color: #444950; color: #9aa0a8; }
 .ph.dark::before { border-color: #5b6168; background: linear-gradient(135deg, transparent 55%, #5b6168 56%, #5b6168 62%, transparent 63%), radial-gradient(circle at 30% 35%, #5b6168 2.5px, transparent 3px); }
 
@@ -134,6 +134,8 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
 .flex { display: flex; }
 .abs { position: absolute; }
 .toast { position: absolute; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 40px -20px rgba(31,34,38,.35); padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+
+.ph.sage::before, .ph.sand::before, .ph.slate::before { border-color: rgba(255,255,255,.6); background: linear-gradient(135deg, transparent 55%, rgba(255,255,255,.6) 56%, rgba(255,255,255,.6) 62%, transparent 63%), radial-gradient(circle at 30% 35%, rgba(255,255,255,.6) 2.5px, transparent 3px); }
 
 </style>
 </head>
@@ -163,7 +165,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
         <div class="card abs" style="left:56px;top:60px;width:270px;padding:12px;transform:rotate(-3deg)"><div class="ph sand" style="height:300px">Featured work</div><div class="small" style="margin-top:10px">Social media design</div></div>
         <div class="card abs" style="left:250px;top:150px;width:250px;padding:12px;transform:rotate(3deg)"><div class="ph sage" style="height:270px">Featured work</div><div class="small" style="margin-top:10px">Brand kit</div></div>
         <div class="toast" style="left:70px;bottom:56px;width:330px">
-          <div class="ibox" style="background:var(--sage-2);color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-2.png" style=";width:20px;height:20px;display:block"></div>
+          <div class="ibox" style="background:var(--sage);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-2.png" style=";width:20px;height:20px;display:block"></div>
           <div><div style="font-size:15px;font-weight:600">Available for projects</div><div class="small">Davao City · remote-friendly</div></div>
         </div>
       </div>
@@ -186,7 +188,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       <div class="card pad stat" style="width:300px"><div class="num">BS <i style="font-family:'Instrument Serif';color:var(--sage)">Psych</i></div><div class="lbl">a research lens on every brief</div></div>
     </div>
     <div class="toast" style="right:56px;top:60px;width:380px">
-      <div class="ibox" style="background:var(--sage-2);color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-4.png" style="width: 20px; height: 20px; display: inline-block;"></div>
+      <div class="ibox" style="background:var(--sage);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-4.png" style="width: 20px; height: 20px; display: inline-block;"></div>
       <div><div style="font-size:15px;font-weight:600">A note from River</div><div class="small" style="margin-top:4px">This portfolio is organised like a workspace — use the sidebar to see where you are.</div></div>
     </div>
   </div></div>
@@ -220,7 +222,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       </div>
       <div class="flex" style="flex-direction:column;gap:24px">
         <div class="card pad" style="flex:1">
-          <div class="flex" style="align-items:center;gap:10px"><div class="ibox" style="background:var(--sand-2);color:#8f6c45"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-6.png" style="width: 20px; height: 20px; display: inline-block;"></div><div class="h3">Recognition</div></div>
+          <div class="flex" style="align-items:center;gap:10px"><div class="ibox" style="background:var(--sand);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-6.png" style="width: 20px; height: 20px; display: inline-block;"></div><div class="h3">Recognition</div></div>
           <div style="margin-top:14px">
             <div class="row" style="grid-template-columns:1fr;padding:11px 0"><span class="v" style="font-size:15px">Finalist, IIARI International Research Competition 2026</span></div>
             <div class="row" style="grid-template-columns:1fr;padding:11px 0"><span class="v" style="font-size:15px">DSWD XI Choice Award</span></div>
@@ -245,23 +247,23 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
   <div class="pager">04 / 18</div></div><div class="side"><div class="me"><div class="av">R</div><div><b>River Jalalon</b><span>Portfolio 2026</span></div></div><div class="grp">Overview</div><div class="nav"><span class="n">01</span>Welcome</div><div class="nav"><span class="n">02</span>Introduction</div><div class="nav"><span class="n">03</span>About</div><div class="nav on"><span class="n">04</span>Services</div><div class="nav"><span class="n">05</span>Packages</div><div class="grp">Work</div><div class="nav"><span class="n">06</span>Selected work</div><div class="nav"><span class="n">07</span>Social media</div><div class="nav"><span class="n">08</span>Carousels</div><div class="nav"><span class="n">09</span>Reels &amp; videos</div><div class="nav"><span class="n">10</span>Websites</div><div class="nav"><span class="n">11</span>Instagram layout</div><div class="nav"><span class="n">12</span>Case study</div><div class="grp">Process</div><div class="nav"><span class="n">13</span>Content calendar</div><div class="nav"><span class="n">14</span>Workflow</div><div class="grp">Brand</div><div class="nav"><span class="n">15</span>Brand kit</div><div class="nav"><span class="n">16</span>Campaigns</div><div class="nav"><span class="n">17</span>More work</div><div style="height:10px"></div><div class="nav"><span class="n">18</span>Contact</div><div class="status"><i></i>Open to new projects</div></div><div class="main">
     <div class="head"><div><div class="eyebrow">04 · Services</div><div class="h1">What I can do <i>for your brand.</i></div></div><div class="lead">Psychology tells me why people stop. Design makes them stay. Every brand gets a mix built around its audience.</div></div>
     <div class="grid" id="svc" style="grid-template-columns:repeat(3,1fr);gap:20px"><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage-2);color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-8.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">01</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-8.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">01</span></div>
   <div class="h3" style="margin-top:auto">Social media design</div><div class="small" style="margin-top:4px">Art cards, posts and captions</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--slate-2);color:#55657a"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-9.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">02</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--slate);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-9.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">02</span></div>
   <div class="h3" style="margin-top:auto">Carousels</div><div class="small" style="margin-top:4px">Stories told slide by slide</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sand-2);color:#8f6c45"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-10.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">03</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sand);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-10.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">03</span></div>
   <div class="h3" style="margin-top:auto">Reels &amp; short-form</div><div class="small" style="margin-top:4px">Scripting, editing, captions</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--rose-2);color:#8e625b"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-11.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">04</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--rose);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-11.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">04</span></div>
   <div class="h3" style="margin-top:auto">Checkout &amp; product videos</div><div class="small" style="margin-top:4px">Short videos that sell</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--slate-2);color:#55657a"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-12.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">05</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--slate);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-12.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">05</span></div>
   <div class="h3" style="margin-top:auto">Websites</div><div class="small" style="margin-top:4px">Landing pages &amp; portfolios</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage-2);color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-13.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">06</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-13.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">06</span></div>
   <div class="h3" style="margin-top:auto">Instagram feed layout</div><div class="small" style="margin-top:4px">A grid with a plan</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sand-2);color:#8f6c45"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-14.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">07</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sand);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-14.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">07</span></div>
   <div class="h3" style="margin-top:auto">Brand kits</div><div class="small" style="margin-top:4px">Logos, colours, type, rules</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--rose-2);color:#8e625b"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-15.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">08</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--rose);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-15.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">08</span></div>
   <div class="h3" style="margin-top:auto">Campaign design</div><div class="small" style="margin-top:4px">Launches, promos, events</div></div><div class="card" style="padding:24px 26px;height:196px;display:flex;flex-direction:column">
-  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage-2);color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-16.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">09</span></div>
+  <div class="flex" style="justify-content:space-between;align-items:center"><div class="ibox" style="background:var(--sage);color:#fff"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-16.png" style="width: 20px; height: 20px; display: inline-block;"></div><span class="mono muted">09</span></div>
   <div class="h3" style="margin-top:auto">Content calendar &amp; management</div><div class="small" style="margin-top:4px">Planning, scheduling, publishing</div></div></div>
   </div></div>
 </section>
@@ -280,7 +282,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
         <div id="pk1"><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-18.png" style="width: 18px; height: 18px; display: inline-block;"></span>8 posts + captions</div><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-19.png" style="width: 18px; height: 18px; display: inline-block;"></span>2 carousels</div><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-20.png" style="width: 18px; height: 18px; display: inline-block;"></span>Monthly content calendar</div></div>
         <span class="btn" style="width:100%;margin-top:34px">Choose Starter</span>
       </div>
-      <div class="card pad" style="padding:34px 34px;min-height:470px;border-color:var(--sage-3);box-shadow:0 0 0 3px var(--sage-2),0 20px 40px -24px rgba(31,34,38,.3)">
+      <div class="card pad" style="padding:34px 34px;min-height:470px;border:2px solid var(--sage);box-shadow:0 20px 40px -24px rgba(29,27,24,.3)">
         <div class="flex" style="justify-content:space-between;align-items:center"><div class="h3">Growth</div><span class="chip sage" style="height:26px;font-size:12px">Recommended</span></div><div class="small" style="margin-top:4px">For brands ready to post consistently</div>
         <div class="flex" style="align-items:baseline;gap:8px;margin:22px 0 18px"><span class="serif" style="font-size:52px">₱ ____</span><span class="small">/ month</span></div>
         <div id="pk2"><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-21.png" style="width: 18px; height: 18px; display: inline-block;"></span>12 posts + captions</div><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-22.png" style="width: 18px; height: 18px; display: inline-block;"></span>4 reels / short-form videos</div><div class="flex" style="align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line);font-size:16px"><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-23.png" style="width: 18px; height: 18px; display: inline-block;"></span>Scheduling &amp; publishing</div></div>
@@ -466,7 +468,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       <div class="phone" style="width:400px;height:836px"><div class="scr" style="background:#fff">
         <div class="island"></div>
         <div class="abs" style="left:20px;right:20px;top:58px;display:flex;align-items:center;gap:18px">
-          <div style="width:76px;height:76px;border-radius:50%;background:var(--sage-2);border:1px dashed var(--sage-3);flex:none"></div>
+          <div style="width:76px;height:76px;border-radius:50%;background:var(--sage);flex:none"></div>
           <div style="flex:1;display:flex;justify-content:space-around;text-align:center;font-size:12px;color:var(--muted)"><div><b style="font-size:16px;color:var(--ink)">[ ]</b><br>posts</div><div><b style="font-size:16px;color:var(--ink)">[ ]</b><br>followers</div><div><b style="font-size:16px;color:var(--ink)">[ ]</b><br>following</div></div>
         </div>
         <div class="abs" style="left:20px;top:150px;font-size:14px;font-weight:600">[ Brand name ]</div>
@@ -474,10 +476,10 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
         <div class="abs" style="left:20px;top:190px;width:190px;height:8px;border-radius:4px;background:var(--line)"></div>
         <div class="abs grid" style="left:0;right:0;top:222px;grid-template-columns:repeat(3,1fr);gap:2px" id="iggrid"><div class="ph " style="height:126px;border-radius:0;border:0;font-size:11px">1</div><div class="ph sage" style="height:126px;border-radius:0;border:0;font-size:11px">2</div><div class="ph " style="height:126px;border-radius:0;border:0;font-size:11px">3</div><div class="ph sand" style="height:126px;border-radius:0;border:0;font-size:11px">4</div><div class="ph " style="height:126px;border-radius:0;border:0;font-size:11px">5</div><div class="ph sand" style="height:126px;border-radius:0;border:0;font-size:11px">6</div><div class="ph " style="height:126px;border-radius:0;border:0;font-size:11px">7</div><div class="ph sage" style="height:126px;border-radius:0;border:0;font-size:11px">8</div><div class="ph " style="height:126px;border-radius:0;border:0;font-size:11px">9</div></div>
       </div><div class="island"></div></div>
-      <div class="grid" style="grid-template-columns:1fr 1fr;gap:18px;align-content:start" id="notes"><div class="card pad" style="height:405px;border-top:4px solid var(--sage)"><div class="h3">The goal</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
-  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:4px solid #8e625b"><div class="h3">The audience</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
-  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:4px solid #55657a"><div class="h3">Visual direction</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
-  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:4px solid #8f6c45"><div class="h3">Grid pattern</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:18px;align-content:start" id="notes"><div class="card pad" style="height:405px;border-top:6px solid var(--sage)"><div class="h3">The goal</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
+  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:6px solid var(--rose)"><div class="h3">The audience</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
+  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:6px solid var(--slate)"><div class="h3">Visual direction</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
+  <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div><div class="card pad" style="height:405px;border-top:6px solid var(--sand)"><div class="h3">Grid pattern</div><div class="body ph-t" style="margin-top:10px">[ Write 2–3 lines ]</div>
   <div style="margin-top:18px"><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div><div style="height:34px;border-bottom:1px dashed var(--line-2)"></div></div></div></div>
     </div>
   </div></div>
@@ -512,7 +514,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
             <div class="flex" style="justify-content:space-between;margin-top:10px"><span class="small">Before</span><span class="tag t-story">Old feed</span></div>
           </div>
           <div class="card" style="padding:12px">
-            <div style="height:290px;border-radius:10px;overflow:hidden;background:#5f7a69;color:#eef0e8;position:relative">
+            <div style="height:290px;border-radius:10px;overflow:hidden;background:#4b5a2a;color:#eef0e8;position:relative">
               <div class="mono" style="position:absolute;left:14px;top:12px;font-size:9px;opacity:.8">MOSSLINE · Nº 01</div>
               <div class="mono" style="position:absolute;right:14px;top:12px;font-size:9px;opacity:.8">DAVAO CITY</div>
               <div style="position:absolute;left:50%;top:48px;width:100px;height:100px;margin-left:-50px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#d3dfa0 0 38%,#a9bd74 39% 52%,#eef0e8 53% 62%,transparent 63%)"></div>
@@ -629,7 +631,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
   <div class="pager">14 / 18</div></div><div class="side"><div class="me"><div class="av">R</div><div><b>River Jalalon</b><span>Portfolio 2026</span></div></div><div class="grp">Overview</div><div class="nav"><span class="n">01</span>Welcome</div><div class="nav"><span class="n">02</span>Introduction</div><div class="nav"><span class="n">03</span>About</div><div class="nav"><span class="n">04</span>Services</div><div class="nav"><span class="n">05</span>Packages</div><div class="grp">Work</div><div class="nav"><span class="n">06</span>Selected work</div><div class="nav"><span class="n">07</span>Social media</div><div class="nav"><span class="n">08</span>Carousels</div><div class="nav"><span class="n">09</span>Reels &amp; videos</div><div class="nav"><span class="n">10</span>Websites</div><div class="nav"><span class="n">11</span>Instagram layout</div><div class="nav"><span class="n">12</span>Case study</div><div class="grp">Process</div><div class="nav"><span class="n">13</span>Content calendar</div><div class="nav on"><span class="n">14</span>Workflow</div><div class="grp">Brand</div><div class="nav"><span class="n">15</span>Brand kit</div><div class="nav"><span class="n">16</span>Campaigns</div><div class="nav"><span class="n">17</span>More work</div><div style="height:10px"></div><div class="nav"><span class="n">18</span>Contact</div><div class="status"><i></i>Open to new projects</div></div><div class="main">
     <div class="head"><div><div class="eyebrow">Process · Workflow</div><div class="h1">How I manage <i>the work.</i></div></div><div class="lead">Weekly check-ins, one shared board and clear approvals — so you always know where your content stands.</div></div>
     <div class="grid" id="kanban" style="grid-template-columns:repeat(4,1fr);gap:20px"><div class="card soft" style="padding:14px;height:560px">
-    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#c9c4bb;display:block"></i><span style="font-size:15px;font-weight:600">To do</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
+    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#847b70;display:block"></i><span style="font-size:15px;font-weight:600">To do</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
     <div class="card" style="padding:16px 18px;margin-bottom:12px;height:150px">
       <div class="flex" style="justify-content:space-between;align-items:center"><span class="tag t-reel">Reel</span></div>
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
@@ -641,7 +643,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
       <div class="flex" style="align-items:center;gap:8px;margin-top:16px"><div class="av" style="width:24px;height:24px;font-size:13px">R</div><span class="small" style="font-size:12.5px">Due [ date ] · [ client ]</span></div></div>
   </div><div class="card soft" style="padding:14px;height:560px">
-    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#c4a37f;display:block"></i><span style="font-size:15px;font-weight:600">In progress</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
+    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#a2481f;display:block"></i><span style="font-size:15px;font-weight:600">In progress</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
     <div class="card" style="padding:16px 18px;margin-bottom:12px;height:150px">
       <div class="flex" style="justify-content:space-between;align-items:center"><span class="tag t-car">Carousel</span></div>
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
@@ -653,7 +655,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
       <div class="flex" style="align-items:center;gap:8px;margin-top:16px"><div class="av" style="width:24px;height:24px;font-size:13px">R</div><span class="small" style="font-size:12.5px">Due [ date ] · [ client ]</span></div></div>
   </div><div class="card soft" style="padding:14px;height:560px">
-    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#7f8ea0;display:block"></i><span style="font-size:15px;font-weight:600">Review</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
+    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#22324a;display:block"></i><span style="font-size:15px;font-weight:600">Review</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
     <div class="card" style="padding:16px 18px;margin-bottom:12px;height:150px">
       <div class="flex" style="justify-content:space-between;align-items:center"><span class="tag t-story">Story</span></div>
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
@@ -665,7 +667,7 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
       <div class="flex" style="align-items:center;gap:8px;margin-top:16px"><div class="av" style="width:24px;height:24px;font-size:13px">R</div><span class="small" style="font-size:12.5px">Due [ date ] · [ client ]</span></div></div>
   </div><div class="card soft" style="padding:14px;height:560px">
-    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#5f7a69;display:block"></i><span style="font-size:15px;font-weight:600">Published</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
+    <div class="flex" style="align-items:center;gap:10px;padding:4px 6px 14px"><i style="width:9px;height:9px;border-radius:50%;background:#4b5a2a;display:block"></i><span style="font-size:15px;font-weight:600">Published</span><span class="mono muted" style="margin-left:auto;font-size:12px">3</span></div>
     <div class="card" style="padding:16px 18px;margin-bottom:12px;height:150px">
       <div class="flex" style="justify-content:space-between;align-items:center"><span class="tag t-static">Static</span><span style="color:var(--sage)"><img src="https://raw.githubusercontent.com/rivergeoff/riverhjj/claude/stoic-turing-97hs3q/portfolio/canva/img-formal/svg-51.png" style="width: 18px; height: 18px; display: inline-block;"></span></div>
       <div style="font-size:16px;font-weight:600;margin-top:14px" class="ph-t">[ Task name ]</div>
@@ -698,15 +700,15 @@ body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothi
       </div>
       <div class="grid" style="grid-template-rows:1fr 220px;gap:22px">
         <div class="grid" style="grid-template-columns:repeat(5,1fr);gap:16px" id="swatches"><div class="card" style="padding:10px;display:flex;flex-direction:column">
-  <div style="flex:1;border-radius:10px;background:#eeebe5;border:1px solid var(--line)"></div>
+  <div style="flex:1;border-radius:10px;background:#efebe4;border:1px solid var(--line)"></div>
   <div style="font-size:15px;font-weight:600;margin-top:12px">[ Colour 01 ]</div><div class="mono muted" style="font-size:12px;margin-top:2px">[ #HEX ]</div></div><div class="card" style="padding:10px;display:flex;flex-direction:column">
-  <div style="flex:1;border-radius:10px;background:#5f7a69;border:1px solid var(--line)"></div>
+  <div style="flex:1;border-radius:10px;background:#4b5a2a;border:1px solid var(--line)"></div>
   <div style="font-size:15px;font-weight:600;margin-top:12px">[ Colour 02 ]</div><div class="mono muted" style="font-size:12px;margin-top:2px">[ #HEX ]</div></div><div class="card" style="padding:10px;display:flex;flex-direction:column">
-  <div style="flex:1;border-radius:10px;background:#7f8ea0;border:1px solid var(--line)"></div>
+  <div style="flex:1;border-radius:10px;background:#a2481f;border:1px solid var(--line)"></div>
   <div style="font-size:15px;font-weight:600;margin-top:12px">[ Colour 03 ]</div><div class="mono muted" style="font-size:12px;margin-top:2px">[ #HEX ]</div></div><div class="card" style="padding:10px;display:flex;flex-direction:column">
-  <div style="flex:1;border-radius:10px;background:#c4a37f;border:1px solid var(--line)"></div>
+  <div style="flex:1;border-radius:10px;background:#22324a;border:1px solid var(--line)"></div>
   <div style="font-size:15px;font-weight:600;margin-top:12px">[ Colour 04 ]</div><div class="mono muted" style="font-size:12px;margin-top:2px">[ #HEX ]</div></div><div class="card" style="padding:10px;display:flex;flex-direction:column">
-  <div style="flex:1;border-radius:10px;background:#1f2226;border:1px solid var(--line)"></div>
+  <div style="flex:1;border-radius:10px;background:#4a2c20;border:1px solid var(--line)"></div>
   <div style="font-size:15px;font-weight:600;margin-top:12px">[ Colour 05 ]</div><div class="mono muted" style="font-size:12px;margin-top:2px">[ #HEX ]</div></div></div>
         <div class="grid" style="grid-template-columns:1.3fr 1fr;gap:22px">
           <div class="card pad flex" style="gap:28px;align-items:center">
