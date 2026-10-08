@@ -17,3 +17,22 @@ call to action, scored with an original ambient pad and felt-piano track
 
 `python3 build.py --placeholder` renders with stand-in gradients, to preview the
 type and timing.
+
+## Animated version (no footage needed)
+
+`sonder-reel-animated.mp4` is a fully animated, illustrated cut of the same story:
+- morning light
+- matcha sifted into the bowl
+- whisked foam
+- matcha swirling into iced oat milk
+- the Sonder cup
+- an "order ahead" checkout end card
+
+It has film grain, light leaks and the same original score. The source is a Remotion
+project in `animated/`:
+
+```
+cd animated && npm i
+npm run studio   # live preview + timeline
+npm run render   # out/sonder-reel.mp4
+```
