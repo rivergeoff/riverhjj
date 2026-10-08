@@ -1,0 +1,27 @@
+{
+  "name": "yuga-reel",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts YugaReel out/yuga-reel.mp4"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/shippori-mincho": "^5.3.0",
+    "@react-three/fiber": "^9.2.0",
+    "@remotion/cli": "^4.0.534",
+    "@remotion/media": "^4.0.534",
+    "@remotion/noise": "^4.0.534",
+    "@remotion/three": "^4.0.534",
+    "@remotion/transitions": "^4.0.534",
+    "@types/react": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "remotion": "^4.0.534",
+    "three": "^0.178.0",
+    "typescript": "^7.0.2"
+  }
+}
