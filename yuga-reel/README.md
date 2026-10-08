@@ -1,6 +1,6 @@
 # YUGA — Ceremonial Matcha · product reel
 
-A 30-second, 9:16 (1080×1920, 30 fps) cinematic product film for **YUGA 悠雅**, built entirely in code with [Remotion](https://remotion.dev) + three.js. No stock footage. Every frame and every sound is generated.
+A 30-second, 9:16 (1080×1920, 30 fps) cinematic product film for **YUGA 悠雅**, Its four product scenes are photoreal 3D renders made in Blender with the Cycles renderer, at real-world scale with physically based materials and lighting and lens depth of field. They're edited together with [Remotion](https://remotion.dev). There's no stock footage, and every frame and every sound is generated.
 
 **Final file:** `out/yuga-reel.mp4`
 
@@ -18,6 +18,15 @@ A 30-second, 9:16 (1080×1920, 30 fps) cinematic product film for **YUGA 悠雅*
 Finishing pass over the whole film: animated 35 mm grain, projector gate weave and flicker, light leaks on the cuts, and a vignette.
 
 **Score** (`scripts/score.py`): an original piece synthesized in numpy. It has warm pads moving D→Bm→G→Em→A→D, koto-like Karplus-Strong plucks on a pentatonic melody, and foley synced to picture: a powder "poof", whisk swishes that follow the on-screen strokes, brush on paper, a seal thump, and temple bells. It runs through a convolution reverb.
+
+## Making the realistic shots
+
+```bash
+uv venv -p python3.11 /root/bpyenv && VIRTUAL_ENV=/root/bpyenv uv pip install bpy numpy pillow fonttools brotli
+/root/bpyenv/bin/python blender/make_textures.py   # tin label + leaf textures
+blender/render_all.sh                               # Cycles renders → renders/<shot>/
+scripts/assemble.sh                                 # interpolate to 30 fps, upscale → public/shots/
+```
 
 ## Commands
 
