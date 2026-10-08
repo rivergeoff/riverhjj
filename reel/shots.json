@@ -1,0 +1,19 @@
+{
+  "title": "Sonder Matcha Slow Bar — Moments Between Moments",
+  "fps": 30,
+  "crossfade": 0.6,
+  "shots": [
+    { "file": "footage/01-morning-light.mp4", "find": "sunlight through leaves, slow morning, window light", "start": 1.0, "duration": 3.4, "speed": 0.8, "caption": "slow mornings" },
+    { "file": "footage/02-sifting.mp4",       "find": "matcha powder sifted into bowl, close up",           "start": 0.5, "duration": 3.2, "speed": 0.8, "caption": "start with intention" },
+    { "file": "footage/03-whisk.mp4",         "find": "bamboo whisk (chasen) whisking matcha, foam",        "start": 0.5, "duration": 3.4, "speed": 1.0, "caption": "whisk. breathe." },
+    { "file": "footage/04-pour.mp4",          "find": "pouring matcha into iced oat milk, slow motion",     "start": 0.3, "duration": 3.6, "speed": 0.7, "caption": "moments between moments" },
+    { "file": "footage/05-hands.mp4",         "find": "hands holding ceramic cup, linen, natural light",    "start": 0.5, "duration": 3.2, "speed": 0.9, "caption": "take your time" },
+    { "file": "footage/06-sip.mp4",           "find": "woman sipping matcha by window, calm, candid",       "start": 0.5, "duration": 3.0, "speed": 0.9, "caption": "" }
+  ],
+  "endcard": {
+    "duration": 4.0,
+    "wordmark": "sonder",
+    "line": "matcha slow bar",
+    "cta": "order ahead · link in bio"
+  }
+}
