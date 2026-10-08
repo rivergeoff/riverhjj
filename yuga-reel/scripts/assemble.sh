@@ -9,6 +9,7 @@ for shot in "${@:-hero powder whisk leaves}"; do
   for s in $shot; do
     case $s in
       powder) interp="minterpolate=fps=30:mi_mode=blend" ;;
+      whisk) interp="fps=30" ;;
       *) interp="minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1" ;;
     esac
     ffmpeg -y -loglevel error -framerate 15 -pattern_type glob -i "renders/$s/*.png" \
