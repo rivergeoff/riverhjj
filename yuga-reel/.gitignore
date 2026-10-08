@@ -2,3 +2,7 @@ node_modules
 build
 out/*
 !out/yuga-reel.mp4
+renders
+blender/tex
+blender/__pycache__
+public/shots

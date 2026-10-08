@@ -4,10 +4,7 @@ import {Audio} from '@remotion/media';
 import {TransitionSeries, linearTiming} from '@remotion/transitions';
 import {fade} from '@remotion/transitions/fade';
 import {Opening} from './scenes/Opening';
-import {Leaves} from './scenes/Leaves';
-import {Powder} from './scenes/Powder';
-import {Whisk} from './scenes/Whisk';
-import {Hero} from './scenes/Hero';
+import {Footage} from './scenes/Footage';
 import {EndCard} from './scenes/EndCard';
 import {GateWeave, Grain, LightLeak, Vignette} from './components/Film';
 
@@ -29,19 +26,19 @@ export const Reel: React.FC = () => {
           </TransitionSeries.Sequence>
           {tr()}
           <TransitionSeries.Sequence durationInFrames={SCENES.leaves} premountFor={30}>
-            <Leaves />
+            <Footage src="shots/leaves.mp4" chapter={["01", "SHADE"]} lines={["Grown in shade,", "picked by hand."]} at={26} />
           </TransitionSeries.Sequence>
           {tr()}
           <TransitionSeries.Sequence durationInFrames={SCENES.powder} premountFor={30}>
-            <Powder />
+            <Footage src="shots/powder.mp4" chapter={["02", "STONE"]} lines={["Stone-milled", "to a fine whisper."]} at={44} push={0.02} />
           </TransitionSeries.Sequence>
           {tr()}
           <TransitionSeries.Sequence durationInFrames={SCENES.whisk} premountFor={30}>
-            <Whisk />
+            <Footage src="shots/whisk.mp4" chapter={["03", "RITUAL"]} lines={["Whisked,", "never hurried."]} at={40} />
           </TransitionSeries.Sequence>
           {tr()}
           <TransitionSeries.Sequence durationInFrames={SCENES.hero} premountFor={30}>
-            <Hero />
+            <Footage src="shots/hero.mp4" kicker="CEREMONIAL GRADE" lines={["A quiet ritual,", "kept in a tin."]} at={78} align="center" push={0} />
           </TransitionSeries.Sequence>
           {tr()}
           <TransitionSeries.Sequence durationInFrames={SCENES.end} premountFor={30}>
