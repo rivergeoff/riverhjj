@@ -22,7 +22,7 @@ const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--ena
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[err]', e.message));
-await page.goto('http://localhost:8765/index.html');
+await page.goto('http://localhost:8765/' + (process.env.PAGE || 'index.html'));
 await page.waitForFunction('window.ready === true', null, { timeout: 120000 });
 await page.evaluate(() => document.fonts.ready);
 

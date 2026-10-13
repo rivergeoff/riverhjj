@@ -1,4 +1,34 @@
-# JTCSIIS — 3D Logo Showcase Video
+# JTCSIIS — 3D Logo Videos
+
+## 1. Brand story — `jtcsiis-brand-story.mp4` (36 s)
+
+Every brand element is modelled in real 3D (extruded geometry, not the flat
+image) and introduced one at a time with its symbolism caption, then the pieces
+lock together into the official seal:
+
+| Time | Chapter |
+| --- | --- |
+| 0–4 s | 01 The Sun rises and ignites: *the light of learning* |
+| 4–8 s | 02 Rice-grain rays fly in one by one: *the harvest and the gold of Rosario* |
+| 8–11 s | 03 The field-green sky blooms and the two 60° Mountains rise: *the upland community* |
+| 11–15 s | 04 The Book opens and the bridge posts and handrail build: *education rooted in the land* |
+| 15–18 s | 05 The Woven Band's gold teeth pop in: *Indigenous learners and heritage* |
+| 18–21 s | 06 The Copper Earth slab lands and its terraced arcs draw |
+| 21–24 s | 07 The Arch Frame drops in and its cream keyline traces around |
+| 24–28.4 s | 08 The layers collapse together; disc, woven ring, school name, motto, 20·12 and the gold rim slam in |
+| 28.4–36 s | The finished seal with the wordmark lockup and tagline |
+
+Source: `story.html` (scene + timeline) and `make_story_audio.py` (score).
+Colours are the brand palette (Deep Forest, Field Green, Sun Gold, Earth
+Copper, Paper Cream); type is Instrument Serif / Instrument Sans.
+
+Render with `PAGE=story.html node render.mjs sframes 30`, then
+`python3 make_story_audio.py story_score.wav` and encode as below. It needs
+`fonts/InstrumentSans-Bold.ttf`, `InstrumentSerif-Regular.ttf` and
+`InstrumentSerif-Italic.ttf`, converted from the `@fontsource` woff2 files the
+same way as the commands below.
+
+## 2. Showcase — `jtcsiis-logo-showcase.mp4` (16 s)
 
 `jtcsiis-logo-showcase.mp4` is a 16-second 1080p/30fps 3D presentation of the
 Jose T. Cuyos Sr. II Integrated School seal, with a synthesized soundtrack.
