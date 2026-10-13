@@ -1,0 +1,10 @@
+{
+  "name": "jtcsiis-logo-video",
+  "private": true,
+  "description": "3D logo showcase video for Jose T. Cuyos Sr. II Integrated School",
+  "dependencies": {
+    "three": "0.170.0",
+    "@fontsource/playfair-display": "5.1.0",
+    "@fontsource/montserrat": "5.1.0"
+  }
+}

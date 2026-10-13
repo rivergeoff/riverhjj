@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JTCSIIS Logo Reveal</title>
+<style>
+  @font-face { font-family: Playfair; src: url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-500-normal.woff2); font-weight: 500; }
+  @font-face { font-family: Playfair; src: url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-400-italic.woff2); font-style: italic; }
+  @font-face { font-family: Montserrat; src: url(node_modules/@fontsource/montserrat/files/montserrat-latin-500-normal.woff2); font-weight: 500; }
+  @font-face { font-family: Montserrat; src: url(node_modules/@fontsource/montserrat/files/montserrat-latin-300-normal.woff2); font-weight: 300; }
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  #stage { position: relative; width: 1920px; height: 1080px; }
+  canvas { display: block; }
+  #titles { position: absolute; left: 1010px; top: 0; height: 1080px; width: 820px;
+            display: flex; flex-direction: column; justify-content: center; color: #f3e6c8; }
+  .kicker { font: 500 22px Montserrat; letter-spacing: .5em; color: #d9a94e; text-transform: uppercase; }
+  .name { font: 500 76px/1.06 Playfair; margin: 26px 0 0; color: #fbf3df;
+          background: linear-gradient(100deg, #fff7e3 0%, #f2d9a0 35%, #fff7e3 50%, #e6be6c 70%, #fff7e3 100%);
+          background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .rule { height: 2px; margin: 38px 0 30px; width: 0;
+          background: linear-gradient(90deg, #e7b85a, rgba(231,184,90,0)); }
+  .motto { font: italic 34px Playfair; color: #e9c779; }
+  .est { font: 300 20px Montserrat; letter-spacing: .6em; color: #9fb5a6; margin-top: 30px; }
+  .ln { display: block; }
+  #fade { position: absolute; inset: 0; background: #000; pointer-events: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "./node_modules/three/build/three.module.js",
+  "three/addons/": "./node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="stage">
+  <div id="titles">
+    <div class="kicker" id="kicker">Established 2012</div>
+    <div class="name" id="name"><span class="ln">Jose T. Cuyos Sr. II</span><span class="ln">Integrated School</span></div>
+    <div class="rule" id="rule"></div>
+    <div class="motto" id="motto">Together we bridge, together we succeed</div>
+    <div class="est" id="est"></div>
+  </div>
+  <div id="fade"></div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const W = 1920, H = 1080;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.getElementById('stage').prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, W / H, 0.05, 100);
+
+// ---------- Background: deep green radial glow ----------
+{
+  const c = document.createElement('canvas'); c.width = 1920; c.height = 1080;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(960, 520, 40, 960, 540, 1150);
+  grd.addColorStop(0, '#1d3a2c'); grd.addColorStop(0.45, '#0c1d16'); grd.addColorStop(1, '#020504');
+  g.fillStyle = grd; g.fillRect(0, 0, 1920, 1080);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  scene.background = t;
+}
+
+// ---------- Studio environment (softboxes) for reflections ----------
+{
+  const env = new THREE.Scene();
+  env.background = new THREE.Color(0x020302);
+  const box = (w, h, col, k, pos, look) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(col).multiplyScalar(k), side: THREE.DoubleSide }));
+    m.position.set(...pos); m.lookAt(...look); env.add(m);
+  };
+  box(10, 2.2, 0xfff1dc, 9, [-6, 7, 6], [0, 0, 0]);    // key strip, top-left
+  box(1.6, 12, 0xdfeeff, 5, [9, 0, 3], [0, 0, 0]);     // rim strip, right
+  box(3, 3, 0xffffff, 16, [3, 6, 8], [0, 0, 0]);      // small hot spot
+  box(14, 2, 0xffc675, 2.2, [0, -7, 4], [0, 0, 0]);    // warm bounce from below
+  box(1.4, 12, 0xffe2b0, 4, [-9, 0, -2], [0, 0, 0]);  // back-left kicker
+  box(6, 6, 0x5f8f72, 1.2, [0, 0, -10], [0, 0, 0]);    // green spill behind
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromScene(env, 0.02).texture;
+  scene.environmentIntensity = 1.0;
+}
+
+const key = new THREE.DirectionalLight(0xfff0d8, 2.2); key.position.set(-3, 4, 5); scene.add(key);
+const rim = new THREE.DirectionalLight(0xbfe0ff, 1.2); rim.position.set(4, 1, -2); scene.add(rim);
+scene.add(new THREE.AmbientLight(0x2c4436, 0.6));
+
+// ---------- Coin ----------
+const loader = new THREE.TextureLoader();
+const load = (p, srgb) => new Promise(res => loader.load(p, t => {
+  t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+  t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  res(t);
+}));
+const [fc, fh, frm, bc, bh, brm] = await Promise.all([
+  load('tex/front_color.png', true), load('tex/front_height.png'), load('tex/front_rm.png'),
+  load('tex/back_color.png', true), load('tex/back_height.png'), load('tex/back_rm.png')]);
+
+const FACE_Z = 0.05;
+const coin = new THREE.Group();
+const tilt = new THREE.Group(); tilt.add(coin); scene.add(tilt);
+
+const faceMat = new THREE.MeshPhysicalMaterial({
+  map: fc, bumpMap: fh, bumpScale: 3.2, roughnessMap: frm, metalnessMap: frm,
+  roughness: 1, metalness: 1, clearcoat: 0.3, clearcoatRoughness: 0.18, envMapIntensity: 0.75,
+});
+const front = new THREE.Mesh(new THREE.CircleGeometry(1.0, 256), faceMat);
+front.position.z = FACE_Z; coin.add(front);
+
+const backMat = new THREE.MeshPhysicalMaterial({
+  map: bc, bumpMap: bh, bumpScale: 4.5, roughnessMap: brm, metalnessMap: brm,
+  roughness: 1, metalness: 1, clearcoat: 0.2, clearcoatRoughness: 0.25,
+});
+const back = new THREE.Mesh(new THREE.CircleGeometry(1.0, 256), backMat);
+back.rotation.y = Math.PI; back.position.z = -FACE_Z; coin.add(back);
+
+const gold = new THREE.MeshPhysicalMaterial({
+  color: 0xe9b65a, metalness: 1, roughness: 0.16, clearcoat: 0.4, clearcoatRoughness: 0.08,
+});
+// Raised, bevelled rim (lathe profile: x = radius, y = depth)
+const prof = [
+  [0.995, 0.050], [1.002, 0.078], [1.012, 0.094], [1.030, 0.100], [1.055, 0.099],
+  [1.072, 0.092], [1.082, 0.080], [1.086, 0.066],
+].map(([x, y]) => new THREE.Vector2(x, y));
+const rimFront = new THREE.LatheGeometry(prof.slice().reverse(), 400);
+rimFront.rotateX(Math.PI / 2);
+const rimF = new THREE.Mesh(rimFront, gold); coin.add(rimF);
+const rimB = new THREE.Mesh(rimFront.clone(), gold); rimB.rotation.y = Math.PI; coin.add(rimB);
+
+// Reeded edge
+{
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 8;
+  const g = c.getContext('2d');
+  for (let x = 0; x < 1024; x++) { const v = 0.5 + 0.5 * Math.sin(x / 1024 * Math.PI * 2 * 64); g.fillStyle = `rgb(${v*255|0},${v*255|0},${v*255|0})`; g.fillRect(x, 0, 1, 8); }
+  const bt = new THREE.CanvasTexture(c); bt.wrapS = THREE.RepeatWrapping; bt.repeat.x = 5; bt.colorSpace = THREE.NoColorSpace;
+  const edgeMat = gold.clone(); edgeMat.bumpMap = bt; edgeMat.bumpScale = 2.0; edgeMat.roughness = 0.24;
+  const eg = new THREE.CylinderGeometry(1.086, 1.086, 0.132, 400, 1, true); eg.rotateX(Math.PI / 2);
+  coin.add(new THREE.Mesh(eg, edgeMat));
+}
+
+// Soft halo behind the coin
+const haloTex = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const g = c.getContext('2d'); const grd = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.25, 'rgba(255,255,255,.35)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 256, 256); return new THREE.CanvasTexture(c);
+})();
+const halo = new THREE.Mesh(new THREE.PlaneGeometry(6, 6),
+  new THREE.MeshBasicMaterial({ map: haloTex, color: 0x4f8a64, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.5 }));
+halo.position.z = -1.6; scene.add(halo);
+
+// Light-sweep streak (anamorphic flare)
+const streak = new THREE.Mesh(new THREE.PlaneGeometry(7, 0.14),
+  new THREE.MeshBasicMaterial({ map: haloTex, color: 0xffd58a, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 }));
+scene.add(streak);
+
+// ---------- Gold dust with fake depth-of-field ----------
+const NP = 900;
+const rnd = (() => { let s = 1234567; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+const pBase = new Float32Array(NP * 3), pSeed = new Float32Array(NP);
+for (let i = 0; i < NP; i++) {
+  pBase[i*3] = (rnd() - 0.5) * 14; pBase[i*3+1] = (rnd() - 0.5) * 8; pBase[i*3+2] = -6 + rnd() * 10.5; pSeed[i] = rnd();
+}
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(pBase.slice(), 3));
+pGeo.setAttribute('seed', new THREE.BufferAttribute(pSeed, 1));
+const pMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  uniforms: { uTime: { value: 0 }, uFocus: { value: 5 }, uAlpha: { value: 1 } },
+  vertexShader: `
+    attribute float seed; uniform float uTime, uFocus; varying float vA; varying float vSeed;
+    void main(){
+      vec3 p = position;
+      p.y += mod(uTime*0.12*(0.4+seed) + seed*8.0, 8.0) - 4.0 - position.y*0.0;
+      p.x += sin(uTime*0.4 + seed*40.0)*0.15;
+      vec4 mv = modelViewMatrix * vec4(p,1.0);
+      float d = -mv.z; float blur = abs(d - uFocus);
+      gl_PointSize = (2.0 + seed*3.0 + blur*9.0) * (6.0/d);
+      vA = clamp(1.6/(1.0+blur*blur*1.2),0.05,1.0) * (0.35+0.65*fract(seed*7.13));
+      vA *= 0.6 + 0.4*sin(uTime*2.0 + seed*30.0);
+      vSeed = seed;
+      gl_Position = projectionMatrix * mv;
+    }`,
+  fragmentShader: `
+    uniform float uAlpha; varying float vA; varying float vSeed;
+    void main(){ float r = length(gl_PointCoord-0.5)*2.0; float a = smoothstep(1.0,0.55,r);
+      vec3 c = mix(vec3(1.0,0.78,0.4), vec3(1.0,0.93,0.75), vSeed);
+      gl_FragColor = vec4(c*1.4, a*vA*uAlpha*0.75); }`,
+});
+const dust = new THREE.Points(pGeo, pMat); dust.frustumCulled = false; scene.add(dust);
+
+// ---------- Post ----------
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.45, 0.55, 0.9);
+composer.addPass(bloom);
+const grade = new ShaderPass({
+  uniforms: { tDiffuse: { value: null }, uTime: { value: 0 } },
+  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);} `,
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float uTime; varying vec2 vUv;
+    float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233)))*43758.5453); }
+    void main(){
+      vec2 d = vUv-0.5; float ca = 0.0012*dot(d,d)*4.0;
+      vec4 c; c.r = texture2D(tDiffuse, vUv + d*ca).r; c.g = texture2D(tDiffuse, vUv).g; c.b = texture2D(tDiffuse, vUv - d*ca).b; c.a = 1.0;
+      float v = smoothstep(0.95, 0.25, length(d*vec2(1.0,0.75)));
+      c.rgb *= mix(0.55, 1.0, v);
+      c.rgb += (h(vUv*vec2(1920.0,1080.0) + fract(uTime)*91.7) - 0.5) * 0.035;
+      gl_FragColor = c; }`,
+});
+composer.addPass(new OutputPass());
+composer.addPass(grade);
+
+// ---------- Animation ----------
+const clamp01 = x => Math.min(1, Math.max(0, x));
+const seg = (t, a, b) => clamp01((t - a) / (b - a));
+const eio = x => x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+const eo3 = x => 1 - Math.pow(1 - x, 3);
+const eo5 = x => 1 - Math.pow(1 - x, 5);
+const lerp = (a, b, x) => a + (b - a) * x;
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+
+// Camera keys: [time, position, target]
+const camKeys = [
+  [0.0, V(0, 0.15, 5.6), V(0, 0, 0)],
+  [3.4, V(0, 0.0, 5.0), V(0, 0, 0)],
+  [6.0, V(-0.45, 0.2, 4.3), V(0, 0, 0)],
+  [7.6, V(0.75, 0.75, 1.75), V(0.0, 0.28, 0)],
+  [9.6, V(-0.6, 0.15, 1.55), V(-0.05, 0.08, 0)],
+  [11.0, V(0, 0, 5.2), V(0, 0, 0)],
+  [13.4, V(0, 0, 5.6), V(0, 0, 0)],
+  [16.0, V(0, 0, 5.35), V(0, 0, 0)],
+];
+function camAt(t) {
+  let i = 0; while (i < camKeys.length - 2 && t > camKeys[i + 1][0]) i++;
+  const [t0, p0, q0] = camKeys[i], [t1, p1, q1] = camKeys[i + 1];
+  const x = eio(seg(t, t0, t1));
+  return [p0.clone().lerp(p1, x), q0.clone().lerp(q1, x)];
+}
+
+const fadeEl = document.getElementById('fade');
+const els = ['kicker', 'name', 'rule', 'motto', 'est'].map(id => document.getElementById(id));
+
+window.DURATION = 16;
+window.renderAt = (t) => {
+  // Coin flight + spin-in
+  const a = eo5(seg(t, 0, 3.4));
+  coin.position.set(0, 0, lerp(-16, 0, eo3(seg(t, 0, 3.0))));
+  let ry = -(1 - a) * Math.PI * 7 + 0.38 * a;
+  let rx = (1 - a) * 0.35;
+  // settle & glint
+  const s2 = eio(seg(t, 3.4, 6.2));
+  ry += lerp(0, -0.62, s2);
+  rx += Math.sin(seg(t, 3.4, 6.2) * Math.PI) * 0.12;
+  // macro tilt for relief
+  const s3 = eio(seg(t, 6.0, 9.4));
+  ry += lerp(0, 0.24, s3); rx += Math.sin(seg(t, 6.0, 9.6) * Math.PI) * -0.25;
+  // flip to reveal reverse, hold, flip back
+  const f1 = eio(seg(t, 9.6, 10.9)), f2 = eio(seg(t, 11.6, 12.9));
+  ry += f1 * Math.PI + f2 * Math.PI;
+  // hero pose
+  const h = eio(seg(t, 12.2, 13.8));
+  ry += h * 0.32 + Math.sin(t * 0.6) * 0.03 * h;
+  rx += Math.sin(t * 0.5) * 0.02 * h;
+  tilt.position.x = lerp(0, -1.2, h);
+  tilt.position.y = Math.sin(t * 0.9) * 0.025 * h;
+  coin.rotation.set(rx, ry, 0);
+
+  const [cp, ct] = camAt(t);
+  camera.position.copy(cp); camera.lookAt(ct);
+  halo.position.x = tilt.position.x;
+  halo.material.opacity = 0.55 * eo3(seg(t, 1.0, 3.6)) * (1 + 0.15 * Math.sin(t * 1.4));
+
+  // environment rotation drives the moving reflections / glints
+  scene.environmentRotation.set(0, -1.2 + t * 0.22 + Math.sin(seg(t, 3.2, 6.4) * Math.PI) * 0.9 + eio(seg(t, 12.6, 14.8)) * 0.8, 0);
+
+  // anamorphic streak flashes on the landing & hero moments
+  const flash = Math.max(Math.exp(-Math.pow((t - 3.35) / 0.18, 2)), 0.8 * Math.exp(-Math.pow((t - 13.9) / 0.22, 2)));
+  streak.position.set(tilt.position.x + 0.6, 0.62, 0.4);
+  streak.scale.set(0.5 + flash * 1.2, 1 + flash * 0.6, 1);
+  streak.material.opacity = flash * 0.45;
+  bloom.strength = 0.42 + flash * 0.5;
+
+  pMat.uniforms.uTime.value = t;
+  pMat.uniforms.uFocus.value = camera.position.distanceTo(tilt.position);
+  grade.uniforms.uTime.value = t;
+  renderer.toneMappingExposure = 1.05 * eo3(seg(t, 0.0, 1.4));
+
+  // Titles
+  const T0 = 13.6;
+  const ti = (k, d) => eo3(seg(t, T0 + k, T0 + k + (d || 0.9)));
+  const set = (el, x, dy) => { el.style.opacity = x; el.style.transform = `translateY(${(1 - x) * dy}px)`; el.style.filter = `blur(${(1 - x) * 8}px)`; };
+  set(els[0], ti(0), 20);
+  set(els[1], ti(0.15, 1.1), 30);
+  els[1].style.backgroundPosition = `${lerp(100, 0, eio(seg(t, T0 + 0.4, T0 + 2.4)))}% 0`;
+  els[2].style.width = `${ti(0.5, 1.2) * 520}px`; els[2].style.opacity = 1;
+  set(els[3], ti(0.75), 20);
+  set(els[4], ti(1.0), 16);
+
+  fadeEl.style.opacity = Math.max(1 - seg(t, 0, 0.4), seg(t, 15.4, 16));
+  composer.render();
+};
+window.ready = true;
+</script>
+</body>
+</html>
