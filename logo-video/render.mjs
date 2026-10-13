@@ -29,7 +29,7 @@ await page.evaluate(() => document.fonts.ready);
 const times = timesArg ? timesArg.split(',').map(Number)
   : Array.from({ length: Math.round(await page.evaluate('window.DURATION') * fps) }, (_, i) => i / fps);
 const t0 = Date.now();
-for (let i = 0; i < times.length; i++) {
+for (let i = Number(process.env.START || 0); i < times.length; i++) {
   await page.evaluate(t => window.renderAt(t), times[i]);
   const name = timesArg ? `still_${times[i].toFixed(2)}.png` : `f_${String(i).padStart(5, '0')}.png`;
   await page.screenshot({ path: path.join(outDir, name), clip: { x: 0, y: 0, width: 1920, height: 1080 } });
