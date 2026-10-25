@@ -27,4 +27,10 @@ A formal school seal in the Philippine tradition. Every element and every count 
 palay stalk. Set in Fraunces, Marcellus and Plus Jakarta Sans. Files: `seal.svg` (primary),
 `medallion.svg`, `mark.svg` (small sizes), plus stacked, horizontal and reversed lockups.
 
-To regenerate all three takes: `cd src && npm install && npm run build`.
+## Take 4: "Gintong Liwanag" (Golden Light) (`take-4/`)
+
+The same meanings as Take 3, made as an engraved gold-foil seal: a guilloché border,
+line-engraved sun and mountains, metallic gold, palay growing up out of the terraces, and the
+motto set in the ring. Set in Cormorant Garamond and Plus Jakarta Sans. Same file set as Take 3.
+
+To regenerate all four takes: `cd src && npm install && npm run build`.

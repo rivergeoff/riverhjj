@@ -2,6 +2,6 @@
   "name": "jtcsii-brand",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node build.mjs && node render.mjs && node guidelines.mjs && node take2.mjs && node render.mjs take-2 && node guidelines.mjs take-2 \"Take 2 · Radiant\" && node take3.mjs && node render.mjs take-3 && node guidelines3.mjs" },
+  "scripts": { "build": "node build.mjs && node render.mjs && node guidelines.mjs && node take2.mjs && node render.mjs take-2 && node guidelines.mjs take-2 \"Take 2 · Radiant\" && node take3.mjs && node render.mjs take-3 && node guidelines-seal.mjs take-3 && node take4.mjs && node render.mjs take-4 && node guidelines-seal.mjs take-4" },
   "dependencies": { "opentype.js": "1.3.4" }
 }
