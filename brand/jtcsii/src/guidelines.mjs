@@ -6,7 +6,9 @@ import { createRequire } from 'node:module';
 
 const { chromium } = createRequire(import.meta.url)('playwright');
 const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, '..');
+const root = path.resolve(here, '..', process.argv[2] ?? '.');
+const take = process.argv[3] ?? '';
+const has = (f) => fs.existsSync(path.join(root, 'svg', f));
 // Each inline copy needs unique ids, so suffix them per use.
 let n = 0;
 const svg = (f, cls = '') => {
@@ -24,7 +26,15 @@ const swatches = [
   ['Old Gold', '#A97C22', 'Gold for small text on light grounds'],
   ['Paper Cream', '#FDF7E1', 'Pages, bridge, reversed type'],
 ];
-const symbols = [
+const symbolsRadiant = [
+  ['One Sun at the Centre', 'Every curve in the emblem is a circle drawn around the sun: learning is the centre that everything else grows out from.'],
+  ['The Sun & Palay Rays', 'The light of learning, its rays drawn as grains of palay: the harvest and the gold of Rosario.'],
+  ['The Bridge as an Orbit', 'The hanging bridge\u2019s main cable is the lower arc of the sun\u2019s halo, and an open book is its deck: education connects learners to opportunity and to one another.'],
+  ['The Mountains', 'Twin sunlit peaks with their shoulders stand for the upland community the school serves.'],
+  ['The Golden Terraces', 'Rice terraces climb the hills in rings that ripple out from the sun: the land, its fields, and its mines, on which the school stands.'],
+  ['The Woven Border', 'A Cordillera-inspired diamond weave frames the whole emblem, holding the school\u2019s Indigenous learners and heritage around everything it does.'],
+];
+const symbolsDetailed = [
   ['The Sun', 'The light of learning. Its rays are drawn as grains of palay, honoring the harvest and the gold of Rosario.'],
   ['The Book as a Hanging Bridge', 'An open book forms the deck of a highland hanging bridge strung between the mountains: education connects learners to opportunity and to one another.'],
   ['The Mountains', 'Two sunlit peaks and a distant range stand for the upland community the school serves.'],
@@ -35,7 +45,7 @@ const symbols = [
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JTCSII Brand Guidelines</title>
+<title>JTCSII Brand Guidelines${take ? ' ' + take : ''}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -65,7 +75,7 @@ h3{margin:0 0 2px;font-size:16px;font-weight:600}.sym p{margin:0 0 14px;color:#4
 .rules{margin:18px 0 0;padding-left:18px;color:#4a5a50}
 @media (max-width:980px){.grid,.lower{grid-template-columns:1fr}.palette{grid-template-columns:repeat(3,1fr)}.wrap{padding:32px 16px}}
 </style></head><body><div class="wrap">
-<header><div class="eyebrow">Brand Identity Guidelines · Jose T. Cuyos Sr. II Integrated School</div><div class="motto">Together we bridge, together we succeed</div></header>
+<header><div class="eyebrow">Brand Identity Guidelines · Jose T. Cuyos Sr. II Integrated School${take ? ' · ' + take : ''}</div><div class="motto">Together we bridge, together we succeed</div></header>
 <div class="grid">
   <div class="card"><div class="eyebrow">Primary Logo — Stacked</div><div class="art">${svg('logo-stacked.svg', 'stacked')}</div></div>
   <div class="stack">
@@ -75,8 +85,9 @@ h3{margin:0 0 2px;font-size:16px;font-weight:600}.sym p{margin:0 0 14px;color:#4
 </div>
 <div class="lower">
   <div><div class="eyebrow">Official Seal</div><div style="margin-top:16px">${svg('seal.svg', 'seal')}</div>
-    <div class="eyebrow" style="margin-top:36px">Circle Emblem</div><div style="margin-top:16px;width:180px">${svg('emblem-circle.svg', 'seal')}</div></div>
-  <div class="sym"><div class="eyebrow" style="margin-bottom:16px">Symbolism</div>${symbols.map(([h, p]) => `<h3>${h}</h3><p>${p}</p>`).join('')}</div>
+    <div class="eyebrow" style="margin-top:36px">Circle Emblem</div><div style="margin-top:16px;width:180px">${svg('emblem-circle.svg', 'seal')}</div>
+    ${has('emblem-mono-forest.svg') ? `<div class="eyebrow" style="margin-top:36px">One-Color</div><div style="margin-top:16px;display:flex;gap:16px"><div style="width:140px">${svg('emblem-mono-forest.svg', 'seal')}</div><div style="width:140px">${svg('emblem-mono-cream.svg', 'seal')}</div></div><p style="color:#6b7a70;font-size:13px;margin:10px 0 0">For stamps, embroidery, engraving and single-ink print.</p>` : ''}</div>
+  <div class="sym"><div class="eyebrow" style="margin-bottom:16px">Symbolism</div>${(path.basename(root) === 'take-2' ? symbolsRadiant : symbolsDetailed).map(([h, p]) => `<h3>${h}</h3><p>${p}</p>`).join('')}</div>
   <div>
     <div class="type"><div class="eyebrow">Typography</div><div class="serif">Instrument Serif</div><small>Primary typeface — school name, headings, motto (italic)</small>
     <div class="sans">INSTRUMENT SANS</div><small>Secondary typeface — descriptors, labels and body text</small></div>

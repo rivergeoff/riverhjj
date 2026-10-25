@@ -1,4 +1,4 @@
-// Renders every SVG in ../svg to a 2x PNG in ../png using the preinstalled Chromium.
+// Renders every SVG in <dir>/svg to a 2x PNG in <dir>/png (dir defaults to ..) using the preinstalled Chromium.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -6,8 +6,9 @@ import { createRequire } from 'node:module';
 
 const { chromium } = createRequire(import.meta.url)('playwright');
 const here = path.dirname(fileURLToPath(import.meta.url));
-const svgDir = path.resolve(here, '../svg');
-const pngDir = path.resolve(here, '../png');
+const base = path.resolve(here, '..', process.argv[2] ?? '.');
+const svgDir = path.join(base, 'svg');
+const pngDir = path.join(base, 'png');
 fs.mkdirSync(pngDir, { recursive: true });
 
 const browser = await chromium.launch();

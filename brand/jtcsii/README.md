@@ -11,4 +11,12 @@ centre is a full circle.
 - `png/`: 2× renders of the above, plus `guidelines.png`
 - `guidelines.html`: brand guidelines board
 
-To regenerate everything: `cd src && npm install && npm run build`.
+## Take 2: "Radiant" (`take-2/`)
+
+A more unified version of the same story. Every curve is a circle around the sun: its halo,
+the bridge's main cable, the rice terraces and the woven border are all concentric. Colours
+are flat and line weights are consistent, and the scene is simpler (no river, pines or
+gradients). The same files as above, plus one-colour emblems (`emblem-mono-forest.svg`,
+`emblem-mono-cream.svg`) for stamps, embroidery and single-ink print.
+
+To regenerate both takes: `cd src && npm install && npm run build`.
