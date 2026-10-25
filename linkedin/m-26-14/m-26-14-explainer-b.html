@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 Discovery Explainer</title>
+<style>
+  /* Presentation board: the Concept B graphic in the middle, numbered annotations either side. */
+  @font-face { font-family: "Instrument Sans"; font-weight: 400; src: url("fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 500; src: url("fonts/instrument-sans-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 600; src: url("fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 700; src: url("fonts/instrument-sans-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 400; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 700; src: url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); }
+  :root {
+    --bg-0: #100f22;
+    --bg-1: #1a1834;
+    --white: #f6f5fc;
+    --body: #b9b5d9;
+    --faint: #6f6b95;
+    --red: #dc0032;
+    --red-bright: #ff3d63;
+    --amber: #ffb547;
+    --sans: "Instrument Sans", "Inter", sans-serif;
+    --mono: "JB Mono", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 2400px; height: 1500px; background: var(--bg-0); }
+  body { font-family: var(--sans); color: var(--white); -webkit-font-smoothing: antialiased; }
+  .board {
+    position: relative; width: 2400px; height: 1500px; overflow: hidden;
+    background:
+      radial-gradient(900px 700px at 50% 55%, rgba(120,110,220,0.16), transparent 70%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  }
+  .board::before { content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(190,186,240,0.16) 1px, transparent 1px); background-size: 32px 32px; opacity: 0.5; }
+  .board > * { position: absolute; }
+
+  /* Title row */
+  .title { left: 80px; top: 64px; }
+  .title .k { font-family: var(--mono); font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-bright); }
+  .title h1 { margin-top: 10px; font-size: 44px; font-weight: 700; letter-spacing: -1.2px; }
+  .summary { left: 80px; top: 186px; width: 560px; font-size: 19px; line-height: 1.5; color: var(--body); }
+  .summary b { color: var(--white); font-weight: 600; }
+
+  .key { right: 80px; top: 76px; display: flex; gap: 28px; font-size: 16px; color: var(--body); }
+  .key span { display: inline-flex; align-items: center; gap: 10px; }
+  .key i { width: 16px; height: 16px; border-radius: 4px; }
+
+  /* The graphic */
+  .art { left: 714px; top: 170px; width: 972px; height: 1215px; border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(214,211,240,0.28), 0 0 0 10px rgba(214,211,240,0.04), 0 60px 120px -40px rgba(0,0,0,0.8); }
+  .art-cap { left: 714px; top: 1402px; width: 972px; text-align: center; font-family: var(--mono); font-size: 14px; color: var(--faint); }
+
+  svg.leaders { left: 0; top: 0; width: 2400px; height: 1500px; overflow: visible; }
+
+  /* Notes */
+  .note { width: 540px; display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
+  .note.r { width: 560px; }
+  .num { width: 40px; height: 40px; border-radius: 50%; background: var(--red); display: grid; place-items: center;
+    font-family: var(--mono); font-size: 15px; font-weight: 700; box-shadow: 0 0 0 6px rgba(220,0,50,0.18); }
+  .note h3 { font-size: 23px; font-weight: 700; letter-spacing: -0.4px; line-height: 40px; }
+  .note p { grid-column: 2; margin-top: 4px; font-size: 17.5px; line-height: 1.5; color: var(--body); }
+  .note p b { color: var(--white); font-weight: 600; }
+  .note p .am { color: var(--amber); font-weight: 600; }
+  .note p .cr { color: var(--red-bright); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <div class="title">
+    <div class="k">TXOne · M-26-14 LinkedIn graphic</div>
+    <h1>How to read this graphic</h1>
+  </div>
+  <p class="summary"><b>One message:</b> you can't log OT you can't see. TXOne's passive sensor finds OT devices by the industrial protocols they speak, with nothing installed, so they can finally go into the M-26-14 logging plan.</p>
+
+  <div class="key">
+    <span><i style="background:#dc0032"></i>Crimson = TXOne / discovered</span>
+    <span><i style="background:#8a86b8; border-radius:50%"></i>Faint dots = not yet seen</span>
+    <span><i style="background:#1c1a32; box-shadow:0 0 0 1px rgba(255,255,255,0.3)"></i>Indigo = TXOne brand</span>
+  </div>
+
+  <img class="art" src="m-26-14-linkedin-v2.png" alt="Concept B graphic">
+  <div class="art-cap">Concept B · 1080 × 1350 LinkedIn post</div>
+
+  <svg class="leaders" viewBox="0 0 2400 1500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="rgba(255,61,99,0.85)" stroke-width="2">
+      <path d="M640 342 H720 L862 440"/>
+      <path d="M640 602 H710 L840 844"/>
+      <path d="M640 942 H720 L770 1045"/>
+      <path d="M640 1212 H720 L770 1197"/>
+      <path d="M1760 232 H1690 L1630 251"/>
+      <path d="M1760 522 H1700 L1242 596"/>
+      <path d="M1760 822 H1690 L1498 775"/>
+      <path d="M1760 1102 H1700 L1630 1309"/>
+    </g>
+    <g fill="#ff3d63" stroke="#100f22" stroke-width="3">
+      <circle cx="862" cy="440" r="8"/><circle cx="840" cy="844" r="8"/><circle cx="770" cy="1045" r="8"/><circle cx="770" cy="1197" r="8"/>
+      <circle cx="1630" cy="251" r="8"/><circle cx="1242" cy="596" r="8"/><circle cx="1498" cy="775" r="8"/><circle cx="1630" cy="1309" r="8"/>
+    </g>
+  </svg>
+
+  <div class="note" style="left:80px; top:322px"><span class="num">3</span><h3>The OT devices</h3>
+    <p>Each card is a real kind of OT asset: <b>PLC, HMI, HVAC controller, badge reader, building automation, drive controller</b>, labelled with the industrial protocol it speaks. The <span class="cr">crimson dot</span> means TXOne has discovered it.</p></div>
+  <div class="note" style="left:80px; top:582px"><span class="num">4</span><h3>What most plans miss</h3>
+    <p>The faint dots around the edge are OT assets <b>not yet seen</b>. They're in scope under M-26-14, but invisible to IT tools that can't run agents or scan them safely.</p></div>
+  <div class="note" style="left:80px; top:922px"><span class="num">6</span><h3>The headline</h3>
+    <p>The core idea in one line: <b>you can't log what you <span class="cr">can't see</span>.</b> Visibility comes first, then logging, then maturity.</p></div>
+  <div class="note" style="left:80px; top:1192px"><span class="num">7</span><h3>The promise</h3>
+    <p>M-26-14 puts OT in scope; TXOne brings it into view <b>passively, with nothing installed</b>, and sends it to the SIEM the SOC already uses.</p></div>
+
+  <div class="note r" style="left:1780px; top:212px"><span class="num">1</span><h3>Deadline + approach</h3>
+    <p>Top left: <b>Agency Logging Plans are due Nov 18.</b> Top right: <span class="cr">Passive discovery</span>, the way TXOne finds OT without touching it.</p></div>
+  <div class="note r" style="left:1780px; top:502px"><span class="num">2</span><h3>TXOne at the center</h3>
+    <p>The TXOne mark is the <b>passive sensor</b>. The rings and the sweep show it listening to network traffic; <b>"0 agents"</b> means nothing is installed on fragile devices.</p></div>
+  <div class="note r" style="left:1780px; top:802px"><span class="num">5</span><h3>180+ industrial protocols</h3>
+    <p>Why the discovery works: TXOne understands <b>180+ OT protocols</b> (BACnet, Modbus, S7, OSDP and more) that IT tools can't read.</p></div>
+  <div class="note r" style="left:1780px; top:1082px"><span class="num">8</span><h3>Brand sign-off</h3>
+    <p>TXOne logo and <b>"Operations-first OT security"</b>: the promise that production and building systems keep running.</p></div>
+</div>
+</body>
+</html>
