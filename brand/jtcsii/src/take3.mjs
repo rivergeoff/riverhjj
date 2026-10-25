@@ -291,21 +291,85 @@ function medallionScene() {
   <g transform="translate(0 -8)">${sun()}${mountains()}${terraces()}${bridge()}</g>`;
 }
 
-function wovenRing(r0 = 128, r1 = 140, n = 48, p = '') {
-  const rm = (r0 + r1) / 2;
-  let d = '', eyes = '', dots = '';
+// The woven band of the Indigenous Peoples: a strip of hand-woven cloth laid around the scene,
+// drawn stitch by stitch on a grid in the red, black, white and yellow of Philippine indigenous
+// weaving. Human figures with raised arms (the people, the community) alternate with stepped
+// diamond "eyes"; sawtooth borders run along both edges, and a gold bezel holds the cloth.
+const WEAVE = {
+  ground: '#A3201C', black: '#17120E', white: '#F4ECDA', yellow: '#F2BE45',
+};
+const MOTIFS = {
+  person: [
+    '.X...X.',
+    '.X.X.X.',
+    '.XXXXX.',
+    '...X...',
+    '..XXX..',
+    '.X...X.',
+    'X.....X',
+  ],
+  diamond: [
+    '...X...',
+    '..XXX..',
+    '.XX.XX.',
+    'XX.X.XX',
+    '.XX.XX.',
+    '..XXX..',
+    '...X...',
+  ],
+  cross: ['.X.', 'XXX', '.X.'],
+};
+
+function wovenRing(r0 = 126, r1 = 148, n = 36) {
+  const rows = 11, c = (r1 - r0) / rows; // one stitch
+  const rowR = (k) => r1 - (k + 0.5) * c; // radius at the middle of stitch row k (row 0 = outer edge)
+  // stitch at (column offset in stitches, row) for a motif centred on angle a
+  const stitches = (a, pattern, rowStart, fill) => {
+    const h = pattern.length, w = pattern[0].length;
+    let out = '';
+    pattern.forEach((line, ri) => {
+      [...line].forEach((ch, ci) => {
+        if (ch !== 'X') return;
+        const rr = rowR(rowStart + ri);
+        const da = (((ci - (w - 1) / 2) * c) / rr) * (180 / Math.PI);
+        const [x, y] = P(rr, a + da);
+        out += `<rect transform="translate(${f2(x)} ${f2(y)}) rotate(${f2(a + da)})" x="${f2(-c / 2)}" y="${f2(-c / 2)}" width="${f2(c * 1.02)}" height="${f2(c * 1.02)}"/>`;
+      });
+    });
+    return `<g fill="${fill}">${out}</g>`;
+  };
+  // sawtooth: small triangles on the black border rows, pointing in toward the motifs
+  const teeth = (rOut, rIn, count) => {
+    let d = '';
+    for (let i = 0; i < count; i++) {
+      const a = (i * 360) / count, half = 180 / count;
+      d += `M${pt(P(rOut, a - half))} L${pt(P(rIn, a))} L${pt(P(rOut, a + half))} Z `;
+    }
+    return d;
+  };
+  const ring = (ro, ri) => `M${-ro},0 a${ro},${ro} 0 1 0 ${2 * ro},0 a${ro},${ro} 0 1 0 ${-2 * ro},0 Z M${-ri},0 a${ri},${ri} 0 1 0 ${2 * ri},0 a${ri},${ri} 0 1 0 ${-2 * ri},0 Z`;
+  const toothCount = Math.round((2 * Math.PI * rowR(1)) / (c * 2));
+  let motifs = '';
   for (let i = 0; i < n; i++) {
     const a = (i * 360) / n;
-    const [x, y] = P(rm, a);
-    d += `<path transform="translate(${f2(x)} ${f2(y)}) rotate(${f2(a)})" d="${diamond(0, 0, 4.6, 5)}"/>`;
-    eyes += `<path transform="translate(${f2(x)} ${f2(y)}) rotate(${f2(a)})" d="${diamond(0, 0, 1.6, 1.8)}"/>`;
-    const [dx, dy] = P(rm, a + 180 / n);
-    dots += `<circle cx="${f2(dx)}" cy="${f2(dy)}" r="1.1"/>`;
+    motifs += i % 2 ? stitches(a, MOTIFS.diamond, 2, WEAVE.white) : stitches(a, MOTIFS.person, 2, WEAVE.yellow);
+    motifs += stitches(a + 180 / n, MOTIFS.cross, 4, WEAVE.black);
   }
-  return `<circle r="${rm}" fill="none" stroke="${C.forest}" stroke-width="${r1 - r0}"/>
-  <g${fx('raise')}><g fill="${gold()}">${d}${dots}</g><g fill="${C.cream}">${eyes}</g>
-  <circle r="${r0 + 0.6}" fill="none" stroke="${gold()}" stroke-width="1.2"/>
-  <circle r="${r1 - 0.6}" fill="none" stroke="${gold()}" stroke-width="1.2"/></g>`;
+  const cloth = `<path d="${ring(r1, r0)}" fill-rule="evenodd" fill="${WEAVE.ground}"/>
+    <path d="${ring(r1, r1 - c * 1.6)} ${ring(r0 + c * 1.6, r0)}" fill-rule="evenodd" fill="${WEAVE.black}"/>
+    <path d="${teeth(r1 - c * 1.6, r1 - c * 0.5, toothCount)}" fill="${WEAVE.white}" transform="scale(1)"/>
+    <path d="${teeth(r0 + c * 1.6, r0 + c * 0.5, toothCount)}" fill="${WEAVE.white}"/>
+    <path d="${ring(r1 - c * 1.6, r1 - c * 1.95)} ${ring(r0 + c * 1.95, r0 + c * 1.6)}" fill-rule="evenodd" fill="${WEAVE.yellow}"/>
+    ${motifs}`;
+  // in 3D the cloth gets a fine thread texture and sits under the gold bezel's shadow
+  const texture = D3 ? `<defs><pattern id="thread" width="1.6" height="1.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.6" height=".55" fill="#000" opacity=".22"/></pattern>
+    <clipPath id="clothClip"><path clip-rule="evenodd" d="${ring(r1, r0)}"/></clipPath></defs>
+    <rect x="${-r1}" y="${-r1}" width="${2 * r1}" height="${2 * r1}" fill="url(#thread)" clip-path="url(#clothClip)"/>` : '';
+  return `<g${fx('sink')}>${cloth}${texture}</g>
+  <g${fx('raise')}>
+    <circle r="${r0}" fill="none" stroke="${gold()}" stroke-width="${D3 ? 2 : 1.4}"/>
+    <circle r="${r1}" fill="none" stroke="${gold()}" stroke-width="${D3 ? 2 : 1.4}"/>
+  </g>`;
 }
 
 function medallion(p) {

@@ -48,7 +48,7 @@ const CONFIGS = {
     ],
     parts: [
       ['Gold', 'The gold of Rosario, its mines and its livelihood, in the sun, the wreath, the terraces and every line of the seal.'],
-      woven,
+      ['The woven band', 'A strip of hand-woven cloth in the red, black, white and yellow of Philippine indigenous weaving, drawn stitch by stitch: human figures with raised arms for the people and their community, stepped diamond \u201ceyes\u201d for protection, and sawtooth borders. It honours the school\u2019s Indigenous Peoples learners and holds the whole scene together.'],
       ['Rope & ribbon', 'The motto\u2019s banner rests on a ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
       ['Est. 2012', 'The founding year at the foot of the outer ring, the way Philippine school seals traditionally carry it.'],
     ],
