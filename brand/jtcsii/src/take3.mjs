@@ -270,7 +270,7 @@ export function seal(p = 's') {
   <circle r="243" fill="none" stroke="${C.sun}" stroke-width="2.2"/>
   <circle r="238.6" fill="none" stroke="${C.sun}" stroke-width=".7" stroke-opacity=".8"/>
   ${arcText(FORMAL, 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL', 0, 0, 213, 21, { tracking: 0.1, side: 'top', fill: C.cream })}
-  ${arcText(FORMAL, 'ITINATAG 2012', 0, 0, 230, 18, { tracking: 0.34, side: 'bottom', fill: C.sun })}
+  ${arcText(FORMAL, 'EST. 2012', 0, 0, 230, 18, { tracking: 0.4, side: 'bottom', fill: C.sun })}
   <g fill="${C.sun}">${sideMark(-90)}${sideMark(90)}</g>
   <circle r="204" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
   <g fill="${C.sun}">${beads}</g>

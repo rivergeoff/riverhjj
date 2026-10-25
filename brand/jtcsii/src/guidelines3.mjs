@@ -49,7 +49,7 @@ const parts = [
   ['The rising sun', 'A young school, founded 2012, still rising.'],
   ['The woven ring', 'A Cordillera-style diamond weave encircles the scene: the school’s Indigenous learners and heritage hold everything together.'],
   ['The ribbon', 'The motto, carried across the foot of the seal like a banner.'],
-  ['Itinatag 2012', 'Filipino for “founded 2012”, set in the outer ring the way Philippine school seals traditionally are.'],
+  ['Est. 2012', 'The founding year, set at the foot of the outer ring the way Philippine school seals traditionally are.'],
 ];
 const swatches = [
   ['Deep Forest', '#0F2A1C', 'Seal ground, primary text'],
