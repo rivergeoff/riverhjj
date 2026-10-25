@@ -31,31 +31,30 @@ const woven = ['The woven ring', 'A Cordillera-style diamond weave encircles the
 const CONFIGS = {
   'take-3': {
     label: 'Take 3 · Ani ng Liwanag',
-    fonts: 'family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500&family=Plus+Jakarta+Sans:wght@400;500;700',
-    display: '"Cinzel",serif', formal: '"Cinzel",serif',
+    fonts: 'family=Libre+Baskerville:ital,wght@0,700;1,400&family=Montserrat:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;700',
+    display: '"Libre Baskerville",serif', formal: '"Montserrat",sans-serif',
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
-    extraSwatches: [['Flag Blue', '#0038A8', 'Upper half of the sun disc'], ['Flag Red', '#CE1126', 'Lower half of the sun disc']],
-    colorTitle: 'Forest and gold, with the flag at its heart',
     meaning: [
-      ['8', 'Rays of the sun', 'The sun of the Philippine flag, on a disc of the flag\u2019s blue and red: a Filipino public school, and the light of learning.'],
+      ['8', 'Rays of palay', 'The eight rays of the sun of the Philippine flag, each drawn as a grain of palay: the light of learning, and the harvest of Rosario.'],
       ['2', 'Mountain peaks', 'A far-flung school in the uplands, and its two departments, elementary and secondary, integrated into one.'],
-      ['1', 'Hanging bridge', 'Strung between the peaks across the face of the sun, its deck on the line between blue and red: education reaches learners even in the mountains. Together we bridge.'],
-      ['1', 'Open book & river', 'A river runs from beneath the bridge down the valley and into the open book: from learning, the way leads up across the bridge and into the light.'],
-      ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step in the valley.'],
+      ['1', 'Book-bridge', 'An open book is the deck of a highland hanging bridge between the two peaks: education reaches learners even in the mountains and carries them across to opportunity. Together we bridge.'],
+      ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step like terraces in the valley the school serves.'],
       ['3', 'Stars', 'The three stars of the flag: Luzon, Visayas and Mindanao.'],
+      ['13', 'Grains on each stalk', 'Kindergarten plus Grades 1 to 12: every level of the integrated K–12 school, carried by the palay wreath.'],
     ],
     parts: [
       ['Gold', 'The gold of Rosario, its mines and its livelihood, in the sun, the wreath, the terraces and every line of the seal.'],
       woven,
-      ['The palay wreath', 'Two stalks of ripe grain rising from the foot of the seal: the harvest, and the community that the school feeds.'],
-      ['Motto & year', 'The motto in a calligraphic italic at the foot of the ring; the founding year beneath the scene.'],
+      ['The ribbon', 'The motto on a banner across the foot of the seal, its ends folded behind.'],
+      ['Est. 2012', 'The founding year at the foot of the outer ring, the way Philippine school seals traditionally carry it.'],
     ],
-    construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 218, rayLen: 60, rays: { n: 8, start: 0, step: 45 }, starFrom: [250, 250], starAngles: [-21, 0, 21], starLen: 180, note: '8 rays at 45° intervals around the sun; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },
+    construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 246, rayLen: 70, rays: { n: 8, start: -66.5, step: 19 }, starFrom: [250, 250], starAngles: [-21, 0, 21], starLen: 180, note: '8 rays at 19° intervals, symmetric about the vertical axis; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },
     type: [
-      ['<div class="s1">CINZEL</div>', 'Seal & name · Bold', 'Classic carved capitals in the Roman inscription tradition. Bold for the school name around the seal and in the logos.'],
-      ['<div class="s2">CINZEL</div>', 'Descriptor · Regular', 'The same family, widely spaced, for \u201cIntegrated School\u201d and \u201cEst. 2012\u201d.'],
-      ['<div class="s1" style="font-family:Cormorant Garamond,serif;font-style:italic;font-weight:500">Together we bridge</div>', 'Motto · Italic', 'Cormorant Garamond Italic, used only for the motto: a calligraphic voice beside the carved capitals.'],
+      ['<div class="s1" style="font-weight:700">Libre Baskerville</div>', 'Name · Bold', 'A sturdy, classical serif with clear, open letters. Bold capitals for the school name around the seal; title case in the logos.'],
+      ['<div class="s1" style="font-style:italic;font-weight:400">Together we bridge</div>', 'Motto · Italic', 'The same family’s italic carries the motto on the ribbon and beside the logos: one family, two voices.'],
+      ['<div class="s2" style="font-weight:600;font-size:34px">MONTSERRAT</div>', 'Labels · Semibold', 'A quiet geometric sans, widely spaced, for “Integrated School” and “Est. 2012”.'],
     ],
+    noBodyCard: true,
   },
   'take-4': {
     label: 'Take 4 · Gintong Liwanag',
@@ -145,7 +144,7 @@ svg.stacked{width:min(100%,480px);height:auto}svg.hz{width:100%;height:auto}
 .family figure{margin:0;text-align:center}.family figcaption{margin-top:14px;font-size:13px;color:var(--muted)}
 .type{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
 .spec{background:#fff;border:1px solid var(--line);border-radius:4px;padding:28px}
-.spec .s1{font:500 64px/1 var(--display);color:var(--forest);letter-spacing:-.02em}
+.spec .s1{font:500 52px/1.05 var(--display);color:var(--forest);letter-spacing:-.02em}
 .spec .s2{font:400 46px/1 var(--formal);letter-spacing:.14em;color:var(--field)}
 .spec .s3{font:700 40px/1 "Plus Jakarta Sans",sans-serif;color:var(--forest);letter-spacing:-.01em}
 .spec h3{font:700 12px/1 "Plus Jakarta Sans";letter-spacing:.22em;text-transform:uppercase;color:var(--old);margin:22px 0 6px}
@@ -190,7 +189,7 @@ svg.stacked{width:min(100%,480px);height:auto}svg.hz{width:100%;height:auto}
 <section><div class="eyebrow">Typography</div><h2>Three voices, one hierarchy</h2>
 <div class="type">
   ${cfg.type.map(([sample, h, p]) => `<div class="spec">${sample}<h3>${h}</h3><p>${p}</p></div>`).join('')}
-  <div class="spec"><div class="s3">Plus Jakarta Sans</div><h3>Text · Labels & body</h3><p>A clear contemporary sans for body copy, labels and small details such as “EST. 2012”.</p></div>
+  ${cfg.noBodyCard ? '' : `<div class="spec"><div class="s3">Plus Jakarta Sans</div><h3>Text · Labels & body</h3><p>A clear contemporary sans for body copy, labels and small details such as “EST. 2012”.</p></div>`}
 </div></section>
 
 <section><div class="eyebrow">Color</div><h2>${cfg.colorTitle ?? 'Forest and gold, nothing else'}</h2>
