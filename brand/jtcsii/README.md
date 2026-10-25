@@ -42,3 +42,17 @@ line-engraved sun and mountains, metallic gold, palay growing up out of the terr
 motto set in the ring. Set in Cormorant Garamond and Plus Jakarta Sans. Same file set as Take 3.
 
 To regenerate all four takes: `cd src && npm install && npm run build`.
+
+## Teaser video (`jtcsii-teaser.mp4`, source in `video/`)
+
+A 37-second, 1920×1080 logo reveal: a cold open, the seal assembling element by element with
+captions on each meaning, the full seal forming, a showcase of the logo system, and an end card,
+with synthesized sound design. It is a Remotion project that animates the seal's own layers.
+
+```
+cd video && npm install
+npm run assets   # export the seal's layers (../src/layers.mjs) and synthesize public/sound.wav
+npm run dev      # preview in Remotion Studio
+npm run render   # write out/teaser.mp4
+```
+

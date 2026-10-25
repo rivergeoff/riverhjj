@@ -1,0 +1,108 @@
+{
+  "fps": 30,
+  "duration": 37,
+  "lines": [
+    {
+      "text": "Malayo man sa lungsod,",
+      "start": 0.7,
+      "end": 2.4
+    },
+    {
+      "text": "nasa gitna man ng kabundukan,",
+      "start": 2.5,
+      "end": 4.2
+    },
+    {
+      "text": "may tulay ang pangarap.",
+      "start": 4.3,
+      "end": 5.9
+    }
+  ],
+  "ring": 5.2,
+  "sky": 6.0,
+  "sun": 7.2,
+  "rays": 7.8,
+  "rayStep": 0.13,
+  "rayOrder": [
+    3,
+    4,
+    2,
+    5,
+    1,
+    6,
+    0,
+    7
+  ],
+  "mountains": 9.3,
+  "terraces": 10.3,
+  "terraceStep": 0.2,
+  "bridge": 12.3,
+  "weave": 14.1,
+  "pullback": 15.7,
+  "disc": 15.9,
+  "rope": 16.1,
+  "rim": 16.5,
+  "palay": 16.8,
+  "name": 17.8,
+  "place": 18.7,
+  "year": 18.9,
+  "motto": 19.2,
+  "ornaments": 20.0,
+  "impact": 20.5,
+  "showcase": 23.0,
+  "versions": 26.0,
+  "mark": 29.0,
+  "end": 31.5,
+  "fadeOut": 36.1,
+  "captions": [
+    {
+      "n": "01",
+      "title": "ANG WATAWAT",
+      "sub": "Asul at pula ng bayan",
+      "start": 6.1,
+      "end": 7.15
+    },
+    {
+      "n": "02",
+      "title": "ANG ARAW",
+      "sub": "Liwanag ng karunungan",
+      "start": 7.3,
+      "end": 9.2
+    },
+    {
+      "n": "03",
+      "title": "ANG KABUNDUKAN",
+      "sub": "Paaralan sa gitna ng bundok",
+      "start": 9.4,
+      "end": 10.3
+    },
+    {
+      "n": "04",
+      "title": "ANG PALAYAN",
+      "sub": "Apat na core values ng DepEd",
+      "start": 10.45,
+      "end": 12.2
+    },
+    {
+      "n": "05",
+      "title": "ANG TULAY AT AKLAT",
+      "sub": "Edukasyong umaabot kahit malayo",
+      "start": 12.4,
+      "end": 14.0
+    },
+    {
+      "n": "06",
+      "title": "ANG HABI",
+      "sub": "Para sa ating mga katutubo",
+      "start": 14.2,
+      "end": 15.6
+    },
+    {
+      "n": "07",
+      "title": "ANG LUBID AT PALAY",
+      "sub": "Tibay at ani ng Rosario",
+      "start": 16.3,
+      "end": 17.7
+    }
+  ]
+}

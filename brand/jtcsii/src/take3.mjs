@@ -79,6 +79,7 @@ function cubicYAt(s, x) {
 // finish, where gold is raised and lit from the top left, the scene sits recessed, and the
 // scene's elements are modelled with light and shadow.
 let D3 = true;
+export const setMode = (d3, mono = false, ink = '#000000') => { D3 = d3; MONO = mono; INK = ink; };
 // One-colour mode for photocopies, stamps, engraving and single-ink print: everything is ink or
 // paper, and the flag's colours are shown by heraldic hatching (blue horizontal, red vertical).
 let MONO = false;
@@ -88,7 +89,7 @@ const fx = (id) => (D3 ? ` filter="url(#${id})"` : '');
 const gold = () => (D3 ? 'url(#gold3d)' : MONO ? INK : C.sun);
 const ink = (color) => (MONO ? INK : color);
 
-function defs3d() {
+export function defs3d() {
   if (!D3) return '';
   const lin = (id, x1, y1, x2, y2, stops, units = 'objectBoundingBox') =>
     `<linearGradient id="${id}" gradientUnits="${units}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([o, c, a = 1]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${a}"/>`).join('')}</linearGradient>`;
@@ -150,7 +151,7 @@ function defs3d() {
 }
 
 // ---------- the medallion (radius 128, origin at its centre) ----------
-const MED = 128;
+export const MED = 128;
 // A large setting sun, low in the gap between the peaks: the far ridge and the mountain slopes
 // cover its lower part, so it peeks out from behind them.
 const SUN = { x: 0, y: 28, r: 56 };
@@ -158,8 +159,9 @@ const BOOK_TOP = [[-76, 38], [-56, 26], [-24, 28], [0, 50]];
 const BOOK_BOT = [[-76, 50], [-54, 40], [-24, 42], [0, 64]];
 
 // The sun of the flag: 8 long, bevelled rays reaching out to the rim of the frame circle.
-// frame is the circle the rays should touch, in the same coordinates as the sun.
-function sun(sunAt = SUN, frame = { x: 0, y: 8, r: MED }) {
+// frame is the circle the rays should touch, in the same coordinates as the sun. The parts
+// (glow, each ray, disc) are kept apart so the reveal video can animate them one by one.
+export function sunParts(sunAt = SUN, frame = { x: 0, y: 8, r: MED }) {
   const { x, y, r } = sunAt;
   const rays = [];
   const n = COUNTS.rays, step = 20; // ±10°, ±30°, ±50°, ±70°: symmetric, with the split line between the two centre rays
@@ -176,34 +178,41 @@ function sun(sunAt = SUN, frame = { x: 0, y: 8, r: MED }) {
       rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(Rr)} Z" fill="${PAPER}" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/><path d="M${pt(M)} L${pt(tip)}" stroke="${INK}" stroke-width=".9"/>`);
       continue;
     }
-    rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(M)} Z" fill="${D3 ? 'url(#rayLight)' : C.sun}"/>`);
-    rays.push(`<path d="M${pt(M)} L${pt(tip)} L${pt(Rr)} Z" fill="${D3 ? 'url(#rayDark)' : '#E3A93C'}"/>`);
+    rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(M)} Z" fill="${D3 ? 'url(#rayLight)' : C.sun}"/><path d="M${pt(M)} L${pt(tip)} L${pt(Rr)} Z" fill="${D3 ? 'url(#rayDark)' : '#E3A93C'}"/>`);
   }
   if (MONO) {
-    return `${rays.join('')}
-  <circle cx="${x}" cy="${y}" r="${r}" fill="${PAPER}" stroke="${INK}" stroke-width="1.8"/>
-  <circle cx="${x}" cy="${y}" r="${r - 6}" fill="none" stroke="${INK}" stroke-width=".8"/>`;
+    return { defs: '', glow: '', rays, disc: `<circle cx="${x}" cy="${y}" r="${r}" fill="${PAPER}" stroke="${INK}" stroke-width="1.8"/>
+  <circle cx="${x}" cy="${y}" r="${r - 6}" fill="none" stroke="${INK}" stroke-width=".8"/>` };
   }
-  return `<defs>
+  const defs = `<defs>
     <radialGradient id="sunGlow" cx="${x}" cy="${y}" r="${r * 2.3}" gradientUnits="userSpaceOnUse">
       <stop offset=".4" stop-color="#FFE7A0" stop-opacity=".55"/><stop offset=".7" stop-color="#F6C453" stop-opacity=".18"/><stop offset="1" stop-color="#F6C453" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="sunFill" cx="${x - r * 0.25}" cy="${y - r * 0.3}" r="${r * 1.15}" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#FFF6D2"/><stop offset=".45" stop-color="#FBD873"/><stop offset="1" stop-color="#EDA93A"/>
     </radialGradient>
-  </defs>
-  <circle cx="${x}" cy="${y}" r="${r * 2.3}" fill="url(#sunGlow)"/>
-  <g${fx('raise')}>${rays.join('')}</g>
-  <circle cx="${x}" cy="${y}" r="${r + 7}" fill="#FCE3A0" opacity=".35"/>
+  </defs>`;
+  return {
+    defs,
+    glow: `<circle cx="${x}" cy="${y}" r="${r * 2.3}" fill="url(#sunGlow)"/>`,
+    rays,
+    disc: `<circle cx="${x}" cy="${y}" r="${r + 7}" fill="#FCE3A0" opacity=".35"/>
   <circle cx="${x}" cy="${y}" r="${r}" fill="url(#sunFill)"/>
-  <circle cx="${x}" cy="${y}" r="${r - 0.6}" fill="none" stroke="#FFF3C9" stroke-width="1.2" stroke-opacity=".8"/>`;
+  <circle cx="${x}" cy="${y}" r="${r - 0.6}" fill="none" stroke="#FFF3C9" stroke-width="1.2" stroke-opacity=".8"/>`,
+  };
+}
+
+function sun(sunAt, frame) {
+  const s = sunParts(sunAt, frame);
+  if (MONO) return `${s.rays.join('')}\n  ${s.disc}`;
+  return `${s.defs}\n  ${s.glow}\n  <g${fx('raise')}>${s.rays.join('')}</g>\n  ${s.disc}`;
 }
 
 // mountains sit closer in so their inner slopes cross in front of the sun
 const MTN_SHIFT = 16;
 const inward = (a) => a.map(([x, y]) => [x + MTN_SHIFT, y]);
 
-function mountains() {
+export function mountains() {
   const far = [[-150, 72], [-104, 44], [-72, 52], [-40, 41], [0, 47], [40, 41], [72, 52], [104, 44], [150, 72], [150, 150], [-150, 150]];
   const left = inward([[-170, 104], [-150, 30], [-136, 16], [-114, 0], [-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104]]);
   const lit = inward([[-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104], [-48, 104], [-60, 58], [-78, 14]]);
@@ -224,7 +233,7 @@ function mountains() {
   <rect x="-150" y="18" width="300" height="52" fill="url(#haze)"/>` : ''}`;
 }
 
-function bridge() {
+export function bridge() {
   const tx = 70, top = 2, sag = 32;
   const cableY = (x) => top + sag * (1 - (x / tx) ** 2);
   const deckY = (x) => cubicYAt(BOOK_TOP, -Math.abs(x));
@@ -275,7 +284,7 @@ function bridge() {
   ${tower(-tx)}${tower(tx)}</g>`;
 }
 
-function terraces() {
+export function terraces(only = -1) {
   // a valley: each terrace climbs both slopes
   // four shallow steps across the foot of the scene, leaving the mountains and bridge room
   const tops = [50, 61, 72, 83], dips = [28, 28, 28, 28];
@@ -287,6 +296,7 @@ function terraces() {
   let svg = '';
   if (MONO) {
     for (let i = 0; i < COUNTS.terraces; i++) {
+      if (only >= 0 && i !== only) continue;
       const top = curve(i);
       const bottom = i < COUNTS.terraces - 1 ? curve(i + 1) : top.map(([x]) => [x, 160]);
       svg += `<path d="M${pts(top)} L${pts([...bottom].reverse())} Z" fill="${PAPER}"/>`;
@@ -296,6 +306,7 @@ function terraces() {
     return svg;
   }
   for (let i = 0; i < COUNTS.terraces; i++) {
+    if (only >= 0 && i !== only) continue;
     const top = curve(i);
     const bottom = i < COUNTS.terraces - 1 ? curve(i + 1) : top.map(([x]) => [x, 160]);
     svg += `<path d="M${pts(top)} L${pts([...bottom].reverse())} Z" fill="${D3 ? 'url(#paddy)' : i % 2 ? '#D3A443' : '#DDAE4C'}"/>`;
@@ -311,7 +322,7 @@ function terraces() {
   return svg;
 }
 
-const flagSky = (r) => {
+export const flagSky = (r) => {
   const left = `M0,${-r} A${r},${r} 0 0 0 0,${r} Z`, right = `M0,${-r} A${r},${r} 0 0 1 0,${r} Z`;
   if (MONO) {
     // heraldic tinctures: azure (blue) by horizontal lines, gules (red) by vertical lines
@@ -360,7 +371,7 @@ const MOTIFS = {
   cross: ['.X.', 'XXX', '.X.'],
 };
 
-function wovenRing(r0 = 127, r1 = 140, n = 44) {
+export function wovenRing(r0 = 127, r1 = 140, n = 44) {
   const rows = 11, c = (r1 - r0) / rows; // one stitch
   const rowR = (k) => r1 - (k + 0.5) * c; // radius at the middle of stitch row k (row 0 = outer edge)
   // stitch at (column offset in stitches, row) for a motif centred on angle a
@@ -421,7 +432,7 @@ function medallion(p) {
 }
 
 // ---------- the wreath ----------
-function palayStalk() {
+export function palayStalk() {
   const R = 157;
   const grains = [], crease = [];
   const at = (deg, side, len) => {
@@ -473,10 +484,10 @@ const MOTTO_STR = 'Together we bridge, Together we succeed';
 const YEAR_STR = '2012';
 const PLACE_STR = 'ROSARIO, AGUSAN DEL SUR';
 // The rope ring, and the wide lettering band between it and the outer rim.
-const ROPE = { R: 184, w: 18 };
+export const ROPE = { R: 184, w: 18 };
 const BAND = (ROPE.R + ROPE.w / 2 + 3 + 238.6) / 2; // centre line of the lettering band
 const NAME_SPAN = 158, MOTTO_SPAN = 100; // degrees of the band each line covers
-const ORNAMENT_AT = (NAME_SPAN / 2 + (360 - MOTTO_SPAN) / 2) / 2; // midway between the two lines
+export const ORNAMENT_AT = (NAME_SPAN / 2 + (360 - MOTTO_SPAN) / 2) / 2; // midway between the two lines
 
 const mixHex = (a, b, t) => '#' + [1, 3, 5].map((i) => Math.round(parseInt(a.slice(i, i + 2), 16) * (1 - t) + parseInt(b.slice(i, i + 2), 16) * t).toString(16).padStart(2, '0')).join('');
 
@@ -493,7 +504,7 @@ function text3d(draw, { depth = 2.4, layers = 7 } = {}) {
 }
 
 // The name over the top, the motto at the foot of the band, and the year beneath the scene.
-function sealText() {
+export function sealTextParts() {
   const nameSize = Math.min(34, fitArc(NAME, NAME_STR, BAND - 10, NAME_SPAN, 0.01));
   const nameBase = BAND - (capHeight(NAME) * nameSize) / 2;
   const mottoSize = Math.min(28, fitArc(MOTTO, MOTTO_STR, BAND, MOTTO_SPAN, 0.01));
@@ -502,15 +513,19 @@ function sealText() {
   // the location arcs over the top of the inner band, mirroring the year at its foot
   const placeMid = 159, placeSize = Math.min(13, fitArc(LABEL, PLACE_STR, placeMid, 74, 0.14));
   const placeBase = placeMid - (capHeight(LABEL) * placeSize) / 2;
-  return `${text3d((fill) => arcText(NAME, NAME_STR, 0, 0, nameBase, nameSize, { tracking: 0.01, side: 'top', fill }))}
-  ${text3d((fill) => arcText(MONO ? MOTTO_BOLD : MOTTO, MOTTO_STR, 0, 0, mottoBase, mottoSize, { tracking: 0.01, side: 'bottom', fill }), { depth: 1.6, layers: 5 })}
-  ${text3d((fill) => text(NAME, YEAR_STR, 0, yearY, yearSize, { anchor: 'middle', tracking: 0.04, fill }).svg, { depth: 1.8, layers: 6 })}
-  ${text3d((fill) => arcText(LABEL, PLACE_STR, 0, 0, placeBase, placeSize, { tracking: 0.14, side: 'top', fill }), { depth: 1.3, layers: 5 })}`;
+  return {
+    name: text3d((fill) => arcText(NAME, NAME_STR, 0, 0, nameBase, nameSize, { tracking: 0.01, side: 'top', fill })),
+    motto: text3d((fill) => arcText(MONO ? MOTTO_BOLD : MOTTO, MOTTO_STR, 0, 0, mottoBase, mottoSize, { tracking: 0.01, side: 'bottom', fill }), { depth: 1.6, layers: 5 }),
+    year: text3d((fill) => text(NAME, YEAR_STR, 0, yearY, yearSize, { anchor: 'middle', tracking: 0.04, fill }).svg, { depth: 1.8, layers: 6 }),
+    place: text3d((fill) => arcText(LABEL, PLACE_STR, 0, 0, placeBase, placeSize, { tracking: 0.14, side: 'top', fill }), { depth: 1.3, layers: 5 }),
+  };
 }
+
+const sealText = () => Object.values(sealTextParts()).join('\n  ');
 
 // A gold ornament for the band between the name and the motto: a faceted diamond, then
 // graduated beads and a tapering line running along the arc to either side.
-function ornament(a) {
+export function ornament(a) {
   const R0 = BAND, toDeg = (u) => (u / R0) * (180 / Math.PI);
   const [cx, cy] = P(R0, a);
   const h = 12;
@@ -537,7 +552,7 @@ function ornament(a) {
 }
 
 // A twisted rope laid in a circle, like the cables of a hanging bridge.
-function rope(R, w) {
+export function rope(R, w) {
   const n = Math.round((2 * Math.PI * R) / (w * 0.62));
   const strands = [], shades = [];
   for (let i = 0; i < n; i++) {
@@ -618,29 +633,32 @@ function horizontal(p, reversed = false) {
   ${text(MOTTO, MOTTO_STR, x + 2, 346, 32, { fill: fg }).svg}`, reversed ? C.forest : null);
 }
 
-const build = (suffix) => ({
-  [`seal${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 's')),
-  // no lettering, for adding text by hand
-  [`seal-blank${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 'b', { blank: true })),
-  [`medallion${suffix}.svg`]: doc(280, 280, `<g transform="translate(140 140)">${defs3d()}<circle r="140" fill="${C.forest}"/>${medallion('m')}</g>`),
-  [`mark${suffix}.svg`]: doc(256, 256, `<g transform="translate(128 128)">${mark()}</g>`),
-  [`logo-stacked${suffix}.svg`]: stacked('st'),
-  [`logo-horizontal${suffix}.svg`]: horizontal('hz'),
-  [`logo-horizontal-reversed${suffix}.svg`]: horizontal('hr', true),
-});
-D3 = true;
-const files = build('');
-D3 = false;
-Object.assign(files, build('-flat'));
-// one colour: black for photocopies and stamps, forest green for single-ink print and embroidery
-MONO = true;
-for (const [suffix, color] of [['-mono', '#000000'], ['-mono-green', C.forest]]) {
-  INK = color;
-  const set = build(suffix);
-  delete set[`logo-horizontal-reversed${suffix}.svg`];
-  Object.assign(files, set);
+// Writing the files only when run directly lets other scripts (the reveal video) import the parts.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const build = (suffix) => ({
+    [`seal${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 's')),
+    // no lettering, for adding text by hand
+    [`seal-blank${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 'b', { blank: true })),
+    [`medallion${suffix}.svg`]: doc(280, 280, `<g transform="translate(140 140)">${defs3d()}<circle r="140" fill="${C.forest}"/>${medallion('m')}</g>`),
+    [`mark${suffix}.svg`]: doc(256, 256, `<g transform="translate(128 128)">${mark()}</g>`),
+    [`logo-stacked${suffix}.svg`]: stacked('st'),
+    [`logo-horizontal${suffix}.svg`]: horizontal('hz'),
+    [`logo-horizontal-reversed${suffix}.svg`]: horizontal('hr', true),
+  });
+  D3 = true;
+  const files = build('');
+  D3 = false;
+  Object.assign(files, build('-flat'));
+  // one colour: black for photocopies and stamps, forest green for single-ink print and embroidery
+  MONO = true;
+  for (const [suffix, color] of [['-mono', '#000000'], ['-mono-green', C.forest]]) {
+    INK = color;
+    const set = build(suffix);
+    delete set[`logo-horizontal-reversed${suffix}.svg`];
+    Object.assign(files, set);
+  }
+  MONO = false;
+  fs.mkdirSync(path.join(out, 'svg'), { recursive: true });
+  for (const [n, s] of Object.entries(files)) fs.writeFileSync(path.join(out, 'svg', n), s);
+  console.log('wrote', Object.keys(files).join(', '));
 }
-MONO = false;
-fs.mkdirSync(path.join(out, 'svg'), { recursive: true });
-for (const [n, s] of Object.entries(files)) fs.writeFileSync(path.join(out, 'svg', n), s);
-console.log('wrote', Object.keys(files).join(', '));
