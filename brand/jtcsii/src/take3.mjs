@@ -277,7 +277,8 @@ function bridge() {
 
 function terraces() {
   // a valley: each terrace climbs both slopes
-  const tops = [20, 36, 52, 68], dips = [44, 44, 44, 44];
+  // four shallow steps across the foot of the scene, leaving the mountains and bridge room
+  const tops = [50, 61, 72, 83], dips = [28, 28, 28, 28];
   const curve = (i, off = 0) => {
     const a = [];
     for (let x = -150; x <= 150; x += 5) a.push([x, tops[i] + dips[i] * (1 - (x / 140) ** 2) + off]);
@@ -326,7 +327,7 @@ const flagSky = (r) => {
 function medallionScene() {
   // the sky is split down the axis, as the flag hangs vertically in peacetime: blue left, red right
   return `${flagSky(140)}
-  <g transform="translate(0 -8)">${sun()}${mountains()}${terraces()}${bridge()}</g>`;
+  <g transform="translate(0 -8)">${sun()}${mountains()}${terraces()}<g transform="translate(0 40) scale(1.12) translate(0 -40)">${bridge()}</g></g>`;
 }
 
 // The woven band of the Indigenous Peoples: a strip of hand-woven cloth laid around the scene,
