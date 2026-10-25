@@ -293,7 +293,8 @@ function medallionScene() {
 // weaving. Human figures with raised arms (the people, the community) alternate with stepped
 // diamond "eyes"; sawtooth borders run along both edges, and a gold bezel holds the cloth.
 const WEAVE = {
-  ground: '#A3201C', black: '#17120E', white: '#F4ECDA', yellow: '#F2BE45',
+  // muted, so the band supports the scene instead of competing with it
+  ground: '#5C1C17', black: '#1E1410', white: '#CFC2A3', yellow: '#BE9645',
 };
 const MOTIFS = {
   person: [
@@ -317,7 +318,7 @@ const MOTIFS = {
   cross: ['.X.', 'XXX', '.X.'],
 };
 
-function wovenRing(r0 = 126, r1 = 148, n = 36) {
+function wovenRing(r0 = 127, r1 = 140, n = 44) {
   const rows = 11, c = (r1 - r0) / rows; // one stitch
   const rowR = (k) => r1 - (k + 0.5) * c; // radius at the middle of stitch row k (row 0 = outer edge)
   // stitch at (column offset in stitches, row) for a motif centred on angle a
@@ -377,7 +378,7 @@ function medallion(p) {
 
 // ---------- the wreath and ribbon ----------
 function palayStalk() {
-  const R = 166;
+  const R = 157;
   const grains = [], crease = [];
   const at = (deg, side, len) => {
     const [x, y] = P(R, deg);
@@ -390,8 +391,8 @@ function palayStalk() {
   const pairs = (COUNTS.grains - 1) / 2;
   for (let k = 0; k < pairs; k++) {
     const deg = -116 + k * 12.4;
-    at(deg, -1, 15 - k * 0.35);
-    at(deg + 4, 1, 15 - k * 0.35);
+    at(deg, -1, 13.5 - k * 0.3);
+    at(deg + 4, 1, 13.5 - k * 0.3);
   }
   // the tip grain, along the stem
   const [tx, ty] = P(R, -44);
@@ -406,7 +407,7 @@ function palayStalk() {
 
 // A classic banner: the front band carries the motto; its V-notched ends fold behind it.
 function ribbon() {
-  const rO = 190, rI = 162, rM = (rO + rI) / 2, drop = 7;
+  const rO = ROPE.R + 14, rI = ROPE.R - 14, rM = ROPE.R, drop = 7; // the banner lies along the rope
   const f0 = 180 - 57, f1 = 180 + 57; // front band
   const e0 = 180 - 71, e1 = 180 + 71; // ends of the folded pieces
   const arc = (r, b0, b1, sweep) => `A${r},${r} 0 0 ${sweep} ${pt(P(r, b1))}`;
@@ -433,13 +434,15 @@ function ribbon() {
 // ---------- type on the seal ----------
 const NAME_STR = 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL';
 const MOTTO_STR = 'Together we bridge, together we succeed';
-const BAND = (205 + 238.6) / 2; // centre line of the lettering band
+// The rope ring, and the wide lettering band between it and the outer rim.
+const ROPE = { R: 184, w: 18 };
+const BAND = (ROPE.R + ROPE.w / 2 + 3 + 238.6) / 2; // centre line of the lettering band
 
 // The name over the top and the year at the foot, both centred on the band.
 function ringText() {
-  const size = Math.min(20, fitArc(NAME, NAME_STR, BAND - 7, 164, FS.track));
+  const size = Math.min(23, fitArc(NAME, NAME_STR, BAND - 8, 160, FS.track));
   const base = BAND - (capHeight(NAME) * size) / 2;
-  const est = 12.5, estBase = BAND + (capHeight(LABEL) * est) / 2;
+  const est = 14, estBase = BAND + (capHeight(LABEL) * est) / 2;
   return `${arcText(NAME, NAME_STR, 0, 0, base, size, { tracking: FS.track, side: 'top', fill: C.cream })}
   ${arcText(LABEL, 'EST. 2012', 0, 0, estBase, est, { tracking: 0.42, side: 'bottom', fill: C.sun })}`;
 }
@@ -475,8 +478,8 @@ function rope(R, w) {
 // ---------- the seal (radius 248, origin at centre) ----------
 export function seal(p = 's', { blank = false } = {}) {
   const sideMark = (a) => {
-    const [x, y] = P(221, a);
-    const [ax, ay] = P(221, a - 4.2), [bx, by] = P(221, a + 4.2);
+    const [x, y] = P(BAND, a);
+    const [ax, ay] = P(BAND, a - 4.2), [bx, by] = P(BAND, a + 4.2);
     return `<path d="${diamond(x, y, 4.2, 4.2)}" transform="rotate(${a} ${f2(x)} ${f2(y)})"/><circle cx="${f2(ax)}" cy="${f2(ay)}" r="1.5"/><circle cx="${f2(bx)}" cy="${f2(by)}" r="1.5"/>`;
   };
   return `<g>${defs3d()}
@@ -487,7 +490,7 @@ export function seal(p = 's', { blank = false } = {}) {
   </g>
   ${blank ? '' : `<g${fx('raiseText')}>${ringText()}</g>`}
   <g fill="${gold()}"${fx('raise')}>${sideMark(-90)}${sideMark(90)}</g>
-  ${rope(197.5, 12)}
+  ${rope(ROPE.R, ROPE.w)}
   <g${fx('raise')}>${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g></g>
   ${medallion(p)}
   ${blank ? '' : ribbon()}
