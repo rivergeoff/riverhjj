@@ -31,8 +31,8 @@ const woven = ['The woven ring', 'A Cordillera-style diamond weave encircles the
 const CONFIGS = {
   'take-3': {
     label: 'Take 3 · Ani ng Liwanag',
-    fonts: 'family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;700',
-    display: '"Fraunces",serif', formal: '"Marcellus",serif',
+    fonts: 'family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700',
+    display: '"Cinzel",serif', formal: '"Cinzel",serif',
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
     meaning: [...baseMeaning, ['13', 'Grains on each stalk', 'The palay wreath carries the same thirteen levels as the rays: what the light of learning gives, the community harvests.']],
     parts: [
@@ -43,8 +43,8 @@ const CONFIGS = {
     ],
     construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 248, rayLen: 118, starFrom: [250, 250], starAngles: [-21, 0, 21], starLen: 180, note: '13 rays at 12.5° intervals across 150°; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },
     type: [
-      ['<div class="s1">Fraunces</div>', 'Display · Name & motto', 'A warm, old-style serif with soft, hand-cut details. Used for the school name, headings and the motto in italic.'],
-      ['<div class="s2">MARCELLUS</div>', 'Formal · Seal & descriptor', 'Flared capitals carved in the tradition of inscriptions. Used for the seal ring, the ribbon and “Integrated School”.'],
+      ['<div class="s1">CINZEL</div>', 'Seal & name · Bold', 'Classic carved capitals in the Roman inscription tradition. Bold for the school name around the seal and in the logos.'],
+      ['<div class="s2">CINZEL</div>', 'Descriptor & motto · Regular', 'The same family, widely spaced, for \u201cIntegrated School\u201d, the motto ribbon and \u201cEst. 2012\u201d: one voice everywhere.'],
     ],
   },
   'take-4': {

@@ -1,5 +1,5 @@
 // Take 3 — "Ani ng Liwanag" (Harvest of Light): a formal Philippine school seal where every
-// element and every count means something. Fraunces / Marcellus / Plus Jakarta Sans.
+// element and every count means something. Set entirely in Cinzel.
 // Run: node take3.mjs   → ../take-3/svg/*.svg
 import fs from 'node:fs';
 import path from 'node:path';
@@ -7,10 +7,10 @@ import { fileURLToPath } from 'node:url';
 import { loadFont, text, arcText } from './type.mjs';
 
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../take-3');
-const DISPLAY = loadFont('fraunces500.ttf');
-const DISPLAY_I = loadFont('fraunces-italic.ttf');
-const FORMAL = loadFont('marcellus.ttf');
-const LABEL = loadFont('jakarta700.ttf');
+// One family throughout: Cinzel, classic carved capitals for an official seal.
+const CINZEL_B = loadFont('cinzel800.ttf');
+const CINZEL = loadFont('cinzel700.ttf');
+const CINZEL_M = loadFont('cinzel600.ttf');
 
 export const C = {
   forest: '#0F2A1C', // Deep Forest
@@ -224,25 +224,25 @@ function palayStalk() {
 }
 
 function ribbon() {
-  const a0 = 180 - 61, a1 = 180 + 61; // body, centred under the medallion
-  const rO = 189, rI = 163;
+  const a0 = 180 - 66, a1 = 180 + 66; // body, centred under the medallion
+  const rO = 190, rI = 162;
   const sector = (r1, r2, b0, b1) =>
     `M${pt(P(r1, b0))} A${r1},${r1} 0 0 1 ${pt(P(r1, b1))} L${pt(P(r2, b1))} A${r2},${r2} 0 0 0 ${pt(P(r2, b0))} Z`;
   // tails tucked behind, ending in a swallowtail
   const tail = (s) => {
     const b = s > 0 ? a1 : a0;
-    const e = b + s * 8, sh = 12;
-    return `M${pt(P(rO + sh, b - s * 12))} L${pt(P(rO + sh, e))} L${pt(P((rO + rI) / 2 + sh, e - s * 6))} L${pt(P(rI + sh, e))} L${pt(P(rI + sh, b - s * 12))} Z`;
+    const e = b + s * 13, sh = 7;
+    return `M${pt(P(rO + sh, b - s * 6))} L${pt(P(rO + sh, e))} L${pt(P((rO + rI) / 2 + sh, e - s * 4))} L${pt(P(rI + sh, e))} L${pt(P(rI + sh, b - s * 6))} Z`;
   };
   const fold = (s) => {
     const b = s > 0 ? a1 : a0;
-    return `M${pt(P(rO, b))} L${pt(P(rO + 12, b))} L${pt(P(rO, b - s * 4))} Z`;
+    return `M${pt(P(rO, b))} L${pt(P(rO + 7, b))} L${pt(P(rI + 7, b))} L${pt(P(rI, b))} Z`;
   };
   return `<path d="${tail(1)} ${tail(-1)}" fill="#C9952F"/>
   <path d="${fold(1)} ${fold(-1)}" fill="${C.oldGold}"/>
   <path d="${sector(rO, rI, a0, a1)}" fill="${C.sun}"/>
   <path d="M${pt(P(rO - 2.6, a0))} A${rO - 2.6},${rO - 2.6} 0 0 1 ${pt(P(rO - 2.6, a1))} M${pt(P(rI + 2.6, a0))} A${rI + 2.6},${rI + 2.6} 0 0 1 ${pt(P(rI + 2.6, a1))}" fill="none" stroke="${C.oldGold}" stroke-width=".9"/>
-  ${arcText(FORMAL, 'TOGETHER WE BRIDGE · TOGETHER WE SUCCEED', 0, 0, 180.2, 10.6, { tracking: 0.07, side: 'bottom', fill: C.forest })}`;
+  ${arcText(CINZEL, 'TOGETHER WE BRIDGE · TOGETHER WE SUCCEED', 0, 0, 180, 11, { tracking: 0.05, side: 'bottom', fill: C.forest })}`;
 }
 
 function stars() {
@@ -269,8 +269,8 @@ export function seal(p = 's') {
   <circle r="248" fill="${C.forest}"/>
   <circle r="243" fill="none" stroke="${C.sun}" stroke-width="2.2"/>
   <circle r="238.6" fill="none" stroke="${C.sun}" stroke-width=".7" stroke-opacity=".8"/>
-  ${arcText(FORMAL, 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL', 0, 0, 213, 21, { tracking: 0.1, side: 'top', fill: C.cream })}
-  ${arcText(FORMAL, 'EST. 2012', 0, 0, 230, 18, { tracking: 0.4, side: 'bottom', fill: C.sun })}
+  ${arcText(CINZEL_B, 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL', 0, 0, 214, 19.5, { tracking: 0.09, side: 'top', fill: C.cream })}
+  ${arcText(CINZEL, 'EST. 2012', 0, 0, 228, 16.5, { tracking: 0.34, side: 'bottom', fill: C.sun })}
   <g fill="${C.sun}">${sideMark(-90)}${sideMark(90)}</g>
   <circle r="204" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
   <g fill="${C.sun}">${beads}</g>
@@ -303,27 +303,25 @@ const doc = (w, h, body, bg) =>
 const placeSeal = (x, y, size, p) => `<g transform="translate(${f2(x + size / 2)} ${f2(y + size / 2)}) scale(${f2((size / 500) * 10000) / 10000})">${seal(p)}</g>`;
 
 function stacked(p) {
-  const W = 1000, cx = W / 2, S = 400;
-  const y = 60 + S;
-  const est = text(LABEL, 'EST. 2012', cx, y + 262, 17, { anchor: 'middle', tracking: 0.38, fill: C.oldGold });
-  const rule = (x1, x2) => `<rect x="${f2(x1)}" y="${y + 255}" width="${f2(x2 - x1)}" height="1.6" fill="${C.oldGold}"/>`;
-  return doc(W, y + 400, `${placeSeal(cx - S / 2, 60, S, p)}
-  ${text(DISPLAY, 'Jose T. Cuyos Sr. II', cx, y + 140, 92, { anchor: 'middle', tracking: -0.01, fill: C.forest }).svg}
-  ${text(FORMAL, 'INTEGRATED SCHOOL', cx, y + 200, 31, { anchor: 'middle', tracking: 0.36, fill: C.field }).svg}
-  ${est.svg}${rule(cx - 200, cx - est.width / 2 - 24)}${rule(cx + est.width / 2 + 24, cx + 200)}
-  ${text(DISPLAY_I, 'Together we bridge, together we succeed', cx, y + 340, 40, { anchor: 'middle', fill: C.field }).svg}`);
+  const W = 1000, cx = 500, S = 460;
+  const est = text(CINZEL, 'EST. 2012', cx, 760, 17, { anchor: 'middle', tracking: 0.34, fill: C.oldGold });
+  const rule = (x1, x2) => `<rect x="${f2(x1)}" y="753" width="${f2(x2 - x1)}" height="1.5" fill="${C.oldGold}"/>`;
+  return doc(W, 840, `${placeSeal(cx - S / 2, 40, S, p)}
+  ${text(CINZEL_B, 'JOSE T. CUYOS SR. II', cx, 618, 64, { anchor: 'middle', tracking: 0.02, fill: C.forest }).svg}
+  ${text(CINZEL, 'INTEGRATED SCHOOL', cx, 676, 30, { anchor: 'middle', tracking: 0.36, fill: C.field }).svg}
+  ${est.svg}${rule(cx - 200, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + 200)}`);
 }
 
 function horizontal(p, reversed = false) {
-  const W = 1300, H = 440, S = 320;
-  const ink = reversed ? C.cream : C.forest;
-  const x = 60 + S + 54;
-  return doc(W, H, `${placeSeal(60, 60, S, p)}
-  <rect x="${60 + S + 27}" y="96" width="1.4" height="248" fill="${reversed ? C.sun : C.field}" opacity="${reversed ? 0.55 : 0.3}"/>
-  ${text(DISPLAY, 'Jose T. Cuyos Sr. II', x, 214, 90, { tracking: -0.01, fill: ink }).svg}
-  ${text(FORMAL, 'INTEGRATED SCHOOL', x + 3, 278, 29, { tracking: 0.36, fill: reversed ? C.sun : C.field }).svg}
-  ${text(LABEL, 'EST. 2012', x + 3, 336, 15, { tracking: 0.38, fill: reversed ? C.sun : C.oldGold }).svg}
-  ${text(DISPLAY_I, 'Together we bridge, together we succeed', x + 150, 337, 22, { fill: reversed ? C.cream : C.field }).svg}`, reversed ? C.forest : null);
+  const W = 1320, H = 440, S = 340, x = 60 + S + 54;
+  const ink = reversed ? C.cream : C.forest, sub = reversed ? C.sun : C.field, gold = reversed ? C.sun : C.oldGold;
+  return doc(W, H, `${placeSeal(50, 50, S, p)}
+  <rect x="${50 + S + 26}" y="104" width="1.5" height="232" fill="${gold}" opacity=".6"/>
+  ${text(CINZEL_B, 'JOSE T. CUYOS SR. II', x, 206, 66, { tracking: 0.02, fill: ink }).svg}
+  ${text(CINZEL, 'INTEGRATED SCHOOL', x + 2, 262, 30, { tracking: 0.36, fill: sub }).svg}
+  <rect x="${x + 2}" y="292" width="56" height="1.5" fill="${gold}"/>
+  ${text(CINZEL, 'EST. 2012', x + 72, 299, 15, { tracking: 0.34, fill: gold }).svg}
+  ${text(CINZEL_M, 'TOGETHER WE BRIDGE, TOGETHER WE SUCCEED', x + 2, 340, 15, { tracking: 0.16, fill: ink }).svg}`, reversed ? C.forest : null);
 }
 
 const files = {
