@@ -421,7 +421,7 @@ function rope(R, w) {
 }
 
 // ---------- the seal (radius 248, origin at centre) ----------
-export function seal(p = 's') {
+export function seal(p = 's', { blank = false } = {}) {
   const sideMark = (a) => {
     const [x, y] = P(221, a);
     const [ax, ay] = P(221, a - 4.2), [bx, by] = P(221, a + 4.2);
@@ -433,13 +433,13 @@ export function seal(p = 's') {
     <circle r="${D3 ? 244.5 : 243}" fill="none" stroke="${gold()}" stroke-width="${D3 ? 6 : 2.2}"/>
     <circle r="238.6" fill="none" stroke="${gold()}" stroke-width="${D3 ? 1.1 : 0.7}" stroke-opacity=".9"/>
   </g>
-  <g${fx('raiseText')}>${ringText()}</g>
+  ${blank ? '' : `<g${fx('raiseText')}>${ringText()}</g>`}
   <g fill="${gold()}"${fx('raise')}>${sideMark(-90)}${sideMark(90)}</g>
   ${rope(197.5, 12)}
   <g${fx('raise')}>${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g></g>
   ${stars()}
   ${medallion(p)}
-  ${ribbon()}
+  ${blank ? '' : ribbon()}
   ${D3 ? '<circle r="248" fill="url(#rim)"/><circle r="248" fill="url(#gloss)"/>' : ''}
 </g>`;
 }
@@ -462,7 +462,7 @@ function mark() {
 // ---------- documents ----------
 const doc = (w, h, body, bg) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${bg ? `<rect width="${w}" height="${h}" fill="${bg}"/>` : ''}${body}</svg>\n`;
-const placeSeal = (x, y, size, p) => `<g transform="translate(${f2(x + size / 2)} ${f2(y + size / 2)}) scale(${f2((size / 500) * 10000) / 10000})">${seal(p)}</g>`;
+const placeSeal = (x, y, size, p, opts) => `<g transform="translate(${f2(x + size / 2)} ${f2(y + size / 2)}) scale(${f2((size / 500) * 10000) / 10000})">${seal(p, opts)}</g>`;
 
 function stacked(p) {
   const W = 1000, cx = 500, S = 460;
@@ -489,6 +489,8 @@ function horizontal(p, reversed = false) {
 
 const build = (suffix) => ({
   [`seal${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 's')),
+  // no lettering and no ribbon, for adding text by hand
+  [`seal-blank${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 'b', { blank: true })),
   [`medallion${suffix}.svg`]: doc(280, 280, `<g transform="translate(140 140)">${defs3d()}<circle r="140" fill="${C.forest}"/>${medallion('m')}</g>`),
   [`mark${suffix}.svg`]: doc(256, 256, `<g transform="translate(128 128)">${mark()}</g>`),
   [`logo-stacked${suffix}.svg`]: stacked('st'),
