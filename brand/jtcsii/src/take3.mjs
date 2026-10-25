@@ -97,9 +97,7 @@ function sun({ rays = true } = {}) {
     r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -54)" d="M0,-10 V10" stroke="${C.oldGold}" stroke-width="1" stroke-linecap="round"/>`);
   }
   // the two rings behind the sun carry the flag's colours
-  // the sky is the flag's blue; a disc of its red glows around the sun
-  return `<circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="${C.flagRed}"/>
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
+  return `
   ${rays ? `<g fill="${C.sun}">${r.join('')}</g>` : ''}
   <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r}" fill="${C.sun}"/>
   <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r - 5}" fill="none" stroke="${C.cream}" stroke-opacity=".35" stroke-width="1"/>`;
@@ -185,8 +183,11 @@ function terraces() {
   return svg;
 }
 
+const flagSky = (r) => `<path d="M0,${-r} A${r},${r} 0 0 0 0,${r} Z" fill="${C.flagBlue}"/><path d="M0,${-r} A${r},${r} 0 0 1 0,${r} Z" fill="${C.flagRed}"/>`;
+
 function medallionScene() {
-  return `<rect x="-140" y="-140" width="280" height="280" fill="${C.flagBlue}"/>
+  // the sky is split down the axis, as the flag hangs vertically in peacetime: blue left, red right
+  return `${flagSky(140)}
   <g transform="translate(0 -8)">${sun()}${mountains()}${terraces()}${bridge()}</g>`;
 }
 
@@ -330,7 +331,7 @@ function mark() {
   const s = `<g transform="translate(0 -6)">${sun()}</g>`;
   return `<g>
   <circle r="128" fill="${C.forest}"/>
-  <circle r="120" fill="${C.flagBlue}"/>
+  ${flagSky(120)}
   <defs><clipPath id="mk"><circle r="120"/></clipPath></defs>
   <g clip-path="url(#mk)" transform="translate(0 10) scale(1.08)">${s}
   <path d="M-86,48 C-60,34 -24,37 0,62 C24,37 60,34 86,48 L86,62 C60,50 24,53 0,78 C-24,53 -60,50 -86,62 Z" fill="${C.sun}"/>

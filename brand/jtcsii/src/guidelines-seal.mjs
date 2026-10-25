@@ -34,11 +34,11 @@ const CONFIGS = {
     fonts: 'family=Libre+Baskerville:ital,wght@0,700;1,400&family=Montserrat:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;700',
     display: '"Libre Baskerville",serif', formal: '"Montserrat",sans-serif',
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
-    extraSwatches: [['Flag Blue', '#0038A8', 'Sky of the medallion'], ['Flag Red', '#CE1126', 'Disc around the sun']],
+    extraSwatches: [['Flag Blue', '#0038A8', 'Left half of the medallion'], ['Flag Red', '#CE1126', 'Right half of the medallion']],
     swatchUse: { 'Field Green': 'Mountains, descriptors' },
     colorTitle: 'Forest and gold, with the flag at its heart',
     meaning: [
-      ['8', 'Rays of palay', 'The eight rays of the sun of the Philippine flag, each drawn as a grain of palay, set on the flag\u2019s blue and red: the light of learning, and the harvest of Rosario.'],
+      ['8', 'Rays of palay', 'The eight rays of the sun of the Philippine flag, each drawn as a grain of palay, rising where the flag\u2019s blue and red meet, split as the flag hangs vertically in peacetime (blue left, red right): the light of learning, and the harvest of Rosario.'],
       ['2', 'Mountain peaks', 'A far-flung school in the uplands, and its two departments, elementary and secondary, integrated into one.'],
       ['1', 'Book-bridge', 'An open book is the deck of a highland hanging bridge between the two peaks: education reaches learners even in the mountains and carries them across to opportunity. Together we bridge.'],
       ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step like terraces in the valley the school serves.'],
