@@ -1,0 +1,160 @@
+// Builds ../take-3/guidelines.html (+ png/guidelines.png) for Take 3.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const { chromium } = createRequire(import.meta.url)('playwright');
+const here = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(here, '../take-3');
+let n = 0;
+const svg = (f, cls = '', style = '') => {
+  const tag = `u${n++}`;
+  return fs.readFileSync(path.join(root, 'svg', f), 'utf8')
+    .replace(/id="([^"]+)"/g, `id="$1${tag}"`)
+    .replace(/url\(#([^)]+)\)/g, `url(#$1${tag})`)
+    .replace(/ width="\d+" height="\d+"/, ` class="${cls}" style="${style}"`);
+};
+
+// Construction overlay drawn in the seal's 500×500 space (centre 250,250; sun at 250,248).
+function construction() {
+  const cx = 250, cy = 250, sx = 250, sy = 248;
+  const rings = [128, 140, 167, 197, 204, 243].map((r) => `<circle cx="${cx}" cy="${cy}" r="${r}"/>`).join('');
+  const rays = Array.from({ length: 13 }, (_, i) => {
+    const a = ((-75 + i * 12.5) * Math.PI) / 180;
+    return `<line x1="${sx}" y1="${sy}" x2="${(sx + 118 * Math.sin(a)).toFixed(1)}" y2="${(sy - 118 * Math.cos(a)).toFixed(1)}"/>`;
+  }).join('');
+  const stars = [-21, 0, 21].map((d) => {
+    const a = (d * Math.PI) / 180;
+    return `<line x1="${cx}" y1="${cy}" x2="${(cx + 180 * Math.sin(a)).toFixed(1)}" y2="${(cy - 180 * Math.cos(a)).toFixed(1)}"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 500 500" class="construct" aria-hidden="true">
+  <g fill="none" stroke="#E0533D" stroke-width=".8" opacity=".9">${rings}</g>
+  <g stroke="#E0533D" stroke-width=".7" stroke-dasharray="3 3">${rays}${stars}</g>
+  <line x1="0" y1="250" x2="500" y2="250" stroke="#E0533D" stroke-width=".6" stroke-dasharray="2 4"/>
+  <line x1="250" y1="0" x2="250" y2="500" stroke="#E0533D" stroke-width=".6" stroke-dasharray="2 4"/>
+  <circle cx="${sx}" cy="${sy}" r="3" fill="#E0533D"/>
+</svg>`;
+}
+
+const meaning = [
+  ['13', 'Rays of palay', 'Kindergarten plus Grades 1 to 12: every level of the integrated K–12 school rises from the same sun. Drawn as grains of palay for the harvest and the gold of Rosario.'],
+  ['2', 'Mountain peaks', 'The elementary and secondary departments: two schools that became one integrated school.'],
+  ['1', 'Book-bridge', 'An open book is the deck of a highland hanging bridge between the two peaks. Education joins the levels and carries learners across to opportunity: together we bridge.'],
+  ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step like terraces in the valley the school serves.'],
+  ['3', 'Stars', 'Learners, teachers, and parents with the community: the three who succeed together.'],
+  ['13', 'Grains on each stalk', 'The palay wreath carries the same thirteen levels as the rays: what the light of learning gives, the community harvests.'],
+];
+const parts = [
+  ['The rising sun', 'A young school, founded 2012, still rising.'],
+  ['The woven ring', 'A Cordillera-style diamond weave encircles the scene: the school’s Indigenous learners and heritage hold everything together.'],
+  ['The ribbon', 'The motto, carried across the foot of the seal like a banner.'],
+  ['Itinatag 2012', 'Filipino for “founded 2012”, set in the outer ring the way Philippine school seals traditionally are.'],
+];
+const swatches = [
+  ['Deep Forest', '#0F2A1C', 'Seal ground, primary text'],
+  ['Field Green', '#2E5E3A', 'Sky, descriptors'],
+  ['Sun Gold', '#F6C453', 'Sun, palay, ribbon, terraces'],
+  ['Old Gold', '#A97C22', 'Gold for small text on light grounds'],
+  ['Paper Cream', '#FDF7E1', 'Pages, bridge, reversed text'],
+];
+
+const html = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JTCSII Brand Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--forest:#0F2A1C;--field:#2E5E3A;--sun:#F6C453;--old:#A97C22;--cream:#FDF7E1;--ink:#16241b;--muted:#5f6f64;--line:#e6e2d3;--paper:#FBF8EE}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 "Plus Jakarta Sans",system-ui,sans-serif}
+.wrap{max-width:1400px;margin:0 auto;padding:64px 56px 80px}
+.eyebrow{font:700 11px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--old)}
+h1{font:400 64px/1 "Fraunces",serif;letter-spacing:-.02em;margin:14px 0 8px;color:var(--forest)}
+h1 em{font-style:italic;color:var(--field)}
+.lede{max-width:640px;color:var(--muted);font-size:16px;margin:0}
+h2{font:400 34px/1.1 "Fraunces",serif;margin:8px 0 22px;color:var(--forest);letter-spacing:-.01em}
+section{margin-top:72px}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;margin-top:40px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:4px;padding:28px;display:flex;flex-direction:column}
+.panel.dark{background:var(--forest);border-color:var(--forest)}.panel.dark .eyebrow{color:var(--sun)}
+.panel .art{flex:1;display:grid;place-items:center;padding:18px 0}
+.stack{display:grid;gap:28px}
+svg.stacked{width:min(100%,480px);height:auto}svg.hz{width:100%;height:auto}
+.numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.num{padding:26px 26px 28px 0;border-bottom:1px solid var(--line)}
+.num:not(:nth-child(3n)){border-right:1px solid var(--line);margin-right:0}.num:not(:nth-child(3n+1)){padding-left:26px}
+.num b{display:block;font:400 76px/1 "Fraunces",serif;color:var(--field);letter-spacing:-.03em}
+.num h3{font:400 15px/1.2 "Marcellus",serif;letter-spacing:.2em;text-transform:uppercase;margin:12px 0 8px;color:var(--forest)}
+.num p{margin:0;color:var(--muted);font-size:14px}
+.anatomy{display:grid;grid-template-columns:520px 1fr;gap:56px;align-items:center}
+.figure{position:relative}.figure svg{display:block;width:100%;height:auto}.figure .construct{position:absolute;inset:0}
+.parts h3{font:400 15px/1.2 "Marcellus",serif;letter-spacing:.18em;text-transform:uppercase;margin:0 0 6px;color:var(--forest)}
+.parts p{margin:0 0 22px;color:var(--muted)}
+.legend{font-size:13px;color:#b8432f;margin-top:10px}
+.family{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-items:end}
+.family figure{margin:0;text-align:center}.family figcaption{margin-top:14px;font-size:13px;color:var(--muted)}
+.type{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.spec{background:#fff;border:1px solid var(--line);border-radius:4px;padding:28px}
+.spec .s1{font:500 64px/1 "Fraunces",serif;color:var(--forest);letter-spacing:-.02em}
+.spec .s2{font:400 46px/1 "Marcellus",serif;letter-spacing:.14em;color:var(--field)}
+.spec .s3{font:700 40px/1 "Plus Jakarta Sans",sans-serif;color:var(--forest);letter-spacing:-.01em}
+.spec h3{font:700 12px/1 "Plus Jakarta Sans";letter-spacing:.22em;text-transform:uppercase;color:var(--old);margin:22px 0 6px}
+.spec p{margin:0;color:var(--muted);font-size:14px}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.sw .chip{aspect-ratio:4/5;border-radius:4px;border:1px solid rgba(0,0,0,.06);display:flex;align-items:flex-end;padding:14px;font:700 12px "Plus Jakarta Sans";letter-spacing:.12em}
+.sw b{display:block;margin-top:12px;font:400 20px "Fraunces",serif}.sw span{font-size:12px;letter-spacing:.1em;color:var(--muted)}.sw em{display:block;font-style:normal;font-size:13px;color:var(--muted)}
+.scale{display:flex;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.rules{margin:18px 0 0;padding-left:18px;color:var(--muted)}
+@media (max-width:1000px){.hero,.anatomy,.type{grid-template-columns:1fr}.numbers{grid-template-columns:1fr}.num{border-right:0!important;padding-left:0!important}.family,.palette{grid-template-columns:repeat(2,1fr)}.wrap{padding:36px 16px}h1{font-size:44px}}
+</style></head><body><div class="wrap">
+<div class="eyebrow">Brand Identity Guidelines · Take 3</div>
+<h1>Jose T. Cuyos Sr. II <em>Integrated School</em></h1>
+<p class="lede">A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.</p>
+
+<div class="hero">
+  <div class="panel"><div class="eyebrow">Primary Logo · Stacked</div><div class="art">${svg('logo-stacked.svg', 'stacked')}</div></div>
+  <div class="stack">
+    <div class="panel"><div class="eyebrow">Secondary Logo · Horizontal</div><div class="art">${svg('logo-horizontal.svg', 'hz')}</div></div>
+    <div class="panel dark"><div class="eyebrow">Secondary Logo · Reversed</div><div class="art">${svg('logo-horizontal-reversed.svg', 'hz')}</div></div>
+  </div>
+</div>
+
+<section><div class="eyebrow">Symbolism</div><h2>Meaning, in numbers</h2>
+<div class="numbers">${meaning.map(([b, h, p]) => `<div class="num"><b>${b}</b><h3>${h}</h3><p>${p}</p></div>`).join('')}</div></section>
+
+<section class="anatomy">
+  <div><div class="figure">${svg('seal.svg')}${construction()}</div>
+  <div class="legend">Construction: 13 rays at 12.5° intervals across 150°; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.</div></div>
+  <div class="parts"><div class="eyebrow">Anatomy of the Seal</div><h2>Built like an heirloom</h2>
+  ${parts.map(([h, p]) => `<h3>${h}</h3><p>${p}</p>`).join('')}</div>
+</section>
+
+<section><div class="eyebrow">Logo Family</div><h2>One seal, three sizes of voice</h2>
+<div class="family">
+  <figure>${svg('seal.svg', '', 'width:100%;height:auto')}<figcaption>Official seal: documents, certificates, signage</figcaption></figure>
+  <figure>${svg('medallion.svg', '', 'width:86%;height:auto')}<figcaption>Medallion: merchandise, uniforms, social media</figcaption></figure>
+  <figure>${svg('mark.svg', '', 'width:62%;height:auto')}<figcaption>Mark: app icons, favicons, anything under 48 px</figcaption></figure>
+  <figure><div class="scale" style="justify-content:center;gap:14px;flex-wrap:nowrap">${[120, 72, 40, 24].map((w) => svg('mark.svg', '', `width:${w}px;height:auto`)).join('')}</div><figcaption>Mark at 120 · 72 · 40 · 24 px</figcaption></figure>
+</div></section>
+
+<section><div class="eyebrow">Typography</div><h2>Three voices, one hierarchy</h2>
+<div class="type">
+  <div class="spec"><div class="s1">Fraunces</div><h3>Display · Name & motto</h3><p>A warm, old-style serif with soft, hand-cut details. Used for the school name, headings and the motto in italic.</p></div>
+  <div class="spec"><div class="s2">MARCELLUS</div><h3>Formal · Seal & descriptor</h3><p>Flared capitals carved in the tradition of inscriptions. Used for the seal ring, the ribbon and “Integrated School”.</p></div>
+  <div class="spec"><div class="s3">Plus Jakarta Sans</div><h3>Text · Labels & body</h3><p>A clear contemporary sans for body copy, labels and small details such as “EST. 2012”.</p></div>
+</div></section>
+
+<section><div class="eyebrow">Color</div><h2>Forest and gold, nothing else</h2>
+<div class="palette">${swatches.map(([nm, hx, use]) => `<div class="sw"><div class="chip" style="background:${hx};color:${['#F6C453', '#FDF7E1'].includes(hx) ? '#0F2A1C' : '#FDF7E1'}">${hx}</div><b>${nm}</b><em>${use}</em></div>`).join('')}</div>
+<ul class="rules"><li>Keep the seal on Deep Forest, Paper Cream or white. Never place it on photos without a solid backing.</li><li>Clear space around every logo: at least the diameter of the sun.</li><li>Minimum sizes: seal 96 px / 25 mm, medallion 48 px, mark 16 px.</li></ul></section>
+</div></body></html>`;
+fs.writeFileSync(path.join(root, 'guidelines.html'), html);
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1400, height: 900 }, deviceScaleFactor: 1.5 });
+await page.goto('file://' + path.join(root, 'guidelines.html'));
+await page.waitForLoadState('networkidle');
+await page.evaluate(() => document.fonts.ready);
+await page.screenshot({ path: path.join(root, 'png', 'guidelines.png'), fullPage: true });
+await browser.close();
+console.log('wrote take-3/guidelines.html + png/guidelines.png');

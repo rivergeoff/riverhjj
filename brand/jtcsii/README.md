@@ -19,4 +19,12 @@ are flat and line weights are consistent, and the scene is simpler (no river, pi
 gradients). The same files as above, plus one-colour emblems (`emblem-mono-forest.svg`,
 `emblem-mono-cream.svg`) for stamps, embroidery and single-ink print.
 
-To regenerate both takes: `cd src && npm install && npm run build`.
+## Take 3: "Ani ng Liwanag" (Harvest of Light) (`take-3/`)
+
+A formal school seal in the Philippine tradition. Every element and every count has a meaning:
+13 palay rays (Kindergarten + Grades 1–12), 2 peaks (elementary + secondary), 1 book-bridge,
+4 terraces (the DepEd core values), 3 stars (learners, teachers, community), and 13 grains on each
+palay stalk. Set in Fraunces, Marcellus and Plus Jakarta Sans. Files: `seal.svg` (primary),
+`medallion.svg`, `mark.svg` (small sizes), plus stacked, horizontal and reversed lockups.
+
+To regenerate all three takes: `cd src && npm install && npm run build`.

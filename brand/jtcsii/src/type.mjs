@@ -6,7 +6,8 @@ const require = createRequire(import.meta.url);
 const opentype = require('opentype.js');
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const font = (f) => opentype.loadSync(path.join(here, 'fonts', f));
+export const loadFont = (f) => opentype.loadSync(path.join(here, 'fonts', f));
+const font = loadFont;
 export const SERIF = font('serif.ttf');
 export const SERIF_I = font('serifi.ttf');
 export const SANS = font('sans600.ttf');
