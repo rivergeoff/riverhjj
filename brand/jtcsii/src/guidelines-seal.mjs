@@ -38,7 +38,7 @@ const CONFIGS = {
     swatchUse: { 'Field Green': 'Mountains, descriptors' },
     colorTitle: 'Forest and gold, with the flag at its heart',
     meaning: [
-      ['8', 'Rays of palay', 'The eight rays of the sun of the Philippine flag, each drawn as a grain of palay, rising where the flag\u2019s blue and red meet, split as the flag hangs vertically in peacetime (blue left, red right): the light of learning, and the harvest of Rosario.'],
+      ['8', 'Rays of palay', 'A great sun settling behind the peaks, with the eight rays of the flag\u2019s sun, each drawn as a grain of palay, rising where the flag\u2019s blue and red meet, split as the flag hangs vertically in peacetime (blue left, red right): the light of learning, and the harvest of Rosario.'],
       ['2', 'Mountain peaks', 'A far-flung school in the uplands, and its two departments, elementary and secondary, integrated into one.'],
       ['1', 'Book-bridge', 'An open book is the deck of a highland hanging bridge between the two peaks: education reaches learners even in the mountains and carries them across to opportunity. Together we bridge.'],
       ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step like terraces in the valley the school serves.'],
@@ -48,7 +48,7 @@ const CONFIGS = {
     parts: [
       ['Gold', 'The gold of Rosario, its mines and its livelihood, in the sun, the wreath, the terraces and every line of the seal.'],
       woven,
-      ['The ribbon', 'The motto on a banner across the foot of the seal, its ends folded behind.'],
+      ['Rope & ribbon', 'The motto\u2019s banner rests on a ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
       ['Est. 2012', 'The founding year at the foot of the outer ring, the way Philippine school seals traditionally carry it.'],
     ],
     construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 246, rayLen: 70, rays: { n: 8, start: -66.5, step: 19 }, starFrom: [250, 250], starAngles: [-21, 0, 21], starLen: 180, note: '8 rays at 19° intervals, symmetric about the vertical axis; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },

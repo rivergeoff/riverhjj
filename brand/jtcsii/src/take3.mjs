@@ -84,31 +84,47 @@ function cubicYAt(s, x) {
 
 // ---------- the medallion (radius 128, origin at its centre) ----------
 const MED = 128;
-const SUN = { x: 0, y: 4, r: 27 };
+// A large setting sun, low in the gap between the peaks: the far ridge and the mountain slopes
+// cover its lower part, so it peeks out from behind them.
+const SUN = { x: 0, y: 28, r: 56 };
 const BOOK_TOP = [[-76, 38], [-56, 26], [-24, 28], [0, 50]];
 const BOOK_BOT = [[-76, 50], [-54, 40], [-24, 42], [0, 64]];
 
-function sun({ rays = true } = {}) {
-  const r = [];
-  const n = COUNTS.rays, step = 19; // 8 rays fanned 19° apart, symmetric about the vertical
+function sun(sunAt = SUN) {
+  const { x, y, r } = sunAt;
+  const rays = [];
+  const n = COUNTS.rays, step = 15; // 8 rays fanned 15° apart, symmetric about the vertical
   for (let i = 0; i < n; i++) {
     const a = -step * (n - 1) / 2 + i * step;
-    r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -54)" d="${grain(30, 10)}"/>`);
-    r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -54)" d="M0,-10 V10" stroke="${C.oldGold}" stroke-width="1" stroke-linecap="round"/>`);
+    const t = `translate(${x} ${y}) rotate(${f2(a)}) translate(0 ${-(r + 27)})`;
+    rays.push(`<path transform="${t}" d="${grain(32, 11)}" fill="${C.sun}"/>`);
+    rays.push(`<path transform="${t}" d="M0,-10.5 V10.5" stroke="${C.oldGold}" stroke-width="1" stroke-linecap="round"/>`);
   }
-  // the two rings behind the sun carry the flag's colours
-  return `
-  ${rays ? `<g fill="${C.sun}">${r.join('')}</g>` : ''}
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r}" fill="${C.sun}"/>
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r - 5}" fill="none" stroke="${C.cream}" stroke-opacity=".35" stroke-width="1"/>`;
+  return `<defs>
+    <radialGradient id="sunGlow" cx="${x}" cy="${y}" r="${r * 2.3}" gradientUnits="userSpaceOnUse">
+      <stop offset=".4" stop-color="#FFE7A0" stop-opacity=".55"/><stop offset=".7" stop-color="#F6C453" stop-opacity=".18"/><stop offset="1" stop-color="#F6C453" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sunFill" cx="${x - r * 0.25}" cy="${y - r * 0.3}" r="${r * 1.15}" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF6D2"/><stop offset=".45" stop-color="#FBD873"/><stop offset="1" stop-color="#EDA93A"/>
+    </radialGradient>
+  </defs>
+  <circle cx="${x}" cy="${y}" r="${r * 2.3}" fill="url(#sunGlow)"/>
+  ${rays.join('')}
+  <circle cx="${x}" cy="${y}" r="${r + 7}" fill="#FCE3A0" opacity=".35"/>
+  <circle cx="${x}" cy="${y}" r="${r}" fill="url(#sunFill)"/>
+  <circle cx="${x}" cy="${y}" r="${r - 0.6}" fill="none" stroke="#FFF3C9" stroke-width="1.2" stroke-opacity=".8"/>`;
 }
+
+// mountains sit closer in so their inner slopes cross in front of the sun
+const MTN_SHIFT = 16;
+const inward = (a) => a.map(([x, y]) => [x + MTN_SHIFT, y]);
 
 function mountains() {
   const far = [[-150, 72], [-104, 44], [-72, 52], [-40, 41], [0, 47], [40, 41], [72, 52], [104, 44], [150, 72], [150, 150], [-150, 150]];
-  const left = [[-150, 104], [-136, 30], [-124, 16], [-110, 0], [-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104]];
-  const lit = [[-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104], [-48, 104], [-60, 58], [-78, 14]];
-  const crease = [[-92, -26], [-96, 0], [-104, 26], [-108, 54]];
-  const crease2 = [[-110, 0], [-120, 26], [-124, 50]];
+  const left = inward([[-170, 104], [-150, 30], [-136, 16], [-114, 0], [-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104]]);
+  const lit = inward([[-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104], [-48, 104], [-60, 58], [-78, 14]]);
+  const crease = inward([[-92, -26], [-96, 0], [-104, 26], [-108, 54]]);
+  const crease2 = inward([[-114, 0], [-124, 26], [-128, 50]]);
   return `<path d="M${pts(far)} Z" fill="${C.far}"/>
   <path d="M${pts(left)} Z M${pts(mir(left))} Z" fill="${C.mtn}"/>
   <path d="M${pts(lit)} Z M${pts(mir(lit))} Z" fill="${C.lit}"/>
@@ -281,11 +297,11 @@ function stars() {
 // ---------- type on the seal ----------
 const NAME_STR = 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL';
 const MOTTO_STR = 'Together we bridge, together we succeed';
-const BAND = (206 + 238.6) / 2; // centre line of the lettering band
+const BAND = (205 + 238.6) / 2; // centre line of the lettering band
 
 // The name over the top and the year at the foot, both centred on the band.
 function ringText() {
-  const size = Math.min(20, fitArc(NAME, NAME_STR, 214, 164, FS.track));
+  const size = Math.min(20, fitArc(NAME, NAME_STR, BAND - 7, 164, FS.track));
   const base = BAND - (capHeight(NAME) * size) / 2;
   const est = 12.5, estBase = BAND + (capHeight(LABEL) * est) / 2;
   return `${arcText(NAME, NAME_STR, 0, 0, base, size, { tracking: FS.track, side: 'top', fill: C.cream })}
@@ -299,12 +315,29 @@ function mottoOnRibbon(r, spanDeg) {
   return arcText(MOTTO, MOTTO_STR, 0, 0, base, size, { tracking: 0.01, side: 'bottom', fill: C.forest });
 }
 
+// A twisted rope laid in a circle, like the cables of a hanging bridge.
+function rope(R, w) {
+  const n = Math.round((2 * Math.PI * R) / (w * 0.62));
+  const strands = [], shades = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i * 360) / n;
+    const [x, y] = P(R, a);
+    const t = `translate(${f2(x)} ${f2(y)}) rotate(${f2(a + 90 + 45)})`;
+    strands.push(`<ellipse transform="${t}" rx="${f2(w * 0.74)}" ry="${f2(w * 0.31)}"/>`);
+    shades.push(`<path transform="${t}" d="M${f2(-w * 0.6)},${f2(w * 0.12)} Q0,${f2(w * 0.3)} ${f2(w * 0.6)},${f2(w * 0.12)}"/>`);
+  }
+  const o = R + w / 2, i2 = R - w / 2;
+  return `<defs><clipPath id="ropeClip"><path clip-rule="evenodd" d="M${-o},0 a${o},${o} 0 1 0 ${2 * o},0 a${o},${o} 0 1 0 ${-2 * o},0 Z M${-i2},0 a${i2},${i2} 0 1 0 ${2 * i2},0 a${i2},${i2} 0 1 0 ${-2 * i2},0 Z"/></clipPath></defs>
+  <g clip-path="url(#ropeClip)">
+    <circle r="${R}" fill="none" stroke="#7E5A14" stroke-width="${w}"/>
+    <g fill="${C.sun}" stroke="#8C6417" stroke-width=".7">${strands.join('')}</g>
+    <g fill="none" stroke="#C9952F" stroke-width="1.2" stroke-linecap="round">${shades.join('')}</g>
+  </g>
+  <circle r="${o}" fill="none" stroke="#5E4310" stroke-width=".8"/><circle r="${i2}" fill="none" stroke="#5E4310" stroke-width=".8"/>`;
+}
+
 // ---------- the seal (radius 248, origin at centre) ----------
 export function seal(p = 's') {
-  const beads = Array.from({ length: 96 }, (_, i) => {
-    const [x, y] = P(197.5, (i * 360) / 96);
-    return `<circle cx="${f2(x)}" cy="${f2(y)}" r="1.25"/>`;
-  }).join('');
   const sideMark = (a) => {
     const [x, y] = P(221, a);
     const [ax, ay] = P(221, a - 4.2), [bx, by] = P(221, a + 4.2);
@@ -316,9 +349,7 @@ export function seal(p = 's') {
   <circle r="238.6" fill="none" stroke="${C.sun}" stroke-width=".7" stroke-opacity=".8"/>
   ${ringText()}
   <g fill="${C.sun}">${sideMark(-90)}${sideMark(90)}</g>
-  <circle r="204" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
-  <g fill="${C.sun}">${beads}</g>
-  <circle r="191" fill="none" stroke="${C.sun}" stroke-width=".7" stroke-opacity=".6"/>
+  ${rope(197.5, 12)}
   ${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g>
   ${stars()}
   ${medallion(p)}
@@ -326,9 +357,9 @@ export function seal(p = 's') {
 </g>`;
 }
 
-// Small-size mark: sun, 13 rays and the book, nothing else.
+// Small-size mark: the sun, its rays and the book, nothing else.
 function mark() {
-  const s = `<g transform="translate(0 -6)">${sun()}</g>`;
+  const s = sun({ x: 0, y: 30, r: 34 });
   return `<g>
   <circle r="128" fill="${C.forest}"/>
   ${flagSky(120)}
