@@ -394,8 +394,26 @@ function palayStalk() {
   const tipRot = -44 + 90;
   const [tdx, tdy] = P(6.6, tipRot);
   grains.push(`<path transform="translate(${f2(tx + tdx)} ${f2(ty + tdy)}) rotate(${tipRot})" d="${grain(14, 6.2)}"/>`);
-  const stem = `M${pt(P(R, -150))} A${R},${R} 0 0 1 ${pt(P(R, -46))}`;
+  // the stalk runs down to the foot of the seal, flanking the year, with long rice leaves
+  // sprouting from its lower half and reaching up along it
+  const base = -167;
+  const stem = `M${pt(P(R, base))} A${R},${R} 0 0 1 ${pt(P(R, -46))}`;
+  const leaf = (a0, len, side, off, w) => {
+    const edge = (sgn) => Array.from({ length: 29 }, (_, i) => {
+      const t = i / 28, half = w * Math.pow(Math.sin(Math.PI * t), 0.75) * (1 - 0.35 * t);
+      return P(R + side * off * Math.pow(t, 0.85) + sgn * half, a0 + len * t);
+    });
+    const outer = edge(1), inner = edge(-1);
+    return `M${pts(outer)} L${pts(inner.reverse())} Z`;
+  };
+  const leaves = [
+    leaf(base + 2, 30, 1, 9, 3.6),
+    leaf(base + 9, 32, -1, 9, 3.3),
+    leaf(base + 20, 30, 1, 10, 3.3),
+    leaf(base + 31, 26, -1, 8, 2.9),
+  ].join(' ');
   return `<path d="${stem}" fill="none" stroke="${C.sun}" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="${leaves}" fill="${gold()}"/>
   <g fill="${gold()}">${grains.join('')}</g>
   <g stroke="${C.oldGold}" stroke-width=".8" stroke-linecap="round">${crease.join('')}</g>`;
 }
