@@ -45,7 +45,7 @@ export const C = {
 
 // The numbers the seal is built on.
 export const COUNTS = {
-  rays: 8, // the eight rays of the flag's sun, drawn as grains of palay
+  rays: 8, // the eight rays of the flag's sun
   grains: 13, // per palay stalk: the same thirteen levels, harvested
   peaks: 2, // elementary + secondary, integrated
   terraces: 4, // Maka-Diyos, Maka-tao, Makakalikasan, Makabansa
@@ -99,6 +99,8 @@ function defs3d() {
   return `<defs>
   ${lin('gold3d', 0, 0, 1, 1, [[0, '#FFEDB0'], [0.3, '#F6C453'], [0.55, '#D9A23A'], [0.8, '#F8D676'], [1, '#B07F22']])}
   ${rad('disc3d', -40, -60, 320, [[0, '#1B4430'], [0.6, '#0F2A1C'], [1, '#071810']])}
+  ${lin('rayLight', 0, 1, 0, 0, [[0, '#FFF0B8'], [0.6, '#F8D06A'], [1, '#F6C453', 0.9]])}
+  ${lin('rayDark', 0, 1, 0, 0, [[0, '#F2B84A'], [0.6, '#D99A2E'], [1, '#C98A24', 0.9]])}
   ${rad('skyBlue', 0, 20, 150, [[0, '#4A86EE'], [0.45, '#0038A8'], [1, '#001A5C']])}
   ${rad('skyRed', 0, 20, 150, [[0, '#F4605A'], [0.45, '#CE1126'], [1, '#6E0814']])}
   ${lin('mtnDark', 0, -30, 0, 104, [[0, '#2A5E40'], [1, '#0B2416']], 'userSpaceOnUse')}
@@ -156,15 +158,23 @@ const SUN = { x: 0, y: 28, r: 56 };
 const BOOK_TOP = [[-76, 38], [-56, 26], [-24, 28], [0, 50]];
 const BOOK_BOT = [[-76, 50], [-54, 40], [-24, 42], [0, 64]];
 
-function sun(sunAt = SUN) {
+// The sun of the flag: 8 long, bevelled rays reaching out to the rim of the frame circle.
+// frame is the circle the rays should touch, in the same coordinates as the sun.
+function sun(sunAt = SUN, frame = { x: 0, y: 8, r: MED }) {
   const { x, y, r } = sunAt;
   const rays = [];
-  const n = COUNTS.rays, step = 15; // 8 rays fanned 15° apart, symmetric about the vertical
+  const n = COUNTS.rays, step = 20; // ±10°, ±30°, ±50°, ±70°: symmetric, with the split line between the two centre rays
   for (let i = 0; i < n; i++) {
     const a = -step * (n - 1) / 2 + i * step;
-    const t = `translate(${x} ${y}) rotate(${f2(a)}) translate(0 ${-(r + 27)})`;
-    rays.push(`<path transform="${t}" d="${grain(32, 11)}" fill="${gold()}"/>`);
-    rays.push(`<path transform="${t}" d="M0,-10.5 V10.5" stroke="${C.oldGold}" stroke-width="1" stroke-linecap="round"/>`);
+    const rad = (a * Math.PI) / 180, ux = Math.sin(rad), uy = -Math.cos(rad);
+    // distance from the sun centre to the frame circle along this ray
+    const dx = x - frame.x, dy = y - frame.y, b = dx * ux + dy * uy;
+    const len = -b + Math.sqrt(b * b - (dx * dx + dy * dy) + (frame.r - 3) ** 2);
+    const half = 9.5; // half-angle of the ray at its base
+    const at = (rr, deg) => { const t = ((a + deg) * Math.PI) / 180; return [x + rr * Math.sin(t), y - rr * Math.cos(t)]; };
+    const base = r + 3, tip = at(len, 0), L = at(base, -half), M = at(base, 0), Rr = at(base, half);
+    rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(M)} Z" fill="${D3 ? 'url(#rayLight)' : C.sun}"/>`);
+    rays.push(`<path d="M${pt(M)} L${pt(tip)} L${pt(Rr)} Z" fill="${D3 ? 'url(#rayDark)' : '#E3A93C'}"/>`);
   }
   return `<defs>
     <radialGradient id="sunGlow" cx="${x}" cy="${y}" r="${r * 2.3}" gradientUnits="userSpaceOnUse">
@@ -436,7 +446,7 @@ export function seal(p = 's') {
 
 // Small-size mark: the sun, its rays and the book, nothing else.
 function mark() {
-  const s = sun({ x: 0, y: 30, r: 34 });
+  const s = sun({ x: 0, y: 30, r: 34 }, { x: 0, y: -10 / 1.08, r: 120 / 1.08 });
   return `<g>${defs3d()}
   <circle r="128" fill="${D3 ? 'url(#disc3d)' : C.forest}"/>
   <defs><clipPath id="mk"><circle r="120"/></clipPath></defs>
