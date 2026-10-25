@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 Plan Gaps</title>
+<style>
+  /* Concept D: light editorial briefing. Giant deadline, then the plan itself with OT left unchecked.
+     Cool paper, indigo ink from the logo ground, TXOne crimson as the only accent. */
+  @font-face { font-family: "Geist"; font-weight: 400; src: url("fonts/geist-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; src: url("fonts/geist-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; src: url("fonts/geist-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 700; src: url("fonts/geist-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 800; src: url("fonts/geist-latin-800-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; src: url("fonts/geist-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 500; src: url("fonts/geist-mono-latin-500-normal.woff2") format("woff2"); }
+  :root {
+    --paper: #f2f1f7;
+    --card: #ffffff;
+    --ink: #1c1a32;
+    --ink-2: #4b4867;
+    --mute: #8c89a6;
+    --line: #e1dfeb;
+    --red: #dc0032;
+    --red-tint: #fdeaef;
+    --sans: "Geist", "Inter", sans-serif;
+    --mono: "Geist Mono", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; background: var(--paper); }
+  body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  .canvas {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background:
+      radial-gradient(700px 460px at 100% 0%, rgba(220,0,50,0.07), transparent 70%),
+      linear-gradient(180deg, #f7f6fb, var(--paper));
+  }
+  .watermark { position: absolute; right: -210px; top: -40px; width: 560px; opacity: 0.035; }
+
+  /* Header */
+  .top { position: absolute; left: 88px; right: 88px; top: 72px; display: flex; justify-content: space-between; align-items: center; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .lockup img { height: 30px; }
+  .lockup b { display: block; font-weight: 700; font-size: 22px; letter-spacing: -0.4px; line-height: 1; }
+  .lockup small { display: block; margin-top: 4px; font-size: 9px; font-weight: 600; letter-spacing: 3.6px; color: var(--mute); line-height: 1; }
+  .kicker { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink-2); }
+  .kicker span { color: var(--mute); }
+
+  /* Deadline */
+  .due { position: absolute; left: 88px; top: 178px; font-family: var(--mono); font-size: 15px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 10px; }
+  .due::before { content: ""; width: 26px; height: 2px; background: var(--red); }
+  .date { position: absolute; left: 80px; top: 214px; font-weight: 700; font-size: 204px; line-height: 0.86; letter-spacing: -11px; }
+  .date i { font-style: normal; color: var(--red); }
+  .next { position: absolute; left: 790px; top: 222px; width: 210px; display: grid; gap: 14px; padding-left: 20px; border-left: 1px solid var(--line); }
+  .next div { font-family: var(--mono); font-size: 13px; color: var(--mute); line-height: 1.35; }
+  .next b { display: block; font-family: var(--sans); font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -0.2px; }
+
+  h1 { position: absolute; left: 88px; top: 478px; width: 900px; font-weight: 600; font-size: 52px; line-height: 1.08; letter-spacing: -1.8px; color: var(--ink); }
+  h1 em { font-style: normal; color: var(--red); }
+
+  /* The plan document */
+  .doc {
+    position: absolute; left: 88px; top: 650px; width: 904px; padding: 26px 30px 28px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 1px 0 rgba(28,26,50,0.04), 0 40px 70px -36px rgba(28,26,50,0.38);
+    transform: rotate(-1.4deg); transform-origin: left top;
+  }
+  .doc-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .doc-head b { display: block; font-size: 21px; font-weight: 600; letter-spacing: -0.3px; }
+  .doc-head small { display: block; margin-top: 4px; font-family: var(--mono); font-size: 12.5px; color: var(--mute); }
+  .stamp { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: var(--red); border: 1.5px solid var(--red); border-radius: 6px; padding: 6px 10px; transform: rotate(3deg); }
+  .doc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 18px; }
+  .col-h { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+  .col-h.ot { color: var(--red); }
+  .item { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px dashed var(--line); }
+  .item:last-child { border-bottom: 0; }
+  .box { width: 22px; height: 22px; border-radius: 6px; background: var(--ink); display: grid; place-items: center; }
+  .box svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 3; fill: none; }
+  .item span { font-size: 18px; font-weight: 500; }
+  .item small { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+  .item.gap .box { background: none; border: 1.5px dashed var(--red); }
+  .item.gap span { color: var(--ink-2); }
+  .item.gap small { color: var(--red); background: var(--red-tint); padding: 4px 8px; border-radius: 6px; font-weight: 500; }
+
+  /* TXOne band */
+  .band { position: absolute; left: 0; right: 0; bottom: 0; height: 282px; padding: 50px 88px 0; background: var(--ink); color: #fff; }
+  .band::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--red); }
+  .band h2 { font-weight: 600; font-size: 34px; line-height: 1.16; letter-spacing: -1px; }
+  .band h2 span { color: #a5a1c8; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 34px; }
+  .stats div { padding-right: 24px; }
+  .stats div + div { padding-left: 24px; border-left: 1px solid rgba(255,255,255,0.14); }
+  .stats b { display: block; font-weight: 700; font-size: 40px; letter-spacing: -1.5px; line-height: 1; color: #ff2d55; }
+  .stats small { display: block; margin-top: 8px; font-size: 15px; color: #c9c6e3; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <img class="watermark" src="txone-mark.png" alt="">
+
+  <div class="top">
+    <div class="lockup"><img src="txone-mark.png" alt=""><div><b>TXOne</b><small>NETWORKS</small></div></div>
+    <div class="kicker">Federal briefing <span>/</span> M-26-14</div>
+  </div>
+
+  <div class="due">Agency Logging Plans due</div>
+  <div class="date">Nov 18<i>.</i></div>
+  <div class="next">
+    <div><b>Dec 18</b>Level 1</div>
+    <div><b>Feb 16</b>Intermediate</div>
+    <div><b>Jul 6, 2027</b>Advanced</div>
+  </div>
+
+  <h1>Most plans will leave out the systems <em>they can't see.</em></h1>
+
+  <div class="doc">
+    <div class="doc-head">
+      <div><b>Agency Logging Plan</b><small>Systems in scope · Draft</small></div>
+      <div class="stamp">OT in scope</div>
+    </div>
+    <div class="doc-cols">
+      <div>
+        <div class="col-h">IT</div>
+        <div class="item"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Cloud &amp; identity</span><small>Logged</small></div>
+        <div class="item"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Endpoints</span><small>Logged</small></div>
+        <div class="item"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Network</span><small>Logged</small></div>
+        <div class="item"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Applications</span><small>Logged</small></div>
+      </div>
+      <div>
+        <div class="col-h ot">OT</div>
+        <div class="item gap"><span class="box"></span><span>HVAC controllers</span><small>Not visible</small></div>
+        <div class="item gap"><span class="box"></span><span>Badge readers</span><small>Not visible</small></div>
+        <div class="item gap"><span class="box"></span><span>Building automation</span><small>Not visible</small></div>
+        <div class="item gap"><span class="box"></span><span>Industrial controllers</span><small>Not visible</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <h2>TXOne brings OT into the plan<br><span>without touching operations.</span></h2>
+    <div class="stats">
+      <div><b>180+</b><small>industrial protocols, read passively</small></div>
+      <div><b>0</b><small>agents to install, even air-gapped</small></div>
+      <div><b>SIEM</b><small>OT events into the SOC you have</small></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
