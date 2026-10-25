@@ -39,6 +39,8 @@ export const C = {
   lit: '#2A5A3C',
   wall: '#DCA63C',
   tick: '#B88A2A',
+  flagBlue: '#0038A8',
+  flagRed: '#CE1126',
 };
 
 // The numbers the seal is built on.
@@ -94,8 +96,12 @@ function sun({ rays = true } = {}) {
     r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -54)" d="${grain(30, 10)}"/>`);
     r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -54)" d="M0,-10 V10" stroke="${C.oldGold}" stroke-width="1" stroke-linecap="round"/>`);
   }
-  return `<circle cx="${SUN.x}" cy="${SUN.y}" r="76" fill="${C.halo}" opacity=".55"/>
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="${C.halo}"/>
+  // the two rings behind the sun carry the flag's colours
+  const [outer, inner] = process.env.JTC_HALO === 'blue-in' ? [C.flagRed, C.flagBlue] : [C.flagBlue, C.flagRed];
+  return `<circle cx="${SUN.x}" cy="${SUN.y}" r="76" fill="${outer}"/>
+  <circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="${inner}"/>
+  <circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
+  <circle cx="${SUN.x}" cy="${SUN.y}" r="76" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
   ${rays ? `<g fill="${C.sun}">${r.join('')}</g>` : ''}
   <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r}" fill="${C.sun}"/>
   <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r - 5}" fill="none" stroke="${C.cream}" stroke-opacity=".35" stroke-width="1"/>`;
