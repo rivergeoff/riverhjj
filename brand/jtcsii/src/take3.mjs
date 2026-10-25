@@ -11,6 +11,7 @@ const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../take-
 const CINZEL_B = loadFont('cinzel800.ttf');
 const CINZEL = loadFont('cinzel700.ttf');
 const CINZEL_M = loadFont('cinzel600.ttf');
+const ITALIC = loadFont('cormorant-italic.ttf'); // the motto, in a calligraphic italic
 
 export const C = {
   forest: '#0F2A1C', // Deep Forest
@@ -20,17 +21,19 @@ export const C = {
   cream: '#FDF7E1', // Paper Cream
   // tints used inside the medallion
   halo: '#3A6C46',
-  far: '#2A5636',
+  far: '#5A9466',
   mtn: '#163824',
   lit: '#2A5A3C',
   wall: '#DCA63C',
   tick: '#B88A2A',
+  flagBlue: '#0038A8',
+  flagRed: '#CE1126',
 };
 
 // The numbers the seal is built on.
 export const COUNTS = {
-  rays: 13, // Kindergarten + Grades 1–12
-  grains: 13, // per palay stalk: the same thirteen levels, harvested
+  rays: 8, // the eight rays of the flag's sun
+  grains: 21, // per palay stalk: a full head of grain, for the harvest
   peaks: 2, // elementary + secondary, integrated
   terraces: 4, // Maka-Diyos, Maka-tao, Makakalikasan, Makabansa
   stars: 3, // learners, teachers, parents & community
@@ -68,85 +71,64 @@ function cubicYAt(s, x) {
 
 // ---------- the medallion (radius 128, origin at its centre) ----------
 const MED = 128;
-const SUN = { x: 0, y: 6, r: 28 };
-const BOOK_TOP = [[-76, 38], [-56, 26], [-24, 28], [0, 50]];
-const BOOK_BOT = [[-76, 50], [-54, 40], [-24, 42], [0, 64]];
+// One scene on one axis: the sun of the flag rises in the gap between the peaks; the hanging
+// bridge crosses its face, its deck the line between the flag's blue and red; below it a river
+// runs down the terraced valley and into the open book. From the book, the way leads up across
+// the bridge and into the light.
+const SUN = { x: 0, y: -22, r: 19 };
+const DISC = 47;
 
-function sun({ rays = true } = {}) {
-  const r = [];
-  const n = COUNTS.rays, span = 150; // 13 rays over 150°, 12.5° apart
-  for (let i = 0; i < n; i++) {
-    const a = -span / 2 + (i * span) / (n - 1);
-    r.push(`<path transform="translate(${SUN.x} ${SUN.y}) rotate(${f2(a)}) translate(0 -51)" d="${grain(25, 7.6)}"/>`);
-  }
-  return `<circle cx="${SUN.x}" cy="${SUN.y}" r="76" fill="${C.halo}" opacity=".55"/>
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="44" fill="${C.halo}"/>
-  ${rays ? `<g fill="${C.sun}">${r.join('')}</g>` : ''}
+function sun() {
+  const at = (r, d) => { const [x, y] = P(r, d); return `${f2(SUN.x + x)},${f2(SUN.y + y)}`; };
+  const rays = Array.from({ length: COUNTS.rays }, (_, i) => {
+    const a = i * (360 / COUNTS.rays);
+    return `M${at(23, a - 8)} L${at(43, a)} L${at(23, a + 8)} Z`;
+  }).join(' ');
+  return `<circle cx="${SUN.x}" cy="${SUN.y}" r="${DISC + 14}" fill="${C.sun}" opacity=".12"/>
+  <path d="M${SUN.x - DISC},${SUN.y} A${DISC},${DISC} 0 0 1 ${SUN.x + DISC},${SUN.y} Z" fill="${C.flagBlue}"/>
+  <path d="M${SUN.x - DISC},${SUN.y} A${DISC},${DISC} 0 0 0 ${SUN.x + DISC},${SUN.y} Z" fill="${C.flagRed}"/>
+  <path d="${rays}" fill="${C.sun}"/>
   <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r}" fill="${C.sun}"/>
-  <circle cx="${SUN.x}" cy="${SUN.y}" r="${SUN.r - 5}" fill="none" stroke="${C.cream}" stroke-opacity=".35" stroke-width="1"/>`;
+  <circle cx="${SUN.x}" cy="${SUN.y}" r="${DISC}" fill="none" stroke="${C.sun}" stroke-width="2.2"/>`;
 }
+
+const LEFT = [[-150, 110], [-150, 4], [-132, -10], [-116, -30], [-100, -50], [-88, -64], [-76, -46], [-66, -22], [-54, 4], [-40, 30], [-24, 52], [0, 64]];
+const LEFT_LIT = [[-88, -64], [-76, -46], [-66, -22], [-54, 4], [-40, 30], [-24, 52], [0, 64], [-30, 64], [-50, 40], [-62, 12], [-74, -18], [-82, -44]];
 
 function mountains() {
-  const far = [[-150, 72], [-104, 44], [-72, 52], [-40, 41], [0, 47], [40, 41], [72, 52], [104, 44], [150, 72], [150, 150], [-150, 150]];
-  const left = [[-150, 104], [-136, 30], [-124, 16], [-110, 0], [-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104]];
-  const lit = [[-92, -26], [-76, -4], [-58, 26], [-40, 60], [-22, 104], [-48, 104], [-60, 58], [-78, 14]];
-  const crease = [[-92, -26], [-96, 0], [-104, 26], [-108, 54]];
-  const crease2 = [[-110, 0], [-120, 26], [-124, 50]];
+  const far = [[-150, 50], [-110, 30], [-80, 38], [-50, 26], [-20, 34], [0, 30], [20, 34], [50, 26], [80, 38], [110, 30], [150, 50], [150, 150], [-150, 150]];
+  const crease = [[-88, -64], [-96, -36], [-106, -8], [-112, 20]];
   return `<path d="M${pts(far)} Z" fill="${C.far}"/>
-  <path d="M${pts(left)} Z M${pts(mir(left))} Z" fill="${C.mtn}"/>
-  <path d="M${pts(lit)} Z M${pts(mir(lit))} Z" fill="${C.lit}"/>
-  <path d="M${pts(crease)} M${pts(mir(crease))} M${pts(crease2)} M${pts(mir(crease2))}" fill="none" stroke="${C.lit}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  <path d="M${pts(LEFT)} Z M${pts(mir(LEFT))} Z" fill="${C.mtn}"/>
+  <path d="M${pts(LEFT_LIT)} Z M${pts(mir(LEFT_LIT))} Z" fill="${C.lit}"/>
+  <path d="M${pts(crease)} M${pts(mir(crease))}" fill="none" stroke="${C.mtn}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M${pts(LEFT_LIT.slice(0, 7))} M${pts(mir(LEFT_LIT.slice(0, 7)))}" fill="none" stroke="${C.sun}" stroke-opacity=".55" stroke-width="1.1" stroke-linejoin="round"/>`;
 }
 
+// The bridge, silhouetted against the sun; its deck lies on the line between blue and red.
 function bridge() {
-  const tx = 62, top = 2, sag = 32;
-  const cableY = (x) => top + sag * (1 - (x / tx) ** 2);
-  const deckY = (x) => cubicYAt(BOOK_TOP, -Math.abs(x));
-  const cable = [];
-  for (let x = -tx; x <= tx; x += 2) cable.push(pt([x, cableY(x)]));
-  const susp = [];
-  for (let k = 1; k < 16; k++) {
-    const x = -tx + (k * 2 * tx) / 16;
-    if (Math.abs(x) < 2) continue;
-    susp.push(`M${f2(x)},${f2(cableY(x))} V${f2(deckY(x) + 0.6)}`);
-  }
-  const tower = (x) => {
-    const yb = deckY(x) + 1;
-    return `<path d="M${x - 2.8},${f2(yb)} L${x - 2.1},${top - 3} L${x + 2.1},${top - 3} L${x + 2.8},${f2(yb)} Z" fill="${C.cream}"/>
-    <path d="M${x - 4.4},${top - 3} L${x + 4.4},${top - 3} L${x + 3},${top - 8} L${x - 3},${top - 8} Z" fill="${C.sun}"/>
-    <rect x="${x - 3.6}" y="${f2(top + (yb - top) * 0.42)}" width="7.2" height="1.6" fill="${C.sun}"/>`;
-  };
-  const c = (s) => `${pt(s[0])} C${pts(s.slice(1))}`;
-  const rev = (s) => [...s].reverse();
-  const page = (a, b) => `M${c(a)} L${c(rev(b))} Z`;
-  const lines = [0.28, 0.5, 0.72]
-    .map((k) => {
-      const l = BOOK_TOP.map(([x, y], i) => [x + (i === 0 ? 9 : i === 3 ? -8 : 0), y + (BOOK_BOT[i][1] - y) * k]);
-      return `M${c(l)} M${c(mir(l))}`;
-    })
-    .join(' ');
-  const edge = (o) => {
-    const l = BOOK_BOT.map(([x, y], i) => [x - (i === 0 ? 1.5 : 0), y + o]);
-    return `M${c(l)} M${c(mir(l))}`;
-  };
-  return `<g fill="none" stroke="${C.cream}" stroke-linecap="round">
-    <path d="M${-tx},${top} L-96,30 M${tx},${top} L96,30" stroke-width="1.4" stroke-opacity=".85"/>
-    <polyline points="${cable.join(' ')}" stroke-width="2"/>
-    <path d="${susp.join(' ')}" stroke-width="1"/>
+  const A = -66, B = 66, y0 = SUN.y, sag = 2.5, top = SUN.y - 26;
+  const deckY = (x) => y0 + sag * (1 - (x / B) ** 2);
+  const cableY = (x) => top + 3 + (y0 - 4 - top - 3) * (1 - (x / B) ** 2);
+  const d = [], k = [];
+  for (let x = A; x <= B; x += 2) { d.push([x, deckY(x)]); k.push([x, cableY(x)]); }
+  const hangers = [];
+  for (let x = A + 6; x < B - 3; x += 6) hangers.push(`M${f2(x)},${f2(cableY(x))} V${f2(deckY(x))}`);
+  const ink = C.forest;
+  const tower = (x) => `<path d="M${x - 2.6},${f2(deckY(x) + 8)} L${x - 2},${top} L${x + 2},${top} L${x + 2.6},${f2(deckY(x) + 8)} Z" fill="${ink}"/>
+    <rect x="${x - 4}" y="${top - 3}" width="8" height="3.4" rx="1" fill="${ink}"/>`;
+  return `<path d="M${pts(d)} L${pts([...d].reverse().map(([x, y]) => [x, y + 3.2]))} Z" fill="${ink}"/>
+  <g fill="none" stroke="${ink}" stroke-linecap="round">
+    <polyline points="${pts(k)}" stroke-width="2"/>
+    <path d="${hangers.join(' ')}" stroke-width="1"/>
+    <path d="M${A},${top} L${A - 22},${f2(y0 + 16)} M${B},${top} L${B + 22},${f2(y0 + 16)}" stroke-width="1.4"/>
   </g>
-  <circle cx="-96" cy="30" r="2.2" fill="${C.sun}"/><circle cx="96" cy="30" r="2.2" fill="${C.sun}"/>
-  <path d="M-83,44 C-58,33 -24,36 0,58 C24,36 58,33 83,44 L83,56 C58,46 24,49 0,72 C-24,49 -58,46 -83,56 Z" fill="${C.wall}"/>
-  <path d="M-83,56 C-58,46 -24,49 0,72 C24,49 58,46 83,56 L83,59 C58,49 24,52 0,75 C-24,52 -58,49 -83,59 Z" fill="${C.oldGold}"/>
-  <path d="${page(BOOK_TOP, BOOK_BOT)} ${page(mir(BOOK_TOP), mir(BOOK_BOT))}" fill="${C.cream}"/>
-  <path d="${edge(2.2)} ${edge(4.4)}" fill="none" stroke="${C.tick}" stroke-opacity=".6" stroke-width=".7"/>
-  <path d="${lines}" fill="none" stroke="${C.field}" stroke-opacity=".45" stroke-width="1"/>
-  <path d="M0,50 V64" stroke="${C.tick}" stroke-width="1.2"/>
-  ${tower(-tx)}${tower(tx)}`;
+  ${tower(A)}${tower(B)}`;
 }
 
+// Terraces step down both sides of the valley toward the river.
 function terraces() {
-  // a valley: each terrace climbs both slopes
-  const tops = [20, 36, 52, 68], dips = [44, 44, 44, 44];
+  const tops = [34, 50, 66, 82], dips = [30, 30, 30, 30];
   const curve = (i, off = 0) => {
     const a = [];
     for (let x = -150; x <= 150; x += 5) a.push([x, tops[i] + dips[i] * (1 - (x / 140) ** 2) + off]);
@@ -157,18 +139,40 @@ function terraces() {
     const top = curve(i);
     const bottom = i < COUNTS.terraces - 1 ? curve(i + 1) : top.map(([x]) => [x, 160]);
     svg += `<path d="M${pts(top)} L${pts([...bottom].reverse())} Z" fill="${i % 2 ? '#F3BF4C' : C.sun}"/>`;
-    // retaining wall at the foot of each paddy
     if (i < COUNTS.terraces - 1) svg += `<path d="M${pts(curve(i + 1, -4.6))} L${pts([...curve(i + 1)].reverse())} Z" fill="${C.wall}"/>`;
     svg += `<polyline points="${pts(top)}" fill="none" stroke="${C.oldGold}" stroke-width="1.3"/>`;
-    // water catching the light along each paddy
     svg += `<polyline points="${pts(curve(i, 2.6))}" fill="none" stroke="${C.cream}" stroke-opacity=".55" stroke-width=".8"/>`;
   }
   return svg;
 }
 
+// The river: from beneath the bridge, down the valley, into the gutter of the book.
+function river() {
+  return `<defs><linearGradient id="rv" x1="0" y1="30" x2="0" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#CFE6EE"/><stop offset="1" stop-color="#5C9CC4"/></linearGradient></defs>
+  <path d="M-1,32 C-5,42 6,48 -2,58 C-12,70 4,78 -6,88 C-11,94 -8,98 -12,102 L12,102 C8,98 13,92 8,86 C18,74 2,68 9,58 C16,48 3,42 1,32 Z" fill="url(#rv)"/>
+  <path d="M0,36 C-2,44 6,50 0,58 C-8,70 4,78 -2,88" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width=".8"/>`;
+}
+
+function book() {
+  const top = [[-100, 92], [-72, 80], [-30, 82], [0, 100]];
+  const bot = [[-100, 114], [-70, 104], [-30, 107], [0, 122]];
+  const c = (s) => `${pt(s[0])} C${pts(s.slice(1))}`;
+  const rev = (s) => [...s].reverse();
+  const page = (a, b) => `M${c(a)} L${c(rev(b))} Z`;
+  const lines = [0.25, 0.45, 0.65, 0.85].map((k) => {
+    const l = top.map(([x, y], i) => [x + (i === 0 ? 12 : i === 3 ? -10 : 0), y + (bot[i][1] - y) * k]);
+    return `M${c(l)} M${c(mir(l))}`;
+  }).join(' ');
+  return `<path d="M-108,98 C-74,86 -32,88 0,108 C32,88 74,86 108,98 L108,122 C74,111 32,114 0,134 C-32,114 -74,111 -108,122 Z" fill="${C.oldGold}"/>
+  <path d="M-104,96 C-72,84 -31,86 0,105 C31,86 72,84 104,96 L104,118 C72,108 31,111 0,128 C-31,111 -72,108 -104,118 Z" fill="${C.wall}"/>
+  <path d="${page(top, bot)} ${page(mir(top), mir(bot))}" fill="${C.cream}"/>
+  <path d="${lines}" fill="none" stroke="${C.field}" stroke-opacity=".45" stroke-width="1"/>
+  <path d="M0,100 V122" stroke="${C.tick}" stroke-width="1.2"/>`;
+}
+
 function medallionScene() {
   return `<rect x="-140" y="-140" width="280" height="280" fill="${C.field}"/>
-  <g transform="translate(0 -8)">${sun()}${mountains()}${terraces()}${bridge()}</g>`;
+  <g transform="translate(0 -6)">${sun()}${mountains()}${terraces()}${river()}${bridge()}${book()}</g>`;
 }
 
 function wovenRing(r0 = 128, r1 = 140, n = 48, p = '') {
@@ -194,7 +198,7 @@ function medallion(p) {
   ${wovenRing()}`;
 }
 
-// ---------- the wreath, stars and ribbon ----------
+// ---------- the wreath and stars ----------
 function palayStalk() {
   const R = 166;
   const grains = [], crease = [];
@@ -208,41 +212,19 @@ function palayStalk() {
   };
   const pairs = (COUNTS.grains - 1) / 2;
   for (let k = 0; k < pairs; k++) {
-    const deg = -116 + k * 12.4;
-    at(deg, -1, 15 - k * 0.35);
-    at(deg + 4, 1, 15 - k * 0.35);
+    const deg = -154 + k * 10.4;
+    at(deg, -1, 15 - k * 0.25);
+    at(deg + 4, 1, 15 - k * 0.25);
   }
   // the tip grain, along the stem
   const [tx, ty] = P(R, -44);
   const tipRot = -44 + 90;
   const [tdx, tdy] = P(6.6, tipRot);
   grains.push(`<path transform="translate(${f2(tx + tdx)} ${f2(ty + tdy)}) rotate(${tipRot})" d="${grain(14, 6.2)}"/>`);
-  const stem = `M${pt(P(R, -150))} A${R},${R} 0 0 1 ${pt(P(R, -46))}`;
+  const stem = `M${pt(P(R, -163))} A${R},${R} 0 0 1 ${pt(P(R, -46))}`;
   return `<path d="${stem}" fill="none" stroke="${C.sun}" stroke-width="1.8" stroke-linecap="round"/>
   <g fill="${C.sun}">${grains.join('')}</g>
   <g stroke="${C.oldGold}" stroke-width=".8" stroke-linecap="round">${crease.join('')}</g>`;
-}
-
-function ribbon() {
-  const a0 = 180 - 66, a1 = 180 + 66; // body, centred under the medallion
-  const rO = 190, rI = 162;
-  const sector = (r1, r2, b0, b1) =>
-    `M${pt(P(r1, b0))} A${r1},${r1} 0 0 1 ${pt(P(r1, b1))} L${pt(P(r2, b1))} A${r2},${r2} 0 0 0 ${pt(P(r2, b0))} Z`;
-  // tails tucked behind, ending in a swallowtail
-  const tail = (s) => {
-    const b = s > 0 ? a1 : a0;
-    const e = b + s * 13, sh = 7;
-    return `M${pt(P(rO + sh, b - s * 6))} L${pt(P(rO + sh, e))} L${pt(P((rO + rI) / 2 + sh, e - s * 4))} L${pt(P(rI + sh, e))} L${pt(P(rI + sh, b - s * 6))} Z`;
-  };
-  const fold = (s) => {
-    const b = s > 0 ? a1 : a0;
-    return `M${pt(P(rO, b))} L${pt(P(rO + 7, b))} L${pt(P(rI + 7, b))} L${pt(P(rI, b))} Z`;
-  };
-  return `<path d="${tail(1)} ${tail(-1)}" fill="#C9952F"/>
-  <path d="${fold(1)} ${fold(-1)}" fill="${C.oldGold}"/>
-  <path d="${sector(rO, rI, a0, a1)}" fill="${C.sun}"/>
-  <path d="M${pt(P(rO - 2.6, a0))} A${rO - 2.6},${rO - 2.6} 0 0 1 ${pt(P(rO - 2.6, a1))} M${pt(P(rI + 2.6, a0))} A${rI + 2.6},${rI + 2.6} 0 0 1 ${pt(P(rI + 2.6, a1))}" fill="none" stroke="${C.oldGold}" stroke-width=".9"/>
-  ${arcText(CINZEL, 'TOGETHER WE BRIDGE · TOGETHER WE SUCCEED', 0, 0, 180, 11, { tracking: 0.05, side: 'bottom', fill: C.forest })}`;
 }
 
 function stars() {
@@ -270,7 +252,7 @@ export function seal(p = 's') {
   <circle r="243" fill="none" stroke="${C.sun}" stroke-width="2.2"/>
   <circle r="238.6" fill="none" stroke="${C.sun}" stroke-width=".7" stroke-opacity=".8"/>
   ${arcText(CINZEL_B, 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL', 0, 0, 214, 19.5, { tracking: 0.09, side: 'top', fill: C.cream })}
-  ${arcText(CINZEL, 'EST. 2012', 0, 0, 228, 16.5, { tracking: 0.34, side: 'bottom', fill: C.sun })}
+  ${arcText(ITALIC, 'Together we bridge, together we succeed', 0, 0, 227, 22, { tracking: 0.01, side: 'bottom', fill: C.sun })}
   <g fill="${C.sun}">${sideMark(-90)}${sideMark(90)}</g>
   <circle r="204" fill="none" stroke="${C.sun}" stroke-width="1.4"/>
   <g fill="${C.sun}">${beads}</g>
@@ -278,11 +260,11 @@ export function seal(p = 's') {
   ${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g>
   ${stars()}
   ${medallion(p)}
-  ${ribbon()}
+  ${arcText(CINZEL, 'EST. 2012', 0, 0, 160.5, 11.5, { tracking: 0.3, side: 'bottom', fill: C.sun })}
 </g>`;
 }
 
-// Small-size mark: sun, 13 rays and the book, nothing else.
+// Small-size mark: the flag sun and the book, nothing else.
 function mark() {
   const s = `<g transform="translate(0 -6)">${sun()}</g>`;
   return `<g>
@@ -306,10 +288,11 @@ function stacked(p) {
   const W = 1000, cx = 500, S = 460;
   const est = text(CINZEL, 'EST. 2012', cx, 760, 17, { anchor: 'middle', tracking: 0.34, fill: C.oldGold });
   const rule = (x1, x2) => `<rect x="${f2(x1)}" y="753" width="${f2(x2 - x1)}" height="1.5" fill="${C.oldGold}"/>`;
-  return doc(W, 840, `${placeSeal(cx - S / 2, 40, S, p)}
+  return doc(W, 900, `${placeSeal(cx - S / 2, 40, S, p)}
   ${text(CINZEL_B, 'JOSE T. CUYOS SR. II', cx, 618, 64, { anchor: 'middle', tracking: 0.02, fill: C.forest }).svg}
   ${text(CINZEL, 'INTEGRATED SCHOOL', cx, 676, 30, { anchor: 'middle', tracking: 0.36, fill: C.field }).svg}
-  ${est.svg}${rule(cx - 200, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + 200)}`);
+  ${est.svg}${rule(cx - 200, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + 200)}
+  ${text(ITALIC, 'Together we bridge, together we succeed', cx, 836, 38, { anchor: 'middle', fill: C.field }).svg}`);
 }
 
 function horizontal(p, reversed = false) {
@@ -321,7 +304,7 @@ function horizontal(p, reversed = false) {
   ${text(CINZEL, 'INTEGRATED SCHOOL', x + 2, 262, 30, { tracking: 0.36, fill: sub }).svg}
   <rect x="${x + 2}" y="292" width="56" height="1.5" fill="${gold}"/>
   ${text(CINZEL, 'EST. 2012', x + 72, 299, 15, { tracking: 0.34, fill: gold }).svg}
-  ${text(CINZEL_M, 'TOGETHER WE BRIDGE, TOGETHER WE SUCCEED', x + 2, 340, 15, { tracking: 0.16, fill: ink }).svg}`, reversed ? C.forest : null);
+  ${text(ITALIC, 'Together we bridge, together we succeed', x + 2, 344, 27, { fill: ink }).svg}`, reversed ? C.forest : null);
 }
 
 const files = {
