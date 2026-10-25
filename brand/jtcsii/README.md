@@ -19,13 +19,21 @@ are flat and line weights are consistent, and the scene is simpler (no river, pi
 gradients). The same files as above, plus one-colour emblems (`emblem-mono-forest.svg`,
 `emblem-mono-cream.svg`) for stamps, embroidery and single-ink print.
 
-## Take 3: "Ani ng Liwanag" (Harvest of Light) (`take-3/`)
+## Take 3: the chosen seal (`take-3/`)
 
-A formal school seal in the Philippine tradition. Every element and every count has a meaning:
-13 palay rays (Kindergarten + Grades 1–12), 2 peaks (elementary + secondary), 1 book-bridge,
-4 terraces (the DepEd core values), 3 stars (learners, teachers, community), and 13 grains on each
-palay stalk. Set in Fraunces, Marcellus and Plus Jakarta Sans. Files: `seal.svg` (primary),
-`medallion.svg`, `mark.svg` (small sizes), plus stacked, horizontal and reversed lockups.
+The final seal for Jose T. Cuyos Sr. II Integrated School, Rosario, Agusan del Sur. Every
+version comes from `src/take3.mjs`:
+
+| Version | Files | Use for |
+| --- | --- | --- |
+| 3D | `seal.svg`, `logo-*.svg`, `mark.svg` | screens, social media, full-colour print |
+| Flat | `*-flat.svg` | signage, tarpaulins, multi-colour embroidery |
+| One colour, black | `*-mono.svg` | letterheads, memos, certificates, photocopies, stamps, engraving |
+| One colour, green | `*-mono-green.svg` | single-ink print and embroidery in forest green |
+| Blank | `seal-blank*.svg` | the seal with no lettering, for setting text by hand |
+
+`png/*-3000px.png` are large transparent exports of the seal in each version. In one colour the
+flag's blue and red are shown by heraldic hatching (blue horizontal, red vertical).
 
 ## Take 4: "Gintong Liwanag" (Golden Light) (`take-4/`)
 

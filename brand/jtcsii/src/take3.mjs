@@ -10,7 +10,8 @@ const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../take-
 // Type, as set by the school: a bold geometric sans for the name and year, and a calligraphic
 // italic for the motto.
 const NAME = loadFont('montserrat700.ttf');
-const MOTTO = loadFont('cormorant-italic.ttf');
+const MOTTO = loadFont('cormorant-italic600.ttf');
+const MOTTO_BOLD = loadFont('cormorant-italic700.ttf'); // one-colour prints, where thin strokes break up
 const LABEL = loadFont('montserrat600.ttf');
 const capHeight = (font) => (font.tables.os2.sCapHeight || font.unitsPerEm * 0.7) / font.unitsPerEm;
 const xHeight = (font) => (font.tables.os2.sxHeight || font.unitsPerEm * 0.5) / font.unitsPerEm;
@@ -78,8 +79,14 @@ function cubicYAt(s, x) {
 // finish, where gold is raised and lit from the top left, the scene sits recessed, and the
 // scene's elements are modelled with light and shadow.
 let D3 = true;
+// One-colour mode for photocopies, stamps, engraving and single-ink print: everything is ink or
+// paper, and the flag's colours are shown by heraldic hatching (blue horizontal, red vertical).
+let MONO = false;
+let INK = '#000000';
+const PAPER = '#FFFFFF';
 const fx = (id) => (D3 ? ` filter="url(#${id})"` : '');
-const gold = () => (D3 ? 'url(#gold3d)' : C.sun);
+const gold = () => (D3 ? 'url(#gold3d)' : MONO ? INK : C.sun);
+const ink = (color) => (MONO ? INK : color);
 
 function defs3d() {
   if (!D3) return '';
@@ -165,8 +172,17 @@ function sun(sunAt = SUN, frame = { x: 0, y: 8, r: MED }) {
     const half = 9.5; // half-angle of the ray at its base
     const at = (rr, deg) => { const t = ((a + deg) * Math.PI) / 180; return [x + rr * Math.sin(t), y - rr * Math.cos(t)]; };
     const base = r + 3, tip = at(len, 0), L = at(base, -half), M = at(base, 0), Rr = at(base, half);
+    if (MONO) {
+      rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(Rr)} Z" fill="${PAPER}" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/><path d="M${pt(M)} L${pt(tip)}" stroke="${INK}" stroke-width=".9"/>`);
+      continue;
+    }
     rays.push(`<path d="M${pt(L)} L${pt(tip)} L${pt(M)} Z" fill="${D3 ? 'url(#rayLight)' : C.sun}"/>`);
     rays.push(`<path d="M${pt(M)} L${pt(tip)} L${pt(Rr)} Z" fill="${D3 ? 'url(#rayDark)' : '#E3A93C'}"/>`);
+  }
+  if (MONO) {
+    return `${rays.join('')}
+  <circle cx="${x}" cy="${y}" r="${r}" fill="${PAPER}" stroke="${INK}" stroke-width="1.8"/>
+  <circle cx="${x}" cy="${y}" r="${r - 6}" fill="none" stroke="${INK}" stroke-width=".8"/>`;
   }
   return `<defs>
     <radialGradient id="sunGlow" cx="${x}" cy="${y}" r="${r * 2.3}" gradientUnits="userSpaceOnUse">
@@ -194,6 +210,12 @@ function mountains() {
   const crease = inward([[-92, -26], [-96, 0], [-104, 26], [-108, 54]]);
   const crease2 = inward([[-114, 0], [-124, 26], [-128, 50]]);
   const rim = lit.slice(0, 5);
+  if (MONO) {
+    return `<path d="M${pts(far)} Z" fill="${PAPER}" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M${pts(left)} Z M${pts(mir(left))} Z" fill="${INK}"/>
+  <path d="M${pts(lit)} Z M${pts(mir(lit))} Z" fill="${PAPER}" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M${pts(crease)} M${pts(mir(crease))} M${pts(crease2)} M${pts(mir(crease2))}" fill="none" stroke="${PAPER}" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
   return `<path d="M${pts(far)} Z" fill="${D3 ? 'url(#mtnFar)' : C.far}"/>
   <path d="M${pts(left)} Z M${pts(mir(left))} Z" fill="${D3 ? 'url(#mtnDark)' : C.mtn}"/>
   <path d="M${pts(lit)} Z M${pts(mir(lit))} Z" fill="${D3 ? 'url(#mtnLit)' : C.lit}"/>
@@ -216,9 +238,9 @@ function bridge() {
   }
   const tower = (x) => {
     const yb = deckY(x) + 1;
-    return `<path d="M${x - 2.8},${f2(yb)} L${x - 2.1},${top - 3} L${x + 2.1},${top - 3} L${x + 2.8},${f2(yb)} Z" fill="${D3 ? 'url(#tower3d)' : C.cream}"/>
-    <path d="M${x - 4.4},${top - 3} L${x + 4.4},${top - 3} L${x + 3},${top - 8} L${x - 3},${top - 8} Z" fill="${C.sun}"/>
-    <rect x="${x - 3.6}" y="${f2(top + (yb - top) * 0.42)}" width="7.2" height="1.6" fill="${C.sun}"/>`;
+    return `<path d="M${x - 2.8},${f2(yb)} L${x - 2.1},${top - 3} L${x + 2.1},${top - 3} L${x + 2.8},${f2(yb)} Z" fill="${MONO ? PAPER : D3 ? 'url(#tower3d)' : C.cream}"${MONO ? ` stroke="${INK}" stroke-width=".9"` : ''}/>
+    <path d="M${x - 4.4},${top - 3} L${x + 4.4},${top - 3} L${x + 3},${top - 8} L${x - 3},${top - 8} Z" fill="${ink(C.sun)}"/>
+    <rect x="${x - 3.6}" y="${f2(top + (yb - top) * 0.42)}" width="7.2" height="1.6" fill="${ink(C.sun)}"/>`;
   };
   const c = (s) => `${pt(s[0])} C${pts(s.slice(1))}`;
   const rev = (s) => [...s].reverse();
@@ -233,19 +255,22 @@ function bridge() {
     const l = BOOK_BOT.map(([x, y], i) => [x - (i === 0 ? 1.5 : 0), y + o]);
     return `M${c(l)} M${c(mir(l))}`;
   };
-  return `<g${fx('drop')}><g fill="none" stroke="${C.cream}" stroke-linecap="round">
-    <path d="M${-tx},${top} L-100,30 M${tx},${top} L100,30" stroke-width="1.4" stroke-opacity=".85"/>
-    <polyline points="${cable.join(' ')}" stroke-width="2"/>
-    <path d="${susp.join(' ')}" stroke-width="1"/>
-  </g>
-  <circle cx="-100" cy="30" r="2.2" fill="${C.sun}"/><circle cx="100" cy="30" r="2.2" fill="${C.sun}"/>
-  <path d="M-83,44 C-58,33 -24,36 0,58 C24,36 58,33 83,44 L83,56 C58,46 24,49 0,72 C-24,49 -58,46 -83,56 Z" fill="${D3 ? 'url(#cover3d)' : C.wall}"/>
-  <path d="M-83,56 C-58,46 -24,49 0,72 C24,49 58,46 83,56 L83,59 C58,49 24,52 0,75 C-24,52 -58,49 -83,59 Z" fill="${C.oldGold}"/>
-  <path d="${page(BOOK_TOP, BOOK_BOT)}" fill="${D3 ? 'url(#pageL)' : C.cream}"/>
-  <path d="${page(mir(BOOK_TOP), mir(BOOK_BOT))}" fill="${D3 ? 'url(#pageR)' : C.cream}"/>
-  <path d="${edge(2.2)} ${edge(4.4)}" fill="none" stroke="${C.tick}" stroke-opacity=".6" stroke-width=".7"/>
-  <path d="${lines}" fill="none" stroke="${C.field}" stroke-opacity=".45" stroke-width="1"/>
-  <path d="M0,50 V64" stroke="${C.tick}" stroke-width="1.2"/>
+  // in one colour the cables get a paper halo so they stay clear over the hatched sky
+  const cables = (color, extra) => `<g fill="none" stroke="${color}" stroke-linecap="round">
+    <path d="M${-tx},${top} L-100,30 M${tx},${top} L100,30" stroke-width="${1.4 + extra}" stroke-opacity="${MONO ? 1 : 0.85}"/>
+    <polyline points="${cable.join(' ')}" stroke-width="${2 + extra}"/>
+    <path d="${susp.join(' ')}" stroke-width="${1 + extra}"/>
+  </g>`;
+  const pageFill = (grad) => (MONO ? `${PAPER}" stroke="${INK}" stroke-width="1` : D3 ? `url(#${grad})` : C.cream);
+  return `<g${fx('drop')}>${MONO ? cables(PAPER, 2.4) + cables(INK, 0) : cables(C.cream, 0)}
+  <circle cx="-100" cy="30" r="2.2" fill="${ink(C.sun)}"/><circle cx="100" cy="30" r="2.2" fill="${ink(C.sun)}"/>
+  <path d="M-83,44 C-58,33 -24,36 0,58 C24,36 58,33 83,44 L83,56 C58,46 24,49 0,72 C-24,49 -58,46 -83,56 Z" fill="${MONO ? INK : D3 ? 'url(#cover3d)' : C.wall}"/>
+  <path d="M-83,56 C-58,46 -24,49 0,72 C24,49 58,46 83,56 L83,59 C58,49 24,52 0,75 C-24,52 -58,49 -83,59 Z" fill="${ink(C.oldGold)}"/>
+  <path d="${page(BOOK_TOP, BOOK_BOT)}" fill="${pageFill('pageL')}"/>
+  <path d="${page(mir(BOOK_TOP), mir(BOOK_BOT))}" fill="${pageFill('pageR')}"/>
+  <path d="${edge(2.2)} ${edge(4.4)}" fill="none" stroke="${ink(C.tick)}" stroke-opacity="${MONO ? 1 : 0.6}" stroke-width=".7"/>
+  <path d="${lines}" fill="none" stroke="${ink(C.field)}" stroke-opacity="${MONO ? 1 : 0.45}" stroke-width="${MONO ? 0.8 : 1}"/>
+  <path d="M0,50 V64" stroke="${ink(C.tick)}" stroke-width="1.2"/>
   ${D3 ? '<path d="M-3,50 C-12,42 -26,36 -46,36" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="1"/>' : ''}
   ${tower(-tx)}${tower(tx)}</g>`;
 }
@@ -259,6 +284,16 @@ function terraces() {
     return a;
   };
   let svg = '';
+  if (MONO) {
+    for (let i = 0; i < COUNTS.terraces; i++) {
+      const top = curve(i);
+      const bottom = i < COUNTS.terraces - 1 ? curve(i + 1) : top.map(([x]) => [x, 160]);
+      svg += `<path d="M${pts(top)} L${pts([...bottom].reverse())} Z" fill="${PAPER}"/>`;
+      if (i < COUNTS.terraces - 1) svg += `<path d="M${pts(curve(i + 1, -4.6))} L${pts([...curve(i + 1)].reverse())} Z" fill="${INK}"/>`;
+      svg += `<polyline points="${pts(top)}" fill="none" stroke="${INK}" stroke-width="1.3"/>`;
+    }
+    return svg;
+  }
   for (let i = 0; i < COUNTS.terraces; i++) {
     const top = curve(i);
     const bottom = i < COUNTS.terraces - 1 ? curve(i + 1) : top.map(([x]) => [x, 160]);
@@ -275,7 +310,18 @@ function terraces() {
   return svg;
 }
 
-const flagSky = (r) => `<path d="M0,${-r} A${r},${r} 0 0 0 0,${r} Z" fill="${D3 ? 'url(#skyBlue)' : C.flagBlue}"/><path d="M0,${-r} A${r},${r} 0 0 1 0,${r} Z" fill="${D3 ? 'url(#skyRed)' : C.flagRed}"/>`;
+const flagSky = (r) => {
+  const left = `M0,${-r} A${r},${r} 0 0 0 0,${r} Z`, right = `M0,${-r} A${r},${r} 0 0 1 0,${r} Z`;
+  if (MONO) {
+    // heraldic tinctures: azure (blue) by horizontal lines, gules (red) by vertical lines
+    return `<defs>
+      <pattern id="azure" width="3.4" height="3.4" patternUnits="userSpaceOnUse"><rect width="3.4" height="3.4" fill="${PAPER}"/><rect y="1.4" width="3.4" height=".75" fill="${INK}"/></pattern>
+      <pattern id="gules" width="3.4" height="3.4" patternUnits="userSpaceOnUse"><rect width="3.4" height="3.4" fill="${PAPER}"/><rect x="1.4" width=".75" height="3.4" fill="${INK}"/></pattern>
+    </defs><path d="${left}" fill="url(#azure)"/><path d="${right}" fill="url(#gules)"/>
+    <path d="M0,${-r} V${r}" stroke="${INK}" stroke-width="1"/>`;
+  }
+  return `<path d="${left}" fill="${D3 ? 'url(#skyBlue)' : C.flagBlue}"/><path d="${right}" fill="${D3 ? 'url(#skyRed)' : C.flagRed}"/>`;
+};
 
 function medallionScene() {
   // the sky is split down the axis, as the flag hangs vertically in peacetime: blue left, red right
@@ -345,14 +391,16 @@ function wovenRing(r0 = 127, r1 = 140, n = 44) {
   let motifs = '';
   for (let i = 0; i < n; i++) {
     const a = (i * 360) / n;
-    motifs += i % 2 ? stitches(a, MOTIFS.diamond, 2, WEAVE.white) : stitches(a, MOTIFS.person, 2, WEAVE.yellow);
-    motifs += stitches(a + 180 / n, MOTIFS.cross, 4, WEAVE.black);
+    // in one colour the cloth is ink and every motif is left in paper
+    motifs += i % 2 ? stitches(a, MOTIFS.diamond, 2, MONO ? PAPER : WEAVE.white) : stitches(a, MOTIFS.person, 2, MONO ? PAPER : WEAVE.yellow);
+    if (!MONO) motifs += stitches(a + 180 / n, MOTIFS.cross, 4, WEAVE.black);
   }
-  const cloth = `<path d="${ring(r1, r0)}" fill-rule="evenodd" fill="${WEAVE.ground}"/>
-    <path d="${ring(r1, r1 - c * 1.6)} ${ring(r0 + c * 1.6, r0)}" fill-rule="evenodd" fill="${WEAVE.black}"/>
-    <path d="${teeth(r1 - c * 1.6, r1 - c * 0.5, toothCount)}" fill="${WEAVE.white}" transform="scale(1)"/>
-    <path d="${teeth(r0 + c * 1.6, r0 + c * 0.5, toothCount)}" fill="${WEAVE.white}"/>
-    <path d="${ring(r1 - c * 1.6, r1 - c * 1.95)} ${ring(r0 + c * 1.95, r0 + c * 1.6)}" fill-rule="evenodd" fill="${WEAVE.yellow}"/>
+  const W = MONO ? { ground: INK, black: INK, white: PAPER, yellow: INK } : WEAVE;
+  const cloth = `<path d="${ring(r1, r0)}" fill-rule="evenodd" fill="${W.ground}"/>
+    <path d="${ring(r1, r1 - c * 1.6)} ${ring(r0 + c * 1.6, r0)}" fill-rule="evenodd" fill="${W.black}"/>
+    <path d="${teeth(r1 - c * 1.6, r1 - c * 0.5, toothCount)}" fill="${W.white}"/>
+    <path d="${teeth(r0 + c * 1.6, r0 + c * 0.5, toothCount)}" fill="${W.white}"/>
+    <path d="${ring(r1 - c * 1.6, r1 - c * 1.95)} ${ring(r0 + c * 1.95, r0 + c * 1.6)}" fill-rule="evenodd" fill="${W.yellow}"/>
     ${motifs}`;
   // in 3D the cloth gets a fine thread texture and sits under the gold bezel's shadow
   const texture = D3 ? `<defs><pattern id="thread" width="1.6" height="1.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.6" height=".55" fill="#000" opacity=".22"/></pattern>
@@ -412,16 +460,17 @@ function palayStalk() {
     leaf(base + 20, 30, 1, 10, 3.3),
     leaf(base + 31, 26, -1, 8, 2.9),
   ].join(' ');
-  return `<path d="${stem}" fill="none" stroke="${C.sun}" stroke-width="1.8" stroke-linecap="round"/>
+  return `<path d="${stem}" fill="none" stroke="${ink(C.sun)}" stroke-width="1.8" stroke-linecap="round"/>
   <path d="${leaves}" fill="${gold()}"/>
   <g fill="${gold()}">${grains.join('')}</g>
-  <g stroke="${C.oldGold}" stroke-width=".8" stroke-linecap="round">${crease.join('')}</g>`;
+  <g stroke="${MONO ? PAPER : C.oldGold}" stroke-width=".8" stroke-linecap="round">${crease.join('')}</g>`;
 }
 
 // ---------- type on the seal ----------
 const NAME_STR = 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL';
 const MOTTO_STR = 'Together we bridge, Together we succeed';
 const YEAR_STR = '2012';
+const PLACE_STR = 'ROSARIO, AGUSAN DEL SUR';
 // The rope ring, and the wide lettering band between it and the outer rim.
 const ROPE = { R: 184, w: 18 };
 const BAND = (ROPE.R + ROPE.w / 2 + 3 + 238.6) / 2; // centre line of the lettering band
@@ -433,7 +482,7 @@ const mixHex = (a, b, t) => '#' + [1, 3, 5].map((i) => Math.round(parseInt(a.sli
 // Lettering with depth: copies stepped down and to the right, away from the light, build the
 // sides of each letter; the face sits on top with a bevelled highlight.
 function text3d(draw, { depth = 2.4, layers = 7 } = {}) {
-  if (!D3) return draw(C.cream);
+  if (!D3) return draw(MONO ? INK : C.cream);
   let sides = '';
   for (let k = layers; k >= 1; k--) {
     const t = k / layers;
@@ -449,9 +498,13 @@ function sealText() {
   const mottoSize = Math.min(28, fitArc(MOTTO, MOTTO_STR, BAND, MOTTO_SPAN, 0.01));
   const mottoBase = BAND + (xHeight(MOTTO) * mottoSize) / 2;
   const yearSize = 18, yearY = 158 + (capHeight(NAME) * yearSize) / 2;
+  // the location arcs over the top of the inner band, mirroring the year at its foot
+  const placeMid = 159, placeSize = Math.min(13, fitArc(LABEL, PLACE_STR, placeMid, 74, 0.14));
+  const placeBase = placeMid - (capHeight(LABEL) * placeSize) / 2;
   return `${text3d((fill) => arcText(NAME, NAME_STR, 0, 0, nameBase, nameSize, { tracking: 0.01, side: 'top', fill }))}
-  ${text3d((fill) => arcText(MOTTO, MOTTO_STR, 0, 0, mottoBase, mottoSize, { tracking: 0.01, side: 'bottom', fill }), { depth: 1.6, layers: 5 })}
-  ${text3d((fill) => text(NAME, YEAR_STR, 0, yearY, yearSize, { anchor: 'middle', tracking: 0.04, fill }).svg, { depth: 1.8, layers: 6 })}`;
+  ${text3d((fill) => arcText(MONO ? MOTTO_BOLD : MOTTO, MOTTO_STR, 0, 0, mottoBase, mottoSize, { tracking: 0.01, side: 'bottom', fill }), { depth: 1.6, layers: 5 })}
+  ${text3d((fill) => text(NAME, YEAR_STR, 0, yearY, yearSize, { anchor: 'middle', tracking: 0.04, fill }).svg, { depth: 1.8, layers: 6 })}
+  ${text3d((fill) => arcText(LABEL, PLACE_STR, 0, 0, placeBase, placeSize, { tracking: 0.14, side: 'top', fill }), { depth: 1.3, layers: 5 })}`;
 }
 
 // A gold ornament for the band between the name and the motto: a faceted diamond, then
@@ -462,7 +515,9 @@ function ornament(a) {
   const h = 12;
   const T = [cx, cy - h], Rt = [cx + h, cy], B = [cx, cy + h], L = [cx - h, cy], M = [cx, cy];
   const tri = (p1, p2, fill) => `<path d="M${pt(p1)} L${pt(p2)} L${pt(M)} Z" fill="${fill}"/>`;
-  const gem = tri(L, T, '#FFF0B8') + tri(T, Rt, '#EDBB4E') + tri(Rt, B, '#A97C22') + tri(B, L, '#D39A2F');
+  const gem = MONO
+    ? `<path d="M${pt(T)} L${pt(Rt)} L${pt(B)} L${pt(L)} Z" fill="${INK}"/><path d="M${pt(T)} L${pt(B)} M${pt(L)} L${pt(Rt)}" stroke="${PAPER}" stroke-width=".9"/>`
+    : tri(L, T, '#FFF0B8') + tri(T, Rt, '#EDBB4E') + tri(Rt, B, '#A97C22') + tri(B, L, '#D39A2F');
   let beads = '', lines = '';
   for (const s of [-1, 1]) {
     [[20, 3.4], [30, 2.6], [39, 1.9]].forEach(([d, r]) => {
@@ -494,17 +549,17 @@ function rope(R, w) {
   const o = R + w / 2, i2 = R - w / 2;
   return `<g${fx('raise')}><defs><clipPath id="ropeClip"><path clip-rule="evenodd" d="M${-o},0 a${o},${o} 0 1 0 ${2 * o},0 a${o},${o} 0 1 0 ${-2 * o},0 Z M${-i2},0 a${i2},${i2} 0 1 0 ${2 * i2},0 a${i2},${i2} 0 1 0 ${-2 * i2},0 Z"/></clipPath></defs>
   <g clip-path="url(#ropeClip)">
-    <circle r="${R}" fill="none" stroke="#7E5A14" stroke-width="${w}"/>
-    <g fill="${gold()}" stroke="#8C6417" stroke-width=".7">${strands.join('')}</g>
-    <g fill="none" stroke="#C9952F" stroke-width="1.2" stroke-linecap="round">${shades.join('')}</g>
+    <circle r="${R}" fill="none" stroke="${MONO ? PAPER : '#7E5A14'}" stroke-width="${w}"/>
+    <g fill="${gold()}" stroke="${MONO ? PAPER : '#8C6417'}" stroke-width="${MONO ? 1.1 : 0.7}">${strands.join('')}</g>
+    ${MONO ? '' : `<g fill="none" stroke="#C9952F" stroke-width="1.2" stroke-linecap="round">${shades.join('')}</g>`}
   </g>
-  <circle r="${o}" fill="none" stroke="#5E4310" stroke-width=".8"/><circle r="${i2}" fill="none" stroke="#5E4310" stroke-width=".8"/></g>`;
+  <circle r="${o}" fill="none" stroke="${ink('#5E4310')}" stroke-width=".8"/><circle r="${i2}" fill="none" stroke="${ink('#5E4310')}" stroke-width=".8"/></g>`;
 }
 
 // ---------- the seal (radius 248, origin at centre) ----------
 export function seal(p = 's', { blank = false } = {}) {
   return `<g>${defs3d()}
-  <circle r="248" fill="${D3 ? 'url(#disc3d)' : C.forest}"/>
+  <circle r="248" fill="${D3 ? 'url(#disc3d)' : MONO ? PAPER : C.forest}"/>
   <g${fx('raise')}>
     <circle r="${D3 ? 244.5 : 243}" fill="none" stroke="${gold()}" stroke-width="${D3 ? 6 : 2.2}"/>
     <circle r="238.6" fill="none" stroke="${gold()}" stroke-width="${D3 ? 1.1 : 0.7}" stroke-opacity=".9"/>
@@ -522,12 +577,12 @@ export function seal(p = 's', { blank = false } = {}) {
 function mark() {
   const s = sun({ x: 0, y: 30, r: 34 }, { x: 0, y: -10 / 1.08, r: 120 / 1.08 });
   return `<g>${defs3d()}
-  <circle r="128" fill="${D3 ? 'url(#disc3d)' : C.forest}"/>
+  <circle r="128" fill="${D3 ? 'url(#disc3d)' : MONO ? PAPER : C.forest}"/>
   <defs><clipPath id="mk"><circle r="120"/></clipPath></defs>
   <g${fx('sink')}><g clip-path="url(#mk)">${flagSky(120)}<g transform="translate(0 10) scale(1.08)">${s}
-  <g${fx('drop')}><path d="M-86,48 C-60,34 -24,37 0,62 C24,37 60,34 86,48 L86,62 C60,50 24,53 0,78 C-24,53 -60,50 -86,62 Z" fill="${D3 ? 'url(#cover3d)' : C.sun}"/>
-  <path d="M-80,42 C-58,29 -24,31 0,54 C24,31 58,29 80,42 L80,54 C58,43 24,46 0,68 C-24,46 -58,43 -80,54 Z" fill="${D3 ? 'url(#pageL)' : C.cream}"/>
-  <path d="M0,54 V68" stroke="${C.oldGold}" stroke-width="2"/></g></g></g></g>
+  <g${fx('drop')}><path d="M-86,48 C-60,34 -24,37 0,62 C24,37 60,34 86,48 L86,62 C60,50 24,53 0,78 C-24,53 -60,50 -86,62 Z" fill="${MONO ? INK : D3 ? 'url(#cover3d)' : C.sun}"/>
+  <path d="M-80,42 C-58,29 -24,31 0,54 C24,31 58,29 80,42 L80,54 C58,43 24,46 0,68 C-24,46 -58,43 -80,54 Z" fill="${MONO ? PAPER : D3 ? 'url(#pageL)' : C.cream}"${MONO ? ` stroke="${INK}" stroke-width="1.6"` : ''}/>
+  <path d="M0,54 V68" stroke="${ink(C.oldGold)}" stroke-width="2"/></g></g></g></g>
   <circle r="124" fill="none" stroke="${gold()}" stroke-width="${D3 ? 5 : 2}"${fx('raise')}/>
   ${D3 ? '<circle r="128" fill="url(#rim)" transform="scale(.516)"/><circle r="128" fill="url(#gloss)" transform="scale(.516)"/>' : ''}
 </g>`;
@@ -540,25 +595,26 @@ const placeSeal = (x, y, size, p, opts) => `<g transform="translate(${f2(x + siz
 
 function stacked(p) {
   const W = 1000, cx = 500, S = 460;
-  const est = text(LABEL, 'EST. 2012', cx, 744, 15, { anchor: 'middle', tracking: 0.42, fill: C.oldGold });
-  const rule = (x1, x2) => `<rect x="${f2(x1)}" y="737" width="${f2(x2 - x1)}" height="1.5" fill="${C.oldGold}"/>`;
+  const est = text(LABEL, `${PLACE_STR}  ·  EST. ${YEAR_STR}`, cx, 744, 15, { anchor: 'middle', tracking: 0.3, fill: ink(C.oldGold) });
+  const rule = (x1, x2) => `<rect x="${f2(x1)}" y="737" width="${f2(x2 - x1)}" height="1.5" fill="${ink(C.oldGold)}"/>`;
+  const ruleW = 60;
   return doc(W, 880, `${placeSeal(cx - S / 2, 40, S, p)}
-  ${text(NAME, 'JOSE T. CUYOS SR. II', cx, 614, 62, { anchor: 'middle', tracking: 0.01, fill: C.forest }).svg}
-  ${text(LABEL, 'INTEGRATED SCHOOL', cx, 672, 24, { anchor: 'middle', tracking: 0.42, fill: C.field }).svg}
-  ${est.svg}${rule(cx - 190, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + 190)}
-  ${text(MOTTO, MOTTO_STR, cx, 818, 40, { anchor: 'middle', fill: C.field }).svg}`);
+  ${text(NAME, 'JOSE T. CUYOS SR. II', cx, 614, 62, { anchor: 'middle', tracking: 0.01, fill: ink(C.forest) }).svg}
+  ${text(LABEL, 'INTEGRATED SCHOOL', cx, 672, 24, { anchor: 'middle', tracking: 0.42, fill: ink(C.field) }).svg}
+  ${est.svg}${rule(cx - est.width / 2 - 22 - ruleW, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + est.width / 2 + 22 + ruleW)}
+  ${text(MOTTO, MOTTO_STR, cx, 818, 40, { anchor: 'middle', fill: ink(C.field) }).svg}`);
 }
 
 function horizontal(p, reversed = false) {
   const W = 1320, H = 440, S = 340, x = 60 + S + 54;
-  const ink = reversed ? C.cream : C.forest, sub = reversed ? C.sun : C.field, gold = reversed ? C.sun : C.oldGold;
+  const fg = ink(reversed ? C.cream : C.forest), sub = ink(reversed ? C.sun : C.field), gold = ink(reversed ? C.sun : C.oldGold);
   return doc(W, H, `${placeSeal(50, 50, S, p)}
   <rect x="${50 + S + 26}" y="104" width="1.5" height="232" fill="${gold}" opacity=".6"/>
-  ${text(NAME, 'JOSE T. CUYOS SR. II', x, 196, 58, { tracking: 0.01, fill: ink }).svg}
+  ${text(NAME, 'JOSE T. CUYOS SR. II', x, 196, 58, { tracking: 0.01, fill: fg }).svg}
   ${text(LABEL, 'INTEGRATED SCHOOL', x + 3, 258, 23, { tracking: 0.42, fill: sub }).svg}
   <rect x="${x + 3}" y="289" width="48" height="1.5" fill="${gold}"/>
-  ${text(LABEL, 'EST. 2012', x + 64, 295, 13, { tracking: 0.42, fill: gold }).svg}
-  ${text(MOTTO, MOTTO_STR, x + 2, 346, 32, { fill: ink }).svg}`, reversed ? C.forest : null);
+  ${text(LABEL, `${PLACE_STR}  ·  EST. ${YEAR_STR}`, x + 64, 295, 13, { tracking: 0.3, fill: gold }).svg}
+  ${text(MOTTO, MOTTO_STR, x + 2, 346, 32, { fill: fg }).svg}`, reversed ? C.forest : null);
 }
 
 const build = (suffix) => ({
@@ -575,6 +631,15 @@ D3 = true;
 const files = build('');
 D3 = false;
 Object.assign(files, build('-flat'));
+// one colour: black for photocopies and stamps, forest green for single-ink print and embroidery
+MONO = true;
+for (const [suffix, color] of [['-mono', '#000000'], ['-mono-green', C.forest]]) {
+  INK = color;
+  const set = build(suffix);
+  delete set[`logo-horizontal-reversed${suffix}.svg`];
+  Object.assign(files, set);
+}
+MONO = false;
 fs.mkdirSync(path.join(out, 'svg'), { recursive: true });
 for (const [n, s] of Object.entries(files)) fs.writeFileSync(path.join(out, 'svg', n), s);
 console.log('wrote', Object.keys(files).join(', '));

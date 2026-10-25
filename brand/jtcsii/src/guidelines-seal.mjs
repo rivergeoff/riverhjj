@@ -31,12 +31,16 @@ const woven = ['The woven ring', 'A Cordillera-style diamond weave encircles the
 const CONFIGS = {
   'take-3': {
     label: 'Take 3 · Ani ng Liwanag',
-    fonts: 'family=Montserrat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Plus+Jakarta+Sans:wght@400;500;700',
+    fonts: 'family=Montserrat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@400;500;700',
     display: '"Cormorant Garamond",serif', formal: '"Montserrat",sans-serif',
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
     extraSwatches: [['Flag Blue', '#0038A8', 'Left half of the medallion'], ['Flag Red', '#CE1126', 'Right half of the medallion']],
     swatchUse: { 'Field Green': 'Mountains, descriptors' },
-    extraRules: ['Use the 3D seal on screens, social media and full-colour print. For embroidery, rubber stamps, engraving and one-colour print, use the flat files (<code>*-flat.svg</code>), which carry the same design without lighting effects.'],
+    extraRules: [
+      'Choose the version by where it will appear. <b>3D</b> (<code>seal.svg</code>): screens, social media, full-colour print. <b>Flat</b> (<code>*-flat</code>): signage, tarpaulins, embroidery in several colours. <b>One colour</b> (<code>*-mono</code> black, <code>*-mono-green</code> forest): letterheads, memos, certificates, anything that will be photocopied, rubber stamps and engraving.',
+      'In one colour the flag\u2019s blue and red are shown by heraldic hatching, horizontal lines for blue and vertical lines for red, so the meaning survives without colour.',
+      'Below 1 inch (about 96 px), use the mark instead of the full seal.',
+    ],
     colorTitle: 'Forest and gold, with the flag at its heart',
     meaning: [
       ['8', 'Rays of the sun', 'A great sun settling behind the peaks, with the eight rays of the flag\u2019s sun reaching to the rim: the light of learning, rising where the flag\u2019s blue and red meet, split as the flag hangs vertically in peacetime (blue left, red right).'],
@@ -49,13 +53,13 @@ const CONFIGS = {
       ['Gold', 'The gold of Rosario, its mines and its livelihood, in the sun, the wreath, the terraces and every line of the seal.'],
       ['The woven band', 'A strip of hand-woven cloth in the red, black, white and yellow of Philippine indigenous weaving, drawn stitch by stitch: human figures with raised arms for the people and their community, stepped diamond \u201ceyes\u201d for protection, and sawtooth borders. It honours the school\u2019s Indigenous Peoples learners and holds the whole scene together.'],
       ['The rope', 'A ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
-      ['2012 & the ornaments', 'The founding year beneath the scene; gold ornaments of a faceted diamond, beads and tapering lines mark the band between the name and the motto.'],
+      ['Place & year', 'Rosario, Agusan del Sur arcs over the top of the inner band and the founding year, 2012, sits at its foot: where the school stands, and since when. Gold ornaments mark the band between the name and the motto.'],
     ],
     construct: { rings: [127, 140, 157, 175, 193, 243], sunY: 270, rayLen: 145, rays: { n: 8, start: -70, step: 20 }, starFrom: [250, 250], starAngles: [], starLen: 0, note: '8 rays at 20° intervals (±10°, ±30°, ±50°, ±70°), each reaching the rim of the medallion; woven band r 127–140, palay wreath r 157, rope r 175–193, outer rim r 243.' },
     type: [
       ['<div class="s2" style="font-weight:700;letter-spacing:0;font-size:40px">MONTSERRAT</div>', 'Name & year · Bold', 'A bold geometric sans for the school name around the seal, the year beneath the scene, and the name in the logos. On the 3D seal it is set as raised lettering with depth and shadow.'],
-      ['<div class="s1" style="font-style:italic;font-weight:500">Together we bridge</div>', 'Motto · Italic', 'Cormorant Garamond Italic, a calligraphic voice for the motto at the foot of the seal and beside the logos.'],
-      ['<div class="s2" style="font-weight:600;font-size:30px">INTEGRATED SCHOOL</div>', 'Labels · Semibold', 'Montserrat Semibold, widely spaced, for \u201cIntegrated School\u201d and \u201cEst. 2012\u201d in the logos.'],
+      ['<div class="s1" style="font-style:italic;font-weight:600">Together we bridge</div>', 'Motto · Italic', 'Cormorant Garamond Semibold Italic, a calligraphic voice for the motto at the foot of the seal and beside the logos; Bold Italic in the one-colour version so it survives photocopying.'],
+      ['<div class="s2" style="font-weight:600;font-size:30px">INTEGRATED SCHOOL</div>', 'Labels · Semibold', 'Montserrat Semibold, widely spaced, for the location, \u201cIntegrated School\u201d and \u201cEst. 2012\u201d.'],
     ],
     noBodyCard: true,
   },
