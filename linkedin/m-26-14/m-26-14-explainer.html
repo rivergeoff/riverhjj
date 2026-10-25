@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 Graphic Explainer</title>
+<style>
+  /* Presentation board: the Concept F graphic in the middle, numbered annotations either side. */
+  @font-face { font-family: "Instrument Sans"; font-weight: 400; src: url("fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 500; src: url("fonts/instrument-sans-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 600; src: url("fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 700; src: url("fonts/instrument-sans-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 400; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 700; src: url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); }
+  :root {
+    --bg-0: #100f22;
+    --bg-1: #1a1834;
+    --white: #f6f5fc;
+    --body: #b9b5d9;
+    --faint: #6f6b95;
+    --red: #dc0032;
+    --red-bright: #ff3d63;
+    --amber: #ffb547;
+    --sans: "Instrument Sans", "Inter", sans-serif;
+    --mono: "JB Mono", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 2400px; height: 1500px; background: var(--bg-0); }
+  body { font-family: var(--sans); color: var(--white); -webkit-font-smoothing: antialiased; }
+  .board {
+    position: relative; width: 2400px; height: 1500px; overflow: hidden;
+    background:
+      radial-gradient(900px 700px at 50% 55%, rgba(120,110,220,0.16), transparent 70%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  }
+  .board::before { content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(190,186,240,0.16) 1px, transparent 1px); background-size: 32px 32px; opacity: 0.5; }
+  .board > * { position: absolute; }
+
+  /* Title row */
+  .title { left: 80px; top: 64px; }
+  .title .k { font-family: var(--mono); font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-bright); }
+  .title h1 { margin-top: 10px; font-size: 44px; font-weight: 700; letter-spacing: -1.2px; }
+  .summary { left: 80px; top: 186px; width: 560px; font-size: 19px; line-height: 1.5; color: var(--body); }
+  .summary b { color: var(--white); font-weight: 600; }
+
+  .key { right: 80px; top: 76px; display: flex; gap: 28px; font-size: 16px; color: var(--body); }
+  .key span { display: inline-flex; align-items: center; gap: 10px; }
+  .key i { width: 16px; height: 16px; border-radius: 4px; }
+
+  /* The graphic */
+  .art { left: 714px; top: 170px; width: 972px; height: 1215px; border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 60px 120px -40px rgba(0,0,0,0.8); }
+  .art-cap { left: 714px; top: 1402px; width: 972px; text-align: center; font-family: var(--mono); font-size: 14px; color: var(--faint); }
+
+  svg.leaders { left: 0; top: 0; width: 2400px; height: 1500px; overflow: visible; }
+
+  /* Notes */
+  .note { width: 540px; display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; }
+  .note.r { width: 560px; }
+  .num { width: 40px; height: 40px; border-radius: 50%; background: var(--red); display: grid; place-items: center;
+    font-family: var(--mono); font-size: 15px; font-weight: 700; box-shadow: 0 0 0 6px rgba(220,0,50,0.18); }
+  .note h3 { font-size: 23px; font-weight: 700; letter-spacing: -0.4px; line-height: 40px; }
+  .note p { grid-column: 2; margin-top: 4px; font-size: 17.5px; line-height: 1.5; color: var(--body); }
+  .note p b { color: var(--white); font-weight: 600; }
+  .note p .am { color: var(--amber); font-weight: 600; }
+  .note p .cr { color: var(--red-bright); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <div class="title">
+    <div class="k">TXOne · M-26-14 LinkedIn graphic</div>
+    <h1>How to read this graphic</h1>
+  </div>
+  <p class="summary"><b>One message:</b> M-26-14 puts OT in the logging scope, most SOCs can't see OT today, and TXOne makes it visible in the SIEM they already use, without touching operations.</p>
+
+  <div class="key">
+    <span><i style="background:#ffb547"></i>Amber = the gap</span>
+    <span><i style="background:#dc0032"></i>Crimson = what TXOne adds</span>
+    <span><i style="background:#1c1a32; box-shadow:0 0 0 1px rgba(255,255,255,0.3)"></i>Indigo = TXOne brand</span>
+  </div>
+
+  <img class="art" src="m-26-14-linkedin-v6.png" alt="Concept F graphic">
+  <div class="art-cap">Concept F · 1080 × 1350 LinkedIn post</div>
+
+  <svg class="leaders" viewBox="0 0 2400 1500" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="rgba(255,61,99,0.85)" stroke-width="2">
+      <!-- left -->
+      <path d="M640 342 H720 L772 386"/>
+      <path d="M640 602 H720 L772 620"/>
+      <path d="M640 942 H720 L772 980"/>
+      <path d="M640 1212 H720 L772 1245"/>
+      <!-- right -->
+      <path d="M1760 232 H1690 L1628 249"/>
+      <path d="M1760 562 H1700 L1628 711"/>
+      <path d="M1760 822 H1640 L1385 777"/>
+      <path d="M1760 1082 H1700 L1628 954"/>
+    </g>
+    <g fill="#ff3d63" stroke="#100f22" stroke-width="3">
+      <circle cx="772" cy="386" r="8"/><circle cx="772" cy="620" r="8"/><circle cx="772" cy="980" r="8"/><circle cx="772" cy="1245" r="8"/>
+      <circle cx="1628" cy="249" r="8"/><circle cx="1628" cy="711" r="8"/><circle cx="1385" cy="777" r="8"/><circle cx="1628" cy="954" r="8"/>
+    </g>
+  </svg>
+
+  <!-- Left column: read top to bottom -->
+  <div class="note" style="left:80px; top:322px"><span class="num">1</span><h3>The hook</h3>
+    <p>States the whole problem in one breath: M-26-14 makes OT part of the logging plan, but <span class="cr">the SIEM can't see it yet.</span> Crimson marks the gap TXOne closes.</p></div>
+  <div class="note" style="left:80px; top:582px"><span class="num">3</span><h3>Today: what the SOC sees</h3>
+    <p>A realistic SIEM event feed. Only <b>IT</b> shows up: logins, endpoint activity, firewall traffic. This is where most agency plans stop.</p></div>
+  <div class="note" style="left:80px; top:922px"><span class="num">6</span><h3>With TXOne: same SIEM</h3>
+    <p>Nothing gets replaced. The SOC keeps its tools; IT events dim into the background and <b>OT events now sit right next to them.</b></p></div>
+  <div class="note" style="left:80px; top:1192px"><span class="num">8</span><h3>Proof points</h3>
+    <p>Why it's safe for operations: <b>180+ industrial protocols</b> read passively, <b>no agents</b> to install, works on <b>air-gapped</b> systems.</p></div>
+
+  <!-- Right column -->
+  <div class="note r" style="left:1780px; top:212px"><span class="num">2</span><h3>Brand + deadline</h3>
+    <p>TXOne logo top left. The pill on the right reminds federal readers that <b>Agency Logging Plans are due Nov 18.</b></p></div>
+  <div class="note r" style="left:1780px; top:542px"><span class="num">4</span><h3>The blind spot</h3>
+    <p>HVAC, badge readers, building automation and PLCs send <span class="am">no events</span>. Under M-26-14 the maturity score is the lowest element, so this gap caps the whole agency.</p></div>
+  <div class="note r" style="left:1780px; top:802px"><span class="num">5</span><h3>The fix: + TXOne</h3>
+    <p>TXOne listens to OT traffic <b>passively</b>. Nothing installed on fragile devices, no risky scans, no downtime.</p></div>
+  <div class="note r" style="left:1780px; top:1062px"><span class="num">7</span><h3>What appears</h3>
+    <p>The <span class="cr">crimson rows</span> are OT events the SOC could never see before: an HVAC setpoint change, a door forced open, a write to a PLC, a building config change.</p></div>
+</div>
+</body>
+</html>
