@@ -1,0 +1,7 @@
+{
+  "name": "jtcsii-brand",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs && node render.mjs && node guidelines.mjs" },
+  "dependencies": { "opentype.js": "1.3.4" }
+}
