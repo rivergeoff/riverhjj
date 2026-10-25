@@ -6,176 +6,181 @@
 <style>
   /* Brand tokens: swap these for TXOne's official values if they differ */
   :root {
-    --navy-900: #06142b;
-    --navy-800: #0a1f3f;
-    --navy-700: #12305c;
-    --teal: #00b4c5;
-    --teal-soft: rgba(0, 180, 197, 0.14);
+    --bg-0: #050d1c;
+    --bg-1: #0a1830;
+    --panel: rgba(16, 30, 56, 0.72);
+    --panel-edge: rgba(150, 190, 230, 0.16);
+    --teal: #19c3d1;
+    --teal-dim: rgba(25, 195, 209, 0.16);
     --amber: #ffb547;
-    --white: #ffffff;
-    --mist: #b7c6dc;
-    --line: rgba(183, 198, 220, 0.22);
+    --amber-dim: rgba(255, 181, 71, 0.14);
+    --white: #f4f8fc;
+    --mist: #93a6c2;
+    --faint: #5d6f8c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1080px; height: 1350px; background: var(--navy-900); }
-  body { font-family: "Inter", "Inter Display", sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+  html, body { width: 1080px; height: 1350px; background: var(--bg-0); }
+  body { font-family: "Inter", sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
 
   .canvas {
     position: relative; width: 1080px; height: 1350px; overflow: hidden;
-    padding: 64px 72px 0;
+    padding: 110px 88px 0;
     background:
-      radial-gradient(900px 600px at 100% 0%, rgba(0,180,197,0.20), transparent 60%),
-      radial-gradient(700px 500px at 0% 100%, rgba(18,48,92,0.9), transparent 70%),
-      linear-gradient(160deg, var(--navy-800), var(--navy-900) 70%);
+      radial-gradient(760px 520px at 82% 58%, rgba(25,195,209,0.16), transparent 65%),
+      radial-gradient(600px 420px at 10% 0%, rgba(40,80,150,0.35), transparent 70%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0));
   }
-  /* Circuit grid motif */
   .canvas::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 54px 54px; opacity: 0.18;
-    mask-image: linear-gradient(180deg, #000 0%, transparent 45%);
+    background-image: radial-gradient(rgba(150,190,230,0.22) 1px, transparent 1px);
+    background-size: 28px 28px; opacity: 0.35;
+    mask-image: radial-gradient(700px 500px at 70% 55%, #000, transparent 75%);
   }
   .canvas > * { position: relative; }
 
-  /* Header */
-  .top { display: flex; justify-content: space-between; align-items: center; }
-  .logo { height: 46px; display: flex; align-items: center; }
-  .logo img { height: 46px; width: auto; }
+  /* Hero */
+  .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; letter-spacing: 0.4px; color: var(--mist); }
+  .eyebrow .live { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 5px var(--amber-dim); }
+  .eyebrow b { color: var(--white); font-weight: 600; }
+  .eyebrow .sep { width: 1px; height: 16px; background: var(--panel-edge); }
+  h1 { margin-top: 28px; font-family: "Inter Display"; font-weight: 700; font-size: 84px; line-height: 1.0; letter-spacing: -3px; }
+  h1 .muted { color: var(--faint); }
+  h1 em { font-style: normal; background: linear-gradient(90deg, var(--teal), #7fe6ee); -webkit-background-clip: text; color: transparent; }
+
+  /* Main panel */
+  .panel {
+    margin-top: 84px; width: 904px; border-radius: 24px; padding: 8px;
+    background: var(--panel); border: 1px solid var(--panel-edge);
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+  }
+  .p-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px 20px; }
+  .p-title { font-size: 18px; font-weight: 600; }
+  .p-title span { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: var(--faint); }
+  .badge { font-size: 13px; font-weight: 600; letter-spacing: 0.3px; padding: 7px 12px; border-radius: 8px; background: rgba(255,255,255,0.05); color: var(--mist); border: 1px solid var(--panel-edge); }
+
+  .rows { border-radius: 16px; background: rgba(5,13,28,0.55); border: 1px solid rgba(150,190,230,0.08); }
+  .row { display: grid; grid-template-columns: 44px 1fr 210px 150px; align-items: center; gap: 18px; padding: 20px 22px; }
+  .row + .row { border-top: 1px solid rgba(150,190,230,0.08); }
+  .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,0.05); }
+  .ico svg { width: 22px; height: 22px; fill: none; stroke: var(--mist); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .name { font-size: 19px; font-weight: 600; }
+  .name small { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: var(--faint); }
+  .spark { display: flex; align-items: flex-end; gap: 4px; height: 30px; }
+  .spark i { flex: 1; border-radius: 2px; background: var(--teal); opacity: 0.85; }
+  .status { justify-self: end; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: var(--teal-dim); color: var(--teal); }
+  .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  .row.ot { background: linear-gradient(90deg, var(--amber-dim), transparent 70%); border-radius: 0 0 16px 16px; }
+  .row.ot .ico { background: var(--amber-dim); }
+  .row.ot .ico svg { stroke: var(--amber); }
+  .row.ot .name small { color: #b98a4a; }
+  .row.ot .spark i { background: none; border: 1px dashed rgba(255,181,71,0.45); opacity: 1; height: 100% !important; }
+  .row.ot .status { background: var(--amber-dim); color: var(--amber); }
+
+  .p-foot { display: flex; align-items: center; gap: 22px; padding: 22px 22px 16px; }
+  .p-foot .lbl { font-size: 14px; font-weight: 500; color: var(--faint); white-space: nowrap; }
+  .p-foot .lbl b { display: block; color: var(--white); font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+  .meter { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .meter div { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.07); }
+  .meter div.on { background: var(--amber); }
+  .p-foot .val { font-family: "Inter Display"; font-size: 24px; font-weight: 700; color: var(--amber); white-space: nowrap; }
+
+  /* Floating TXOne card */
+  .toast {
+    position: absolute; right: 56px; top: 910px; width: 504px; padding: 22px 24px;
+    border-radius: 20px; background: linear-gradient(160deg, rgba(25,195,209,0.22), rgba(12,36,62,0.92) 60%);
+    border: 1px solid rgba(25,195,209,0.45);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 60px -10px rgba(25,195,209,0.35);
+    backdrop-filter: blur(24px);
+  }
+  .toast .t-top { display: flex; align-items: center; justify-content: space-between; }
+  .toast .t-brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--teal); letter-spacing: 0.3px; }
+  .toast .t-brand .glyph { width: 28px; height: 28px; border-radius: 8px; background: var(--teal); display: grid; place-items: center; }
+  .toast .t-brand .glyph svg { width: 16px; height: 16px; stroke: var(--bg-0); stroke-width: 2.6; fill: none; }
+  .toast .t-time { font-size: 13px; color: var(--mist); }
+  .toast h4 { margin-top: 14px; font-size: 21px; font-weight: 600; line-height: 1.3; }
+  .toast .tags { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .toast .tags span { font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 7px; background: rgba(255,255,255,0.07); color: var(--white); }
+
+  /* Footer */
+  .foot {
+    position: absolute; left: 88px; right: 88px; bottom: 64px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { height: 40px; display: flex; align-items: center; }
+  .logo img { height: 40px; width: auto; }
   .wordmark { display: none; flex-direction: column; line-height: 1; }
-  .wordmark b { font-family: "Inter Display"; font-weight: 800; font-size: 40px; letter-spacing: -0.5px; }
+  .wordmark b { font-family: "Inter Display"; font-weight: 800; font-size: 34px; letter-spacing: -0.5px; }
   .wordmark b span { color: var(--teal); }
-  .wordmark small { font-size: 11px; font-weight: 600; letter-spacing: 5.2px; color: var(--mist); margin-top: 5px; }
+  .wordmark small { font-size: 9.5px; font-weight: 600; letter-spacing: 4.6px; color: var(--mist); margin-top: 4px; }
   .logo.fallback img { display: none; }
   .logo.fallback .wordmark { display: flex; }
-  .tag {
-    font-size: 15px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--teal); border: 1.5px solid var(--teal); border-radius: 999px; padding: 9px 18px;
-  }
-
-  /* Hero */
-  .eyebrow { margin-top: 64px; font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
-  h1 { margin-top: 18px; font-family: "Inter Display"; font-weight: 800; font-size: 78px; line-height: 1.02; letter-spacing: -2px; }
-  h1 em { font-style: normal; color: var(--teal); }
-  .sub { margin-top: 24px; font-size: 25px; line-height: 1.42; color: var(--mist); max-width: 900px; }
-  .sub strong { color: var(--white); font-weight: 600; }
-
-  .devices { display: flex; gap: 12px; margin-top: 26px; }
-  .chip {
-    display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600;
-    padding: 10px 16px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px dashed rgba(183,198,220,0.45);
-    color: var(--mist);
-  }
-  .chip svg { width: 22px; height: 22px; stroke: var(--mist); fill: none; stroke-width: 1.8; }
-
-  /* Timeline */
-  .section-label { font-size: 15px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mist); }
-  .timeline { margin-top: 50px; }
-  .track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 22px; }
-  .track::before { content: ""; position: absolute; left: 14px; right: 14px; top: 13px; height: 3px; background: linear-gradient(90deg, var(--amber), var(--teal) 40%, rgba(0,180,197,0.35)); }
-  .step { position: relative; padding-right: 12px; }
-  .dot { width: 29px; height: 29px; border-radius: 50%; background: var(--navy-900); border: 3px solid var(--teal); }
-  .step.now .dot { border-color: var(--amber); background: var(--amber); box-shadow: 0 0 0 8px rgba(255,181,71,0.18); }
-  .date { margin-top: 16px; font-family: "Inter Display"; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
-  .step.now .date { color: var(--amber); }
-  .what { margin-top: 4px; font-size: 19px; color: var(--mist); }
-
-  /* Bottom two-up */
-  .duo { display: grid; grid-template-columns: 1fr 1.18fr; gap: 22px; margin-top: 50px; }
-  .card { border-radius: 18px; padding: 28px 28px 26px; background: rgba(255,255,255,0.045); border: 1px solid var(--line); }
-  .card h3 { font-family: "Inter Display"; font-size: 27px; font-weight: 800; line-height: 1.15; letter-spacing: -0.4px; margin-top: 12px; }
-
-  .bars { display: flex; align-items: flex-end; gap: 14px; height: 120px; margin-top: 24px; position: relative; }
-  .bar { flex: 1; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--teal), rgba(0,180,197,0.35)); }
-  .bar.low { background: repeating-linear-gradient(135deg, rgba(255,181,71,0.85) 0 6px, rgba(255,181,71,0.35) 6px 12px); }
-  .ceiling { position: absolute; left: -6px; right: -6px; bottom: 30px; border-top: 2.5px dashed var(--amber); }
-  .ceiling span { position: absolute; right: 6px; bottom: 8px; width: calc((100% - 54px) / 4); text-align: center; font-size: 13px; line-height: 1.15; font-weight: 700; letter-spacing: 1.2px; color: var(--amber); text-transform: uppercase; }
-  .bar-labels { display: flex; gap: 14px; margin-top: 10px; }
-  .bar-labels span { flex: 1; text-align: center; font-size: 14px; font-weight: 600; color: var(--mist); }
-  .bar-labels span.low { color: var(--amber); }
-
-  .card.tx { background: linear-gradient(160deg, rgba(0,180,197,0.20), rgba(0,180,197,0.06)); border-color: rgba(0,180,197,0.45); }
-  .card.tx .section-label { color: var(--teal); }
-  .checks { list-style: none; margin-top: 20px; display: grid; gap: 16px; }
-  .checks li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 21px; line-height: 1.32; }
-  .checks li b { font-weight: 700; }
-  .tick { width: 34px; height: 34px; border-radius: 9px; background: var(--teal); display: grid; place-items: center; }
-  .tick svg { width: 20px; height: 20px; stroke: var(--navy-900); stroke-width: 3.2; fill: none; }
-
-  /* CTA */
-  .cta {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 128px; padding: 0 72px;
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--teal); color: var(--navy-900);
-  }
-  .cta p { font-size: 22px; font-weight: 600; line-height: 1.3; }
-  .cta p b { display: block; font-family: "Inter Display"; font-size: 30px; font-weight: 800; letter-spacing: -0.4px; }
-  .pill { background: var(--navy-900); color: var(--white); border-radius: 14px; padding: 18px 26px; font-size: 21px; font-weight: 600; white-space: nowrap; }
-  .pill b { color: var(--teal); font-weight: 800; letter-spacing: 1.5px; }
+  .cta { font-size: 16px; font-weight: 500; color: var(--mist); text-align: right; line-height: 1.4; }
+  .cta b { color: var(--white); font-weight: 600; }
+  .cta .kbd { display: inline-block; margin-left: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--panel-edge); background: rgba(255,255,255,0.05); color: var(--teal); font-weight: 700; letter-spacing: 1px; font-size: 14px; }
 </style>
 </head>
 <body>
 <div class="canvas">
 
-  <div class="top">
+  <div class="eyebrow"><span class="live"></span><b>M-26-14</b><span class="sep"></span>Agency Logging Plans due Nov 18</div>
+  <h1>OT is in scope.<br><span class="muted">Is it in</span> <em>your plan?</em></h1>
+
+  <div class="panel">
+    <div class="p-head">
+      <div class="p-title">Logging coverage<span>Agency Logging Plan · Draft</span></div>
+      <div class="badge">Due Nov 18</div>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 17.5 18z"/></svg></div>
+        <div class="name">Cloud &amp; identity<small>Native logs to SIEM</small></div>
+        <div class="spark"><i style="height:55%"></i><i style="height:70%"></i><i style="height:48%"></i><i style="height:82%"></i><i style="height:64%"></i><i style="height:90%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:86%"></i><i style="height:76%"></i><i style="height:95%"></i><i style="height:68%"></i></div>
+        <div class="status">Logging</div>
+      </div>
+      <div class="row">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <div class="name">Endpoints<small>EDR agents deployed</small></div>
+        <div class="spark"><i style="height:62%"></i><i style="height:80%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:88%"></i><i style="height:66%"></i><i style="height:78%"></i><i style="height:92%"></i><i style="height:70%"></i><i style="height:84%"></i><i style="height:60%"></i><i style="height:76%"></i></div>
+        <div class="status">Logging</div>
+      </div>
+      <div class="row">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-6 5.5M12 12l6 5.5"/></svg></div>
+        <div class="name">Network<small>Flow &amp; firewall logs</small></div>
+        <div class="spark"><i style="height:72%"></i><i style="height:58%"></i><i style="height:86%"></i><i style="height:64%"></i><i style="height:78%"></i><i style="height:94%"></i><i style="height:68%"></i><i style="height:80%"></i><i style="height:56%"></i><i style="height:88%"></i><i style="height:74%"></i><i style="height:82%"></i></div>
+        <div class="status">Logging</div>
+      </div>
+      <div class="row ot">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 22 12a14 14 0 0 1-2.7 3.4M6.6 6.6A14 14 0 0 0 2 12s3.5 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></div>
+        <div class="name">OT devices<small>HVAC · Badge readers · BAS · PLCs</small></div>
+        <div class="spark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="status">No native logs</div>
+      </div>
+    </div>
+    <div class="p-foot">
+      <div class="lbl"><b>Maturity score</b>Set by your lowest element</div>
+      <div class="meter"><div class="on"></div><div></div><div></div><div></div></div>
+      <div class="val">Capped</div>
+    </div>
+  </div>
+
+  <div class="toast">
+    <div class="t-top">
+      <div class="t-brand"><span class="glyph"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>TXOne Networks</div>
+      <div class="t-time">Passive · Agentless</div>
+    </div>
+    <h4>Bring OT into the plan without touching operations.</h4>
+    <div class="tags"><span>180+ industrial protocols</span><span>Air-gapped ready</span><span>SIEM forwarding</span></div>
+  </div>
+
+  <div class="foot">
     <!-- Drop the official logo in this folder as txone-logo.svg (white/reversed version) -->
-    <div class="logo" id="logo">
+    <div class="logo">
       <img src="txone-logo.svg" alt="TXOne Networks" onerror="this.parentNode.classList.add('fallback')">
       <div class="wordmark"><b>TX<span>One</span></b><small>NETWORKS</small></div>
     </div>
-    <div class="tag">Federal · M-26-14</div>
-  </div>
-
-  <div class="eyebrow">Agency Logging Plans due Nov 18</div>
-  <h1>Your M-26-14 plan has a blind spot: <em>OT.</em></h1>
-  <p class="sub">CISA's Logging Reference Architecture names <strong>“OT devices without native logging”</strong> as its own category. Many can't run agents, can't be safely scanned, and speak protocols IT tools can't read.</p>
-
-  <div class="devices">
-    <div class="chip"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7l14 10M19 7L5 17"/></svg>HVAC controllers</div>
-    <div class="chip"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M9 16h6"/></svg>Badge readers</div>
-    <div class="chip"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg>Building automation</div>
-    <div class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10v4M11 10v4M15 10h2M15 14h2"/></svg>Industrial controllers</div>
-  </div>
-
-  <div class="timeline">
-    <div class="section-label">The M-26-14 timeline</div>
-    <div class="track">
-      <div class="step now"><div class="dot"></div><div class="date">Nov 18</div><div class="what">Agency Logging Plan</div></div>
-      <div class="step"><div class="dot"></div><div class="date">Dec 18</div><div class="what">Level 1</div></div>
-      <div class="step"><div class="dot"></div><div class="date">Feb 16</div><div class="what">Intermediate</div></div>
-      <div class="step"><div class="dot"></div><div class="date">Jul 6, 2027</div><div class="what">Advanced</div></div>
-    </div>
-  </div>
-
-  <div class="duo">
-    <div class="card">
-      <div class="section-label">How maturity is scored</div>
-      <h3>Your score is your lowest element, not your average.</h3>
-      <div class="bars">
-        <div class="bar" style="height:92%"></div>
-        <div class="bar" style="height:78%"></div>
-        <div class="bar" style="height:86%"></div>
-        <div class="bar low" style="height:25%"></div>
-        <div class="ceiling"><span>Your<br>ceiling</span></div>
-      </div>
-      <div class="bar-labels"><span>Cloud</span><span>Endpoint</span><span>Network</span><span class="low">OT</span></div>
-    </div>
-
-    <div class="card tx">
-      <div class="section-label">TXOne brings OT into the plan</div>
-      <h3>Without touching operations.</h3>
-      <ul class="checks">
-        <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span><b>Passive, agentless discovery</b> across 180+ industrial protocols</span></li>
-        <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span><b>Inspection for air-gapped systems</b>, nothing installed</span></li>
-        <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span><b>OT events forwarded</b> to the SIEM your SOC already uses</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cta">
-    <p><b>M-26-14 OT Readiness Checklist</b>Comment below and we'll send it over</p>
-    <div class="pill">Comment <b>“CHECKLIST”</b></div>
+    <div class="cta">Get the M-26-14 OT Readiness Checklist<br>Comment <span class="kbd">CHECKLIST</span></div>
   </div>
 </div>
 </body>
