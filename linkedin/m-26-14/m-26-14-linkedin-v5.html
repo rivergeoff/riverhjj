@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 Invisible OT</title>
+<style>
+  /* Concept E: crimson Swiss poster. OT drawn as an outline only (present but unseen),
+     annotated like a technical drawing. Full-bleed TXOne crimson, indigo ink, white line. */
+  @font-face { font-family: "Archivo"; font-weight: 400; src: url("fonts/archivo-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 500; src: url("fonts/archivo-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 600; src: url("fonts/archivo-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 700; src: url("fonts/archivo-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 800; src: url("fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 900; src: url("fonts/archivo-latin-900-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Plex Mono"; font-weight: 400; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Plex Mono"; font-weight: 500; src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Plex Mono"; font-weight: 600; src: url("fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2"); }
+  :root {
+    --red: #dc0032;
+    --red-deep: #a8002a;
+    --ink: #1c1a32;
+    --white: #ffffff;
+    --line: rgba(255, 255, 255, 0.55);
+    --soft: rgba(255, 255, 255, 0.78);
+    --sans: "Archivo", "Inter", sans-serif;
+    --mono: "Plex Mono", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; background: var(--red); }
+  body { font-family: var(--sans); color: var(--white); -webkit-font-smoothing: antialiased; }
+
+  .canvas {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background:
+      radial-gradient(900px 700px at 20% 10%, #e8063c, transparent 70%),
+      linear-gradient(170deg, var(--red) 30%, var(--red-deep));
+  }
+  .grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  /* Construction grid, like a drafting sheet */
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 226px 100%; background-position: 88px 0; }
+
+  /* Header */
+  .top { position: absolute; left: 88px; right: 88px; top: 70px; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 18px; border-bottom: 1.5px solid var(--white); }
+  .top b { font-weight: 800; font-size: 26px; letter-spacing: -0.5px; }
+  .top span { font-family: var(--mono); font-size: 14px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; }
+  .top span i { font-style: normal; color: var(--ink); background: var(--white); padding: 3px 7px; margin-left: 8px; }
+
+  /* The unseen OT */
+  .ot {
+    position: absolute; left: 62px; top: 132px;
+    font-weight: 900; font-size: 640px; line-height: 0.8; letter-spacing: -30px;
+    color: transparent; -webkit-text-stroke: 2px var(--white);
+  }
+  .ot-fill {
+    position: absolute; left: 62px; top: 132px;
+    font-weight: 900; font-size: 640px; line-height: 0.8; letter-spacing: -30px;
+    color: transparent;
+    background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.10) 0 2px, transparent 2px 14px);
+    -webkit-background-clip: text; background-clip: text;
+  }
+
+  .pin { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%;
+    background: var(--white); color: var(--red); display: grid; place-items: center;
+    font-family: var(--mono); font-size: 12px; font-weight: 600; box-shadow: 0 0 0 6px rgba(255,255,255,0.18); }
+
+  .legend { position: absolute; left: 88px; right: 88px; top: 646px; }
+  .legend .cap { font-family: var(--mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft); }
+  .legend .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 14px; }
+  .legend .row div { display: grid; grid-template-columns: 30px 1fr; column-gap: 8px; }
+  .legend .row i { font-style: normal; font-family: var(--mono); font-size: 12px; font-weight: 600; padding-top: 3px; }
+  .legend .row b { font-weight: 700; font-size: 17px; letter-spacing: -0.2px; }
+  .legend .row small { grid-column: 2; font-family: var(--mono); font-size: 12px; color: var(--soft); margin-top: 3px; }
+
+  /* Statement */
+  h1 { position: absolute; left: 88px; top: 790px; font-weight: 800; font-size: 96px; line-height: 0.94; letter-spacing: -4px; }
+  h1 span { color: var(--ink); }
+
+  /* Three-column Swiss grid */
+  .cols { position: absolute; left: 88px; right: 88px; top: 1056px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .cols div { padding-top: 16px; border-top: 1.5px solid var(--white); }
+  .cols h3 { font-family: var(--mono); font-size: 12.5px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink); }
+  .cols p { margin-top: 12px; font-size: 19px; font-weight: 500; line-height: 1.35; letter-spacing: -0.2px; }
+
+  /* Footer */
+  .foot { position: absolute; left: 88px; right: 88px; bottom: 64px; display: flex; justify-content: space-between; align-items: center; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .lockup img { height: 32px; filter: brightness(0) invert(1); }
+  .lockup b { display: block; font-weight: 800; font-size: 24px; letter-spacing: -0.5px; line-height: 1; }
+  .lockup small { display: block; margin-top: 4px; font-size: 9.5px; font-weight: 600; letter-spacing: 3.8px; line-height: 1; color: var(--soft); }
+  .tag { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--soft); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="grid"></div>
+
+  <div class="top"><b>M-26-14</b><span>Logging plans due<i>11.18</i></span></div>
+
+  <div class="ot-fill">OT</div>
+  <div class="ot">OT</div>
+
+  <span class="pin" style="left:91px; top:380px">01</span>
+  <span class="pin" style="left:329px; top:505px">02</span>
+  <span class="pin" style="left:800px; top:162px">03</span>
+  <span class="pin" style="left:706px; top:470px">04</span>
+
+  <div class="legend">
+    <div class="cap">Fig. 1 — Present, in scope, unlogged</div>
+    <div class="row">
+      <div><i>01</i><b>HVAC controller</b><small>BACnet/IP</small></div>
+      <div><i>02</i><b>Badge reader</b><small>OSDP</small></div>
+      <div><i>03</i><b>PLC</b><small>Modbus TCP</small></div>
+      <div><i>04</i><b>Building automation</b><small>LonWorks</small></div>
+    </div>
+  </div>
+
+  <h1>Invisible OT is<br><span>still in scope.</span></h1>
+
+  <div class="cols">
+    <div><h3>The rule</h3><p>Your maturity score is your lowest element, not your average.</p></div>
+    <div><h3>The gap</h3><p>No agents. No safe scans. Protocols IT tools can't read.</p></div>
+    <div><h3>TXOne</h3><p>Passive discovery across 180+ industrial protocols, into your SIEM.</p></div>
+  </div>
+
+  <div class="foot">
+    <div class="lockup"><img src="txone-mark.png" alt=""><div><b>TXOne</b><small>NETWORKS</small></div></div>
+    <div class="tag">Operations-first OT security</div>
+  </div>
+
+  <div class="grain"></div>
+</div>
+</body>
+</html>
