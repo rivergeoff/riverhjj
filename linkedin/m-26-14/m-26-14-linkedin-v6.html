@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 SIEM Before After</title>
+<style>
+  /* Concept F: before / after of the SOC's own SIEM stream. Cool grey page, indigo terminal cards,
+     crimson marks only the OT events TXOne adds. */
+  @font-face { font-family: "Instrument Sans"; font-weight: 400; src: url("fonts/instrument-sans-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 500; src: url("fonts/instrument-sans-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 600; src: url("fonts/instrument-sans-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 700; src: url("fonts/instrument-sans-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 400; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JB Mono"; font-weight: 700; src: url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); }
+  :root {
+    --page: #eceef4;
+    --page-2: #f6f7fa;
+    --ink: #1c1a32;
+    --ink-2: #545170;
+    --mute: #8e8ba8;
+    --term: #1c1a32;
+    --term-2: #252244;
+    --term-line: rgba(200, 196, 240, 0.10);
+    --t-text: #d9d6f2;
+    --t-dim: #7d79a3;
+    --red: #dc0032;
+    --red-bright: #ff3d63;
+    --red-dim: rgba(255, 61, 99, 0.14);
+    --amber: #ffb547;
+    --sans: "Instrument Sans", "Inter", sans-serif;
+    --mono: "JB Mono", "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; background: var(--page); }
+  body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  .canvas {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden; padding: 0 88px;
+    background: radial-gradient(800px 600px at 85% 55%, rgba(220,0,50,0.06), transparent 70%), linear-gradient(180deg, var(--page-2), var(--page));
+  }
+
+  .top { display: flex; justify-content: space-between; align-items: center; padding-top: 68px; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .lockup img { height: 30px; }
+  .lockup b { display: block; font-weight: 700; font-size: 22px; letter-spacing: -0.4px; line-height: 1; }
+  .lockup small { display: block; margin-top: 4px; font-size: 9px; font-weight: 600; letter-spacing: 3.6px; color: var(--mute); line-height: 1; }
+  .due { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--ink-2); padding: 9px 14px; border-radius: 999px; background: #fff; border: 1px solid #dfe1ea; }
+  .due::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px rgba(220,0,50,0.14); }
+
+  h1 { margin-top: 64px; font-weight: 700; font-size: 64px; line-height: 1.04; letter-spacing: -2.2px; }
+  h1 span { color: var(--mute); }
+  h1 em { font-style: normal; color: var(--red); }
+
+  /* Terminal cards */
+  .label { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-2); }
+  .label i { font-style: normal; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--mute); }
+  .label.after { color: var(--red); }
+
+  .term {
+    margin-top: 12px; border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, var(--term-2), var(--term));
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 30px 60px -30px rgba(28,26,50,0.55);
+  }
+  .t-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--term-line); }
+  .t-head .dots { display: flex; gap: 7px; }
+  .t-head .dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(200,196,240,0.18); }
+  .t-head .ttl { font-family: var(--mono); font-size: 13px; color: var(--t-dim); }
+  .t-head .pill { font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 6px; }
+  .pill.none { color: var(--amber); background: rgba(255,181,71,0.12); }
+  .pill.on { color: #fff; background: var(--red); }
+
+  .row { display: grid; grid-template-columns: 96px 112px 1fr 44px; align-items: center; gap: 12px; padding: 0 20px; height: 44px; font-family: var(--mono); font-size: 14.5px; color: var(--t-text); }
+  .row + .row { border-top: 1px solid var(--term-line); }
+  .row .ts { color: var(--t-dim); }
+  .row .src { color: #a9a5d6; }
+  .row .tag { justify-self: end; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 5px; color: var(--t-dim); background: rgba(200,196,240,0.08); }
+  .row.dim { opacity: 0.5; }
+  .row.ot { background: linear-gradient(90deg, var(--red-dim), transparent 75%); color: #fff; }
+  .row.ot .src { color: var(--red-bright); }
+  .row.ot .tag { color: #fff; background: var(--red); }
+  .row.gap {
+    grid-template-columns: 1fr auto; height: 56px; color: var(--amber);
+    background: repeating-linear-gradient(135deg, rgba(255,181,71,0.07) 0 8px, transparent 8px 16px);
+  }
+  .row.gap span:first-child { color: #d9b37a; }
+  .row.gap b { font-weight: 700; }
+
+  /* Connector */
+  .bridge { position: relative; height: 92px; display: flex; align-items: center; justify-content: center; }
+  .bridge::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 2px dashed rgba(220,0,50,0.45); }
+  .chip { position: relative; display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; border-radius: 12px; background: #fff; border: 1px solid #e3e4ec; box-shadow: 0 12px 28px -14px rgba(28,26,50,0.35); }
+  .chip img { height: 18px; }
+  .chip b { font-size: 15px; font-weight: 600; }
+  .chip span { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+
+  /* Footer */
+  .facts { position: absolute; left: 88px; right: 88px; bottom: 132px; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .facts div { padding: 0 20px; border-left: 1px solid #d9dbe5; }
+  .facts div:first-child { padding-left: 0; border-left: 0; }
+  .facts b { display: block; font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .facts small { display: block; margin-top: 3px; font-size: 14.5px; color: var(--ink-2); }
+  .foot { position: absolute; left: 88px; right: 88px; bottom: 64px; display: flex; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1px solid #d9dbe5; }
+  .foot .tag { font-size: 12.5px; font-weight: 600; letter-spacing: 2.4px; text-transform: uppercase; color: var(--mute); }
+  .foot .m { font-family: var(--mono); font-size: 13px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="top">
+    <div class="lockup"><img src="txone-mark.png" alt=""><div><b>TXOne</b><small>NETWORKS</small></div></div>
+    <div class="due">M-26-14 logging plans due Nov 18</div>
+  </div>
+
+  <h1>M-26-14 puts OT in scope.<br><span>Your SIEM</span> <em>can't see it yet.</em></h1>
+
+  <div style="margin-top:52px">
+    <div class="label">Today <i>— what your SOC sees</i></div>
+    <div class="term">
+      <div class="t-head"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">siem / event-stream</div><div class="pill none">0 OT sources</div></div>
+      <div class="row"><span class="ts">09:41:07</span><span class="src">okta</span><span>auth.success user=j.rivera</span><span class="tag">IT</span></div>
+      <div class="row"><span class="ts">09:41:09</span><span class="src">edr</span><span>process.start host=WS-114</span><span class="tag">IT</span></div>
+      <div class="row"><span class="ts">09:41:12</span><span class="src">firewall</span><span>traffic.allow 10.2.4.18 → 443</span><span class="tag">IT</span></div>
+      <div class="row gap"><span>HVAC · Badge readers · Building automation · PLCs</span><b>no events</b></div>
+    </div>
+  </div>
+
+  <div class="bridge"><div class="chip"><img src="txone-mark.png" alt=""><b>+ TXOne</b><span>passive · agentless · nothing installed</span></div></div>
+
+  <div>
+    <div class="label after">With TXOne <i>— same SIEM, OT now visible</i></div>
+    <div class="term">
+      <div class="t-head"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">siem / event-stream</div><div class="pill on">OT sources live</div></div>
+      <div class="row dim"><span class="ts">09:41:07</span><span class="src">okta</span><span>auth.success user=j.rivera</span><span class="tag">IT</span></div>
+      <div class="row ot"><span class="ts">09:41:08</span><span class="src">bacnet</span><span>hvac-ahu-03 setpoint write 68°F → 85°F</span><span class="tag">OT</span></div>
+      <div class="row dim"><span class="ts">09:41:09</span><span class="src">edr</span><span>process.start host=WS-114</span><span class="tag">IT</span></div>
+      <div class="row ot"><span class="ts">09:41:10</span><span class="src">osdp</span><span>lobby-reader-2 door forced open</span><span class="tag">OT</span></div>
+      <div class="row ot"><span class="ts">09:41:11</span><span class="src">modbus</span><span>plc-07 coil write · unit 12</span><span class="tag">OT</span></div>
+      <div class="row ot"><span class="ts">09:41:13</span><span class="src">lonworks</span><span>bas-floor4 config change</span><span class="tag">OT</span></div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div><b>180+ protocols</b><small>Industrial traffic, read passively</small></div>
+    <div><b>No agents</b><small>Air-gapped systems included</small></div>
+    <div><b>Your SIEM</b><small>OT events where your SOC works</small></div>
+  </div>
+
+  <div class="foot"><span class="tag">Operations-first OT security</span><span class="m">Example events, for illustration</span></div>
+</div>
+</body>
+</html>
