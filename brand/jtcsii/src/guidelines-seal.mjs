@@ -36,6 +36,7 @@ const CONFIGS = {
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
     extraSwatches: [['Flag Blue', '#0038A8', 'Left half of the medallion'], ['Flag Red', '#CE1126', 'Right half of the medallion']],
     swatchUse: { 'Field Green': 'Mountains, descriptors' },
+    extraRules: ['Use the 3D seal on screens, social media and full-colour print. For embroidery, rubber stamps, engraving and one-colour print, use the flat files (<code>*-flat.svg</code>), which carry the same design without lighting effects.'],
     colorTitle: 'Forest and gold, with the flag at its heart',
     meaning: [
       ['8', 'Rays of palay', 'A great sun settling behind the peaks, with the eight rays of the flag\u2019s sun, each drawn as a grain of palay, rising where the flag\u2019s blue and red meet, split as the flag hangs vertically in peacetime (blue left, red right): the light of learning, and the harvest of Rosario.'],
@@ -197,7 +198,7 @@ svg.stacked{width:min(100%,480px);height:auto}svg.hz{width:100%;height:auto}
 
 <section><div class="eyebrow">Color</div><h2>${cfg.colorTitle ?? 'Forest and gold, nothing else'}</h2>
 <div class="palette">${palette.map(([nm, hx, use]) => `<div class="sw"><div class="chip" style="background:${hx};color:${['#F6C453', '#FDF7E1'].includes(hx) ? '#0F2A1C' : '#FDF7E1'}">${hx}</div><b>${nm}</b><em>${use}</em></div>`).join('')}</div>
-<ul class="rules"><li>Keep the seal on Deep Forest, Paper Cream or white. Never place it on photos without a solid backing.</li><li>Clear space around every logo: at least the diameter of the sun.</li><li>Minimum sizes: seal 96 px / 25 mm, medallion 48 px, mark 16 px.</li></ul></section>
+<ul class="rules"><li>Keep the seal on Deep Forest, Paper Cream or white. Never place it on photos without a solid backing.</li><li>Clear space around every logo: at least the diameter of the sun.</li><li>Minimum sizes: seal 96 px / 25 mm, medallion 48 px, mark 16 px.</li>${(cfg.extraRules ?? []).map((r) => `<li>${r}</li>`).join('')}</ul></section>
 </div></body></html>`;
 fs.writeFileSync(path.join(root, 'guidelines.html'), html);
 
