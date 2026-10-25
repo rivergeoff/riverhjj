@@ -49,7 +49,6 @@ export const COUNTS = {
   grains: 13, // per palay stalk: the same thirteen levels, harvested
   peaks: 2, // elementary + secondary, integrated
   terraces: 4, // Maka-Diyos, Maka-tao, Makakalikasan, Makabansa
-  stars: 3, // learners, teachers, parents & community
 };
 
 const f2 = (n) => Math.round(n * 100) / 100;
@@ -65,8 +64,6 @@ const grain = (l, w) => {
   const h = l / 2, k = w / 2;
   return `M0,${-h} C${k * 1.05},${-h * 0.62} ${k * 1.1},${h * 0.55} 0,${h} C${-k * 1.1},${h * 0.55} ${-k * 1.05},${-h * 0.62} 0,${-h} Z`;
 };
-const star = (R, r) =>
-  'M' + Array.from({ length: 10 }, (_, i) => pt(P(i % 2 ? r : R, i * 36))).join(' L') + ' Z';
 const diamond = (x, y, rx, ry) => `M${f2(x)},${f2(y - ry)} L${f2(x + rx)},${f2(y)} L${f2(x)},${f2(y + ry)} L${f2(x - rx)},${f2(y)} Z`;
 
 function cubicYAt(s, x) {
@@ -378,7 +375,7 @@ function medallion(p) {
   ${wovenRing()}`;
 }
 
-// ---------- the wreath, stars and ribbon ----------
+// ---------- the wreath and ribbon ----------
 function palayStalk() {
   const R = 166;
   const grains = [], crease = [];
@@ -431,15 +428,6 @@ function ribbon() {
   <path d="${band}" fill="${gold()}"/>
   <path d="M${pt(P(rO - 2.6, f0))} ${arc(rO - 2.6, f0, f1, 1)} M${pt(P(rI + 2.6, f0))} ${arc(rI + 2.6, f0, f1, 1)}" fill="none" stroke="${C.oldGold}" stroke-width=".9"/>
   ${mottoOnRibbon(rM, f1 - f0 - 12)}</g>`;
-}
-
-function stars() {
-  return `<g fill="${gold()}"${fx('raise')}>${[-21, 0, 21]
-    .map((a) => {
-      const [x, y] = P(167, a);
-      return `<path transform="translate(${f2(x)} ${f2(y)}) rotate(${a})" d="${star(9.5, 3.9)}"/>`;
-    })
-    .join('')}</g>`;
 }
 
 // ---------- type on the seal ----------
@@ -501,7 +489,6 @@ export function seal(p = 's', { blank = false } = {}) {
   <g fill="${gold()}"${fx('raise')}>${sideMark(-90)}${sideMark(90)}</g>
   ${rope(197.5, 12)}
   <g${fx('raise')}>${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g></g>
-  ${stars()}
   ${medallion(p)}
   ${blank ? '' : ribbon()}
   ${D3 ? '<circle r="248" fill="url(#rim)"/><circle r="248" fill="url(#gloss)"/>' : ''}

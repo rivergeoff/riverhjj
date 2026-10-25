@@ -43,7 +43,6 @@ const CONFIGS = {
       ['2', 'Mountain peaks', 'A far-flung school in the uplands, and its two departments, elementary and secondary, integrated into one.'],
       ['1', 'Book-bridge', 'An open book is the deck of a highland hanging bridge between the two peaks: education reaches learners even in the mountains and carries them across to opportunity. Together we bridge.'],
       ['4', 'Rice terraces', 'The four DepEd core values, Maka-Diyos, Maka-tao, Makakalikasan and Makabansa, built step by step like terraces in the valley the school serves.'],
-      ['3', 'Stars', 'The three stars of the flag: Luzon, Visayas and Mindanao.'],
       ['13', 'Grains on each stalk', 'Kindergarten plus Grades 1 to 12: every level of the integrated K–12 school, carried by the palay wreath.'],
     ],
     parts: [
@@ -52,7 +51,7 @@ const CONFIGS = {
       ['Rope & ribbon', 'The motto\u2019s banner rests on a ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
       ['Est. 2012', 'The founding year at the foot of the outer ring, the way Philippine school seals traditionally carry it.'],
     ],
-    construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 270, rayLen: 145, rays: { n: 8, start: -70, step: 20 }, starFrom: [250, 250], starAngles: [-21, 0, 21], starLen: 180, note: '8 rays at 20° intervals (±10°, ±30°, ±50°, ±70°), each reaching the rim of the medallion; stars at 21° intervals; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },
+    construct: { rings: [128, 140, 167, 197, 204, 243], sunY: 270, rayLen: 145, rays: { n: 8, start: -70, step: 20 }, starFrom: [250, 250], starAngles: [], starLen: 0, note: '8 rays at 20° intervals (±10°, ±30°, ±50°, ±70°), each reaching the rim of the medallion; concentric rings at r 128 · 140 · 167 · 197 · 204 · 243.' },
     type: [
       ['<div class="s1" style="font-weight:700">Libre Baskerville</div>', 'Name · Bold', 'A sturdy, classical serif with clear, open letters. Bold capitals for the school name around the seal; title case in the logos.'],
       ['<div class="s1" style="font-style:italic;font-weight:400">Together we bridge</div>', 'Motto · Italic', 'The same family’s italic carries the motto on the ribbon and beside the logos: one family, two voices.'],
