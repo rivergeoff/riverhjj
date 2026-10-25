@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M-26-14 OT Discovery</title>
+<style>
+  /* Concept B: passive discovery map. TXOne crimson #DC0032 on indigo #1C1A32 */
+  :root {
+    --bg-0: #0d0c1f;
+    --bg-1: #1c1a32;
+    --red: #dc0032;
+    --red-bright: #ff2d55;
+    --red-dim: rgba(220, 0, 50, 0.16);
+    --ring: rgba(190, 186, 240, 0.13);
+    --card: rgba(36, 33, 66, 0.78);
+    --edge: rgba(190, 186, 240, 0.16);
+    --white: #f6f5fc;
+    --mist: #a19dc4;
+    --faint: #6c6893;
+    --mono: "JetBrains Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; background: var(--bg-0); }
+  body { font-family: "Inter", sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+
+  .canvas {
+    position: relative; width: 1080px; height: 1350px; overflow: hidden;
+    background:
+      radial-gradient(520px 520px at 540px 520px, rgba(220,0,50,0.16), transparent 70%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0) 75%);
+  }
+
+  /* Top bar */
+  .top { position: absolute; left: 88px; right: 88px; top: 80px; display: flex; justify-content: space-between; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--mist); }
+  .eyebrow b { color: var(--white); font-weight: 600; }
+  .eyebrow .sep { width: 1px; height: 16px; background: var(--edge); }
+  .live { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; letter-spacing: 1px; color: var(--red-bright); text-transform: uppercase; }
+  .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red-bright); box-shadow: 0 0 0 5px var(--red-dim); }
+
+  /* Map */
+  .map { position: absolute; left: 0; top: 150px; width: 1080px; height: 740px; }
+  .map > svg { position: absolute; inset: 0; }
+  .sweep {
+    position: absolute; left: 540px; top: 370px; width: 760px; height: 760px; margin: -380px 0 0 -380px; border-radius: 50%;
+    background: conic-gradient(from 230deg, transparent 0deg, rgba(255,45,85,0.05) 40deg, rgba(255,45,85,0.16) 88deg, rgba(255,45,85,0.0) 90deg, transparent 360deg);
+    mask-image: radial-gradient(circle, #000 0 35%, transparent 70%);
+  }
+  .core {
+    position: absolute; left: 540px; top: 370px; width: 132px; height: 132px; margin: -66px 0 0 -66px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: radial-gradient(circle at 50% 35%, #2c2850, #17152c);
+    border: 1px solid rgba(255,45,85,0.5);
+    box-shadow: 0 0 0 14px rgba(220,0,50,0.07), 0 0 0 30px rgba(220,0,50,0.04), 0 0 80px rgba(220,0,50,0.45);
+  }
+  .core img { width: 62px; }
+  .core-label { position: absolute; left: 540px; top: 456px; transform: translateX(-50%); font-family: var(--mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); white-space: nowrap; }
+
+  .dev {
+    position: absolute; transform: translate(-50%, -50%);
+    display: flex; align-items: center; gap: 12px; padding: 11px 16px 11px 12px; border-radius: 14px;
+    background: var(--card); border: 1px solid var(--edge);
+    box-shadow: 0 18px 36px -16px rgba(0,0,0,0.75);
+    backdrop-filter: blur(14px); white-space: nowrap;
+  }
+  .dev .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--red-dim); display: grid; place-items: center; }
+  .dev .ic svg { width: 19px; height: 19px; fill: none; stroke: var(--red-bright); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .dev b { display: block; font-size: 16px; font-weight: 600; }
+  .dev small { display: block; margin-top: 2px; font-family: var(--mono); font-size: 12px; color: var(--mist); }
+  .dev .ok { width: 7px; height: 7px; border-radius: 50%; background: var(--red-bright); margin-left: 4px; align-self: flex-start; margin-top: 4px; }
+
+  .chip { position: absolute; font-family: var(--mono); font-size: 13px; color: var(--mist); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--edge); background: rgba(13,12,31,0.6); }
+  .chip b { color: var(--white); font-weight: 700; }
+
+  /* Copy */
+  h1 { position: absolute; left: 88px; top: 930px; font-family: "Inter Display"; font-weight: 700; font-size: 80px; line-height: 1.0; letter-spacing: -3px; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, var(--red), var(--red-bright) 70%, #ff6b85); -webkit-background-clip: text; color: transparent; }
+  .sub { position: absolute; left: 88px; top: 1112px; width: 760px; font-size: 22px; line-height: 1.45; color: var(--mist); }
+  .sub b { color: var(--white); font-weight: 600; }
+
+  .foot { position: absolute; left: 88px; right: 88px; bottom: 64px; display: flex; justify-content: space-between; align-items: center; padding-top: 28px; border-top: 1px solid var(--edge); }
+  .lockup { display: flex; align-items: center; gap: 14px; }
+  .lockup img { height: 34px; }
+  .lockup b { display: block; font-family: "Inter Display"; font-weight: 700; font-size: 24px; letter-spacing: -0.4px; line-height: 1; }
+  .lockup small { display: block; margin-top: 5px; font-size: 9.5px; font-weight: 600; letter-spacing: 4px; color: var(--mist); line-height: 1; }
+  .tag { font-size: 13px; font-weight: 600; letter-spacing: 2.4px; text-transform: uppercase; color: var(--faint); }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="top">
+    <div class="eyebrow"><b>M-26-14</b><span class="sep"></span>Agency Logging Plans due Nov 18</div>
+    <div class="live">Passive discovery</div>
+  </div>
+
+  <div class="map">
+    <div class="sweep"></div>
+    <svg viewBox="0 0 1080 740" width="1080" height="740">
+      <g fill="none" stroke="rgba(190,186,240,0.13)" stroke-width="1">
+        <circle cx="540" cy="370" r="130"/>
+        <circle cx="540" cy="370" r="230"/>
+        <circle cx="540" cy="370" r="330" stroke-dasharray="3 7"/>
+        <circle cx="540" cy="370" r="430" stroke-dasharray="2 10" stroke="rgba(190,186,240,0.08)"/>
+      </g>
+      <!-- links from sensor to discovered devices -->
+      <g stroke="rgba(255,45,85,0.38)" stroke-width="1.2" fill="none" stroke-dasharray="4 5">
+        <path d="M540 370 L250 150"/>
+        <path d="M540 370 L835 135"/>
+        <path d="M540 370 L880 400"/>
+        <path d="M540 370 L205 440"/>
+        <path d="M540 370 L330 640"/>
+        <path d="M540 370 L760 640"/>
+      </g>
+      <!-- faint ambient assets not yet in the plan -->
+      <g fill="rgba(190,186,240,0.28)">
+        <circle cx="120" cy="250" r="3"/><circle cx="975" cy="250" r="3"/><circle cx="960" cy="560" r="2.5"/>
+        <circle cx="140" cy="600" r="2.5"/><circle cx="560" cy="60" r="3"/><circle cx="420" cy="30" r="2"/>
+        <circle cx="690" cy="20" r="2"/><circle cx="1010" cy="420" r="2"/><circle cx="70" cy="420" r="2"/>
+        <circle cx="545" cy="720" r="2.5"/><circle cx="880" cy="700" r="2"/><circle cx="190" cy="720" r="2"/>
+      </g>
+    </svg>
+
+    <div class="core"><img src="txone-mark.png" alt="TXOne"></div>
+    <div class="core-label">Passive sensor · 0 agents</div>
+
+    <div class="dev" style="left:250px; top:150px">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10v4M11 10v4M15 10h2M15 14h2"/></svg></span>
+      <span><b>PLC</b><small>Siemens S7</small></span><span class="ok"></span>
+    </div>
+    <div class="dev" style="left:835px; top:135px">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/></svg></span>
+      <span><b>HVAC controller</b><small>BACnet/IP</small></span><span class="ok"></span>
+    </div>
+    <div class="dev" style="left:880px; top:400px">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M9 16h6"/></svg></span>
+      <span><b>Badge reader</b><small>OSDP</small></span><span class="ok"></span>
+    </div>
+    <div class="dev" style="left:205px; top:440px">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+      <span><b>HMI</b><small>Modbus TCP</small></span><span class="ok"></span>
+    </div>
+    <div class="dev" style="left:330px; top:640px">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg></span>
+      <span><b>Building automation</b><small>LonWorks</small></span><span class="ok"></span>
+    </div>
+    <div class="dev" style="left:760px; top:640px">
+      <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></span>
+      <span><b>Drive controller</b><small>EtherNet/IP</small></span><span class="ok"></span>
+    </div>
+
+    <div class="chip" style="left:650px; top:505px"><b>180+</b> industrial protocols</div>
+  </div>
+
+  <h1>You can't log what<br><em>you can't see.</em></h1>
+  <p class="sub">M-26-14 puts OT in scope. TXOne brings it into view <b>passively, with nothing installed</b>, and sends it to the SIEM your SOC already uses.</p>
+
+  <div class="foot">
+    <div class="lockup"><img src="txone-mark.png" alt=""><div><b>TXOne</b><small>NETWORKS</small></div></div>
+    <div class="tag">Operations-first OT security</div>
+  </div>
+</div>
+</body>
+</html>
