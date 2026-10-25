@@ -4,19 +4,22 @@
 <meta charset="utf-8">
 <title>M-26-14 OT Graphic</title>
 <style>
-  /* Brand tokens: swap these for TXOne's official values if they differ */
+  /* TXOne brand tokens, sampled from the logo: crimson #DC0032 on indigo #1C1A32 */
   :root {
-    --bg-0: #050d1c;
-    --bg-1: #0a1830;
-    --panel: rgba(16, 30, 56, 0.72);
-    --panel-edge: rgba(150, 190, 230, 0.16);
-    --teal: #19c3d1;
-    --teal-dim: rgba(25, 195, 209, 0.16);
+    --bg-0: #0f0e22;
+    --bg-1: #1c1a32;
+    --panel: rgba(38, 35, 70, 0.62);
+    --panel-edge: rgba(190, 186, 240, 0.14);
+    --red: #dc0032;
+    --red-bright: #ff2d55;
+    --red-dim: rgba(220, 0, 50, 0.16);
+    --ok: #b9b5ec;
+    --ok-dim: rgba(185, 181, 236, 0.12);
     --amber: #ffb547;
-    --amber-dim: rgba(255, 181, 71, 0.14);
-    --white: #f4f8fc;
-    --mist: #93a6c2;
-    --faint: #5d6f8c;
+    --amber-dim: rgba(255, 181, 71, 0.13);
+    --white: #f6f5fc;
+    --mist: #a19dc4;
+    --faint: #6c6893;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1350px; background: var(--bg-0); }
@@ -26,13 +29,13 @@
     position: relative; width: 1080px; height: 1350px; overflow: hidden;
     padding: 110px 88px 0;
     background:
-      radial-gradient(760px 520px at 82% 58%, rgba(25,195,209,0.16), transparent 65%),
-      radial-gradient(600px 420px at 10% 0%, rgba(40,80,150,0.35), transparent 70%),
+      radial-gradient(720px 500px at 84% 70%, rgba(220,0,50,0.20), transparent 65%),
+      radial-gradient(640px 440px at 8% 0%, rgba(80,70,160,0.40), transparent 70%),
       linear-gradient(180deg, var(--bg-1), var(--bg-0));
   }
   .canvas::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(150,190,230,0.22) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(190,186,240,0.22) 1px, transparent 1px);
     background-size: 28px 28px; opacity: 0.35;
     mask-image: radial-gradient(700px 500px at 70% 55%, #000, transparent 75%);
   }
@@ -40,12 +43,12 @@
 
   /* Hero */
   .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; letter-spacing: 0.4px; color: var(--mist); }
-  .eyebrow .live { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 5px var(--amber-dim); }
+  .eyebrow .live { width: 8px; height: 8px; border-radius: 50%; background: var(--red-bright); box-shadow: 0 0 0 5px var(--red-dim); }
   .eyebrow b { color: var(--white); font-weight: 600; }
   .eyebrow .sep { width: 1px; height: 16px; background: var(--panel-edge); }
   h1 { margin-top: 28px; font-family: "Inter Display"; font-weight: 700; font-size: 84px; line-height: 1.0; letter-spacing: -3px; }
   h1 .muted { color: var(--faint); }
-  h1 em { font-style: normal; background: linear-gradient(90deg, var(--teal), #7fe6ee); -webkit-background-clip: text; color: transparent; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, var(--red), var(--red-bright) 70%, #ff6b85); -webkit-background-clip: text; color: transparent; }
 
   /* Main panel */
   .panel {
@@ -59,16 +62,16 @@
   .p-title span { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: var(--faint); }
   .badge { font-size: 13px; font-weight: 600; letter-spacing: 0.3px; padding: 7px 12px; border-radius: 8px; background: rgba(255,255,255,0.05); color: var(--mist); border: 1px solid var(--panel-edge); }
 
-  .rows { border-radius: 16px; background: rgba(5,13,28,0.55); border: 1px solid rgba(150,190,230,0.08); }
+  .rows { border-radius: 16px; background: rgba(12,11,30,0.55); border: 1px solid rgba(190,186,240,0.08); }
   .row { display: grid; grid-template-columns: 44px 1fr 210px 150px; align-items: center; gap: 18px; padding: 20px 22px; }
-  .row + .row { border-top: 1px solid rgba(150,190,230,0.08); }
+  .row + .row { border-top: 1px solid rgba(190,186,240,0.08); }
   .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,0.05); }
   .ico svg { width: 22px; height: 22px; fill: none; stroke: var(--mist); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   .name { font-size: 19px; font-weight: 600; }
   .name small { display: block; margin-top: 3px; font-size: 14px; font-weight: 500; color: var(--faint); }
   .spark { display: flex; align-items: flex-end; gap: 4px; height: 30px; }
-  .spark i { flex: 1; border-radius: 2px; background: var(--teal); opacity: 0.85; }
-  .status { justify-self: end; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: var(--teal-dim); color: var(--teal); }
+  .spark i { flex: 1; border-radius: 2px; background: var(--ok); opacity: 0.55; }
+  .status { justify-self: end; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 999px; background: var(--ok-dim); color: var(--ok); }
   .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
   .row.ot { background: linear-gradient(90deg, var(--amber-dim), transparent 70%); border-radius: 0 0 16px 16px; }
@@ -89,15 +92,14 @@
   /* Floating TXOne card */
   .toast {
     position: absolute; right: 56px; top: 910px; width: 504px; padding: 22px 24px;
-    border-radius: 20px; background: linear-gradient(160deg, rgba(25,195,209,0.22), rgba(12,36,62,0.92) 60%);
-    border: 1px solid rgba(25,195,209,0.45);
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 60px -10px rgba(25,195,209,0.35);
+    border-radius: 20px; background: linear-gradient(160deg, rgba(220,0,50,0.26), rgba(30,27,56,0.94) 58%);
+    border: 1px solid rgba(255,45,85,0.45);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 70px -12px rgba(220,0,50,0.45);
     backdrop-filter: blur(24px);
   }
   .toast .t-top { display: flex; align-items: center; justify-content: space-between; }
-  .toast .t-brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--teal); letter-spacing: 0.3px; }
-  .toast .t-brand .glyph { width: 28px; height: 28px; border-radius: 8px; background: var(--teal); display: grid; place-items: center; }
-  .toast .t-brand .glyph svg { width: 16px; height: 16px; stroke: var(--bg-0); stroke-width: 2.6; fill: none; }
+  .toast .t-brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: 0.2px; }
+  .toast .t-brand img { height: 20px; width: auto; }
   .toast .t-time { font-size: 13px; color: var(--mist); }
   .toast h4 { margin-top: 14px; font-size: 21px; font-weight: 600; line-height: 1.3; }
   .toast .tags { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
@@ -108,17 +110,13 @@
     position: absolute; left: 88px; right: 88px; bottom: 64px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .logo { height: 40px; display: flex; align-items: center; }
-  .logo img { height: 40px; width: auto; }
-  .wordmark { display: none; flex-direction: column; line-height: 1; }
-  .wordmark b { font-family: "Inter Display"; font-weight: 800; font-size: 34px; letter-spacing: -0.5px; }
-  .wordmark b span { color: var(--teal); }
-  .wordmark small { font-size: 9.5px; font-weight: 600; letter-spacing: 4.6px; color: var(--mist); margin-top: 4px; }
-  .logo.fallback img { display: none; }
-  .logo.fallback .wordmark { display: flex; }
+  .lockup { display: flex; align-items: center; gap: 14px; }
+  .lockup img { height: 38px; width: auto; }
+  .lockup .wm { line-height: 1; }
+  .lockup .wm b { display: block; font-family: "Inter Display"; font-weight: 700; font-size: 26px; letter-spacing: -0.4px; }
+  .lockup .wm small { display: block; margin-top: 5px; font-size: 10px; font-weight: 600; letter-spacing: 4px; color: var(--mist); }
   .cta { font-size: 16px; font-weight: 500; color: var(--mist); text-align: right; line-height: 1.4; }
-  .cta b { color: var(--white); font-weight: 600; }
-  .cta .kbd { display: inline-block; margin-left: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--panel-edge); background: rgba(255,255,255,0.05); color: var(--teal); font-weight: 700; letter-spacing: 1px; font-size: 14px; }
+  .cta .kbd { display: inline-block; margin-left: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid rgba(255,45,85,0.4); background: var(--red-dim); color: var(--red-bright); font-weight: 700; letter-spacing: 1px; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -167,7 +165,7 @@
 
   <div class="toast">
     <div class="t-top">
-      <div class="t-brand"><span class="glyph"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>TXOne Networks</div>
+      <div class="t-brand"><img src="txone-mark.png" alt="">TXOne Networks</div>
       <div class="t-time">Passive · Agentless</div>
     </div>
     <h4>Bring OT into the plan without touching operations.</h4>
@@ -175,10 +173,9 @@
   </div>
 
   <div class="foot">
-    <!-- Drop the official logo in this folder as txone-logo.svg (white/reversed version) -->
-    <div class="logo">
-      <img src="txone-logo.svg" alt="TXOne Networks" onerror="this.parentNode.classList.add('fallback')">
-      <div class="wordmark"><b>TX<span>One</span></b><small>NETWORKS</small></div>
+    <div class="lockup">
+      <img src="txone-mark.png" alt="">
+      <div class="wm"><b>TXOne</b><small>NETWORKS</small></div>
     </div>
     <div class="cta">Get the M-26-14 OT Readiness Checklist<br>Comment <span class="kbd">CHECKLIST</span></div>
   </div>
