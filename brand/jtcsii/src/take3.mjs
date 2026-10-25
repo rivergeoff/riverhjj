@@ -7,16 +7,10 @@ import { fileURLToPath } from 'node:url';
 import { loadFont, text, arcText } from './type.mjs';
 
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../take-3');
-// Type: a serif for the name and its italic for the motto, with a quiet sans for small labels.
-const FONTSETS = {
-  playfair: { name: 'playfair800.ttf', motto: 'playfair-italic600.ttf', track: 0.07 },
-  dmserif: { name: 'dmserif.ttf', motto: 'dmserif-italic.ttf', track: 0.07 },
-  baskerville: { name: 'baskerville700.ttf', motto: 'baskerville-italic.ttf', track: 0.06 },
-  garamond: { name: 'ebgaramond700.ttf', motto: 'ebgaramond-italic600.ttf', track: 0.09 },
-};
-const FS = FONTSETS[process.env.JTC_FONTS ?? 'baskerville'];
-const NAME = loadFont(FS.name);
-const MOTTO = loadFont(FS.motto);
+// Type, as set by the school: a bold geometric sans for the name and year, and a calligraphic
+// italic for the motto.
+const NAME = loadFont('montserrat700.ttf');
+const MOTTO = loadFont('cormorant-italic.ttf');
 const LABEL = loadFont('montserrat600.ttf');
 const capHeight = (font) => (font.tables.os2.sCapHeight || font.unitsPerEm * 0.7) / font.unitsPerEm;
 const xHeight = (font) => (font.tables.os2.sxHeight || font.unitsPerEm * 0.5) / font.unitsPerEm;
@@ -94,6 +88,7 @@ function defs3d() {
   const rad = (id, cx, cy, r, stops) =>
     `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops.map(([o, c, a = 1]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${a}"/>`).join('')}</radialGradient>`;
   return `<defs>
+  ${lin('textFace', 0, 0, 0, 1, [[0, '#FFFFFF'], [1, '#E6DCC2']])}
   ${lin('gold3d', 0, 0, 1, 1, [[0, '#FFEDB0'], [0.3, '#F6C453'], [0.55, '#D9A23A'], [0.8, '#F8D676'], [1, '#B07F22']])}
   ${rad('disc3d', -40, -60, 320, [[0, '#1B4430'], [0.6, '#0F2A1C'], [1, '#071810']])}
   ${lin('rayLight', 0, 1, 0, 0, [[0, '#FFF0B8'], [0.6, '#F8D06A'], [1, '#F6C453', 0.9]])}
@@ -376,7 +371,7 @@ function medallion(p) {
   ${wovenRing()}`;
 }
 
-// ---------- the wreath and ribbon ----------
+// ---------- the wreath ----------
 function palayStalk() {
   const R = 157;
   const grains = [], crease = [];
@@ -405,53 +400,66 @@ function palayStalk() {
   <g stroke="${C.oldGold}" stroke-width=".8" stroke-linecap="round">${crease.join('')}</g>`;
 }
 
-// A classic banner: the front band carries the motto; its V-notched ends fold behind it.
-function ribbon() {
-  const rO = ROPE.R + 14, rI = ROPE.R - 14, rM = ROPE.R, drop = 7; // the banner lies along the rope
-  const f0 = 180 - 57, f1 = 180 + 57; // front band
-  const e0 = 180 - 71, e1 = 180 + 71; // ends of the folded pieces
-  const arc = (r, b0, b1, sweep) => `A${r},${r} 0 0 ${sweep} ${pt(P(r, b1))}`;
-  // a folded end piece, sitting lower (further out) than the band, with a notch at its tip
-  const end = (s) => {
-    const tip = s < 0 ? e0 : e1, inner = s < 0 ? f0 + 7 : f1 - 7;
-    const o = rO + drop, i = rI + drop, m = rM + drop;
-    const sw = s < 0 ? 0 : 1;
-    return `M${pt(P(o, inner))} ${arc(o, inner, tip, sw)} L${pt(P(m, tip - s * 5))} L${pt(P(i, tip))} ${arc(i, tip, inner, 1 - sw)} Z`;
-  };
-  // the turn where the band folds back: a small shaded wedge at each end of the band
-  const fold = (s) => {
-    const b = s < 0 ? f0 : f1;
-    return `M${pt(P(rO, b))} L${pt(P(rO + drop, b + s * 0.6))} L${pt(P(rI + drop, b + s * 0.6))} L${pt(P(rI, b))} Z`;
-  };
-  const band = `M${pt(P(rO, f0))} ${arc(rO, f0, f1, 1)} L${pt(P(rI, f1))} ${arc(rI, f1, f0, 0)} Z`;
-  return `<g${fx('raise')}><path d="${end(-1)} ${end(1)}" fill="#C9952F"/>
-  <path d="${fold(-1)} ${fold(1)}" fill="#8C6417"/>
-  <path d="${band}" fill="${gold()}"/>
-  <path d="M${pt(P(rO - 2.6, f0))} ${arc(rO - 2.6, f0, f1, 1)} M${pt(P(rI + 2.6, f0))} ${arc(rI + 2.6, f0, f1, 1)}" fill="none" stroke="${C.oldGold}" stroke-width=".9"/>
-  ${mottoOnRibbon(rM, f1 - f0 - 12)}</g>`;
-}
-
 // ---------- type on the seal ----------
 const NAME_STR = 'JOSE T. CUYOS SR. II INTEGRATED SCHOOL';
-const MOTTO_STR = 'Together we bridge, together we succeed';
+const MOTTO_STR = 'Together we bridge, Together we succeed';
+const YEAR_STR = '2012';
 // The rope ring, and the wide lettering band between it and the outer rim.
 const ROPE = { R: 184, w: 18 };
 const BAND = (ROPE.R + ROPE.w / 2 + 3 + 238.6) / 2; // centre line of the lettering band
+const NAME_SPAN = 158, MOTTO_SPAN = 100; // degrees of the band each line covers
+const ORNAMENT_AT = (NAME_SPAN / 2 + (360 - MOTTO_SPAN) / 2) / 2; // midway between the two lines
 
-// The name over the top and the year at the foot, both centred on the band.
-function ringText() {
-  const size = Math.min(23, fitArc(NAME, NAME_STR, BAND - 8, 160, FS.track));
-  const base = BAND - (capHeight(NAME) * size) / 2;
-  const est = 14, estBase = BAND + (capHeight(LABEL) * est) / 2;
-  return `${arcText(NAME, NAME_STR, 0, 0, base, size, { tracking: FS.track, side: 'top', fill: C.cream })}
-  ${arcText(LABEL, 'EST. 2012', 0, 0, estBase, est, { tracking: 0.42, side: 'bottom', fill: C.sun })}`;
+const mixHex = (a, b, t) => '#' + [1, 3, 5].map((i) => Math.round(parseInt(a.slice(i, i + 2), 16) * (1 - t) + parseInt(b.slice(i, i + 2), 16) * t).toString(16).padStart(2, '0')).join('');
+
+// Lettering with depth: copies stepped down and to the right, away from the light, build the
+// sides of each letter; the face sits on top with a bevelled highlight.
+function text3d(draw, { depth = 2.4, layers = 7 } = {}) {
+  if (!D3) return draw(C.cream);
+  let sides = '';
+  for (let k = layers; k >= 1; k--) {
+    const t = k / layers;
+    sides += `<g transform="translate(${f2(0.55 * depth * t)} ${f2(0.83 * depth * t)})">${draw(mixHex('#B9AE94', '#3E372B', t))}</g>`;
+  }
+  return `<g filter="url(#drop)">${sides}</g><g filter="url(#raiseText)">${draw('url(#textFace)')}</g>`;
 }
 
-// The motto in italic, centred on the ribbon's middle line.
-function mottoOnRibbon(r, spanDeg) {
-  const size = Math.min(16, fitArc(MOTTO, MOTTO_STR, r, spanDeg, 0.01));
-  const base = r + (xHeight(MOTTO) * size) / 2;
-  return arcText(MOTTO, MOTTO_STR, 0, 0, base, size, { tracking: 0.01, side: 'bottom', fill: C.forest });
+// The name over the top, the motto at the foot of the band, and the year beneath the scene.
+function sealText() {
+  const nameSize = Math.min(34, fitArc(NAME, NAME_STR, BAND - 10, NAME_SPAN, 0.01));
+  const nameBase = BAND - (capHeight(NAME) * nameSize) / 2;
+  const mottoSize = Math.min(28, fitArc(MOTTO, MOTTO_STR, BAND, MOTTO_SPAN, 0.01));
+  const mottoBase = BAND + (xHeight(MOTTO) * mottoSize) / 2;
+  const yearSize = 18, yearY = 158 + (capHeight(NAME) * yearSize) / 2;
+  return `${text3d((fill) => arcText(NAME, NAME_STR, 0, 0, nameBase, nameSize, { tracking: 0.01, side: 'top', fill }))}
+  ${text3d((fill) => arcText(MOTTO, MOTTO_STR, 0, 0, mottoBase, mottoSize, { tracking: 0.01, side: 'bottom', fill }), { depth: 1.6, layers: 5 })}
+  ${text3d((fill) => text(NAME, YEAR_STR, 0, yearY, yearSize, { anchor: 'middle', tracking: 0.04, fill }).svg, { depth: 1.8, layers: 6 })}`;
+}
+
+// A gold ornament for the band between the name and the motto: a faceted diamond, then
+// graduated beads and a tapering line running along the arc to either side.
+function ornament(a) {
+  const R0 = BAND, toDeg = (u) => (u / R0) * (180 / Math.PI);
+  const [cx, cy] = P(R0, a);
+  const h = 12;
+  const T = [cx, cy - h], Rt = [cx + h, cy], B = [cx, cy + h], L = [cx - h, cy], M = [cx, cy];
+  const tri = (p1, p2, fill) => `<path d="M${pt(p1)} L${pt(p2)} L${pt(M)} Z" fill="${fill}"/>`;
+  const gem = tri(L, T, '#FFF0B8') + tri(T, Rt, '#EDBB4E') + tri(Rt, B, '#A97C22') + tri(B, L, '#D39A2F');
+  let beads = '', lines = '';
+  for (const s of [-1, 1]) {
+    [[20, 3.4], [30, 2.6], [39, 1.9]].forEach(([d, r]) => {
+      const [x, y] = P(R0, a + s * toDeg(d));
+      beads += `<circle cx="${f2(x)}" cy="${f2(y)}" r="${r}"/>`;
+    });
+    const n = 32, from = 47, to = 82, outer = [], inner = [];
+    for (let k = 0; k <= n; k++) {
+      const u = from + ((to - from) * k) / n, w = 3.4 * (1 - k / n) + 0.4;
+      outer.push(P(R0 + w / 2, a + s * toDeg(u)));
+      inner.push(P(R0 - w / 2, a + s * toDeg(u)));
+    }
+    lines += `M${pts(outer)} L${pts(inner.reverse())} Z `;
+  }
+  return `<g${fx('raise')}>${gem}<g fill="${gold()}">${beads}<path d="${lines}"/></g></g>`;
 }
 
 // A twisted rope laid in a circle, like the cables of a hanging bridge.
@@ -477,23 +485,17 @@ function rope(R, w) {
 
 // ---------- the seal (radius 248, origin at centre) ----------
 export function seal(p = 's', { blank = false } = {}) {
-  const sideMark = (a) => {
-    const [x, y] = P(BAND, a);
-    const [ax, ay] = P(BAND, a - 4.2), [bx, by] = P(BAND, a + 4.2);
-    return `<path d="${diamond(x, y, 4.2, 4.2)}" transform="rotate(${a} ${f2(x)} ${f2(y)})"/><circle cx="${f2(ax)}" cy="${f2(ay)}" r="1.5"/><circle cx="${f2(bx)}" cy="${f2(by)}" r="1.5"/>`;
-  };
   return `<g>${defs3d()}
   <circle r="248" fill="${D3 ? 'url(#disc3d)' : C.forest}"/>
   <g${fx('raise')}>
     <circle r="${D3 ? 244.5 : 243}" fill="none" stroke="${gold()}" stroke-width="${D3 ? 6 : 2.2}"/>
     <circle r="238.6" fill="none" stroke="${gold()}" stroke-width="${D3 ? 1.1 : 0.7}" stroke-opacity=".9"/>
   </g>
-  ${blank ? '' : `<g${fx('raiseText')}>${ringText()}</g>`}
-  <g fill="${gold()}"${fx('raise')}>${sideMark(-90)}${sideMark(90)}</g>
+  ${ornament(-ORNAMENT_AT)}${ornament(ORNAMENT_AT)}
   ${rope(ROPE.R, ROPE.w)}
   <g${fx('raise')}>${palayStalk()}<g transform="scale(-1 1)">${palayStalk()}</g></g>
   ${medallion(p)}
-  ${blank ? '' : ribbon()}
+  ${blank ? '' : sealText()}
   ${D3 ? '<circle r="248" fill="url(#rim)"/><circle r="248" fill="url(#gloss)"/>' : ''}
 </g>`;
 }
@@ -523,10 +525,10 @@ function stacked(p) {
   const est = text(LABEL, 'EST. 2012', cx, 744, 15, { anchor: 'middle', tracking: 0.42, fill: C.oldGold });
   const rule = (x1, x2) => `<rect x="${f2(x1)}" y="737" width="${f2(x2 - x1)}" height="1.5" fill="${C.oldGold}"/>`;
   return doc(W, 880, `${placeSeal(cx - S / 2, 40, S, p)}
-  ${text(NAME, 'Jose T. Cuyos Sr. II', cx, 618, 80, { anchor: 'middle', fill: C.forest }).svg}
+  ${text(NAME, 'JOSE T. CUYOS SR. II', cx, 614, 62, { anchor: 'middle', tracking: 0.01, fill: C.forest }).svg}
   ${text(LABEL, 'INTEGRATED SCHOOL', cx, 672, 24, { anchor: 'middle', tracking: 0.42, fill: C.field }).svg}
   ${est.svg}${rule(cx - 190, cx - est.width / 2 - 22)}${rule(cx + est.width / 2 + 22, cx + 190)}
-  ${text(MOTTO, MOTTO_STR, cx, 818, 34, { anchor: 'middle', fill: C.field }).svg}`);
+  ${text(MOTTO, MOTTO_STR, cx, 818, 40, { anchor: 'middle', fill: C.field }).svg}`);
 }
 
 function horizontal(p, reversed = false) {
@@ -534,16 +536,16 @@ function horizontal(p, reversed = false) {
   const ink = reversed ? C.cream : C.forest, sub = reversed ? C.sun : C.field, gold = reversed ? C.sun : C.oldGold;
   return doc(W, H, `${placeSeal(50, 50, S, p)}
   <rect x="${50 + S + 26}" y="104" width="1.5" height="232" fill="${gold}" opacity=".6"/>
-  ${text(NAME, 'Jose T. Cuyos Sr. II', x, 204, 84, { fill: ink }).svg}
+  ${text(NAME, 'JOSE T. CUYOS SR. II', x, 196, 58, { tracking: 0.01, fill: ink }).svg}
   ${text(LABEL, 'INTEGRATED SCHOOL', x + 3, 258, 23, { tracking: 0.42, fill: sub }).svg}
   <rect x="${x + 3}" y="289" width="48" height="1.5" fill="${gold}"/>
   ${text(LABEL, 'EST. 2012', x + 64, 295, 13, { tracking: 0.42, fill: gold }).svg}
-  ${text(MOTTO, MOTTO_STR, x + 2, 344, 27, { fill: ink }).svg}`, reversed ? C.forest : null);
+  ${text(MOTTO, MOTTO_STR, x + 2, 346, 32, { fill: ink }).svg}`, reversed ? C.forest : null);
 }
 
 const build = (suffix) => ({
   [`seal${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 's')),
-  // no lettering and no ribbon, for adding text by hand
+  // no lettering, for adding text by hand
   [`seal-blank${suffix}.svg`]: doc(500, 500, placeSeal(0, 0, 500, 'b', { blank: true })),
   [`medallion${suffix}.svg`]: doc(280, 280, `<g transform="translate(140 140)">${defs3d()}<circle r="140" fill="${C.forest}"/>${medallion('m')}</g>`),
   [`mark${suffix}.svg`]: doc(256, 256, `<g transform="translate(128 128)">${mark()}</g>`),

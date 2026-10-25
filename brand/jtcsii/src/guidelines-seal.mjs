@@ -31,8 +31,8 @@ const woven = ['The woven ring', 'A Cordillera-style diamond weave encircles the
 const CONFIGS = {
   'take-3': {
     label: 'Take 3 · Ani ng Liwanag',
-    fonts: 'family=Libre+Baskerville:ital,wght@0,700;1,400&family=Montserrat:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;700',
-    display: '"Libre Baskerville",serif', formal: '"Montserrat",sans-serif',
+    fonts: 'family=Montserrat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Plus+Jakarta+Sans:wght@400;500;700',
+    display: '"Cormorant Garamond",serif', formal: '"Montserrat",sans-serif',
     lede: 'A formal school seal in the Philippine tradition, where every element and every count stands for something about the school.',
     extraSwatches: [['Flag Blue', '#0038A8', 'Left half of the medallion'], ['Flag Red', '#CE1126', 'Right half of the medallion']],
     swatchUse: { 'Field Green': 'Mountains, descriptors' },
@@ -48,14 +48,14 @@ const CONFIGS = {
     parts: [
       ['Gold', 'The gold of Rosario, its mines and its livelihood, in the sun, the wreath, the terraces and every line of the seal.'],
       ['The woven band', 'A strip of hand-woven cloth in the red, black, white and yellow of Philippine indigenous weaving, drawn stitch by stitch: human figures with raised arms for the people and their community, stepped diamond \u201ceyes\u201d for protection, and sawtooth borders. It honours the school\u2019s Indigenous Peoples learners and holds the whole scene together.'],
-      ['Rope & ribbon', 'The motto\u2019s banner rests on a ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
-      ['Est. 2012', 'The founding year at the foot of the outer ring, the way Philippine school seals traditionally carry it.'],
+      ['The rope', 'A ring of twisted rope, the cable of a highland hanging bridge, holding the whole scene together.'],
+      ['2012 & the ornaments', 'The founding year beneath the scene; gold ornaments of a faceted diamond, beads and tapering lines mark the band between the name and the motto.'],
     ],
     construct: { rings: [127, 140, 157, 175, 193, 243], sunY: 270, rayLen: 145, rays: { n: 8, start: -70, step: 20 }, starFrom: [250, 250], starAngles: [], starLen: 0, note: '8 rays at 20° intervals (±10°, ±30°, ±50°, ±70°), each reaching the rim of the medallion; woven band r 127–140, palay wreath r 157, rope r 175–193, outer rim r 243.' },
     type: [
-      ['<div class="s1" style="font-weight:700">Libre Baskerville</div>', 'Name · Bold', 'A sturdy, classical serif with clear, open letters. Bold capitals for the school name around the seal; title case in the logos.'],
-      ['<div class="s1" style="font-style:italic;font-weight:400">Together we bridge</div>', 'Motto · Italic', 'The same family’s italic carries the motto on the ribbon and beside the logos: one family, two voices.'],
-      ['<div class="s2" style="font-weight:600;font-size:34px">MONTSERRAT</div>', 'Labels · Semibold', 'A quiet geometric sans, widely spaced, for “Integrated School” and “Est. 2012”.'],
+      ['<div class="s2" style="font-weight:700;letter-spacing:0;font-size:40px">MONTSERRAT</div>', 'Name & year · Bold', 'A bold geometric sans for the school name around the seal, the year beneath the scene, and the name in the logos. On the 3D seal it is set as raised lettering with depth and shadow.'],
+      ['<div class="s1" style="font-style:italic;font-weight:500">Together we bridge</div>', 'Motto · Italic', 'Cormorant Garamond Italic, a calligraphic voice for the motto at the foot of the seal and beside the logos.'],
+      ['<div class="s2" style="font-weight:600;font-size:30px">INTEGRATED SCHOOL</div>', 'Labels · Semibold', 'Montserrat Semibold, widely spaced, for \u201cIntegrated School\u201d and \u201cEst. 2012\u201d in the logos.'],
     ],
     noBodyCard: true,
   },
